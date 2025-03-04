@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://calver.org/).
 
+## [2025-03-04]
+
+### Changed
+
+- Updated [zauguin/install-texlive](https://github.com/zauguin/install-texlive) to `v4`.
+
 ## [2025-02-12]
 
 ### Fixed
@@ -253,6 +259,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 First release using semantic versioning.
 
+[2025-03-04]: https://github.com/latextemplates/LNCS/compare/2025-02-12...2025-03-04
 [2025-02-12]: https://github.com/latextemplates/LNCS/compare/2025-01-31...2025-02-12
 [2025-01-31]: https://github.com/latextemplates/LNCS/compare/2025-01-25...2025-01-31
 [2025-01-25]: https://github.com/latextemplates/LNCS/compare/2025-01-20...2025-01-25
