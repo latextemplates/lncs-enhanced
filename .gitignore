@@ -2,6 +2,12 @@ paper.pdf
 paper-*.pdf
 figures/*.pdf_tex
 
+# glossaries
+*.glo-abr
+
+# glossaries-extra
+*.ist
+
 # spelling
 *.spell.bad
 *.spell.txt
