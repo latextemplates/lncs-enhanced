@@ -1,9 +1,8 @@
 name: Update Files
 on:
-  pull_request:
   push:
     branches:
-      - main
+      - update-ltg
   workflow_dispatch:
 concurrency:
   group: "${{ github.workflow }}-${{ github.head_ref || github.ref }}"
