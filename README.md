@@ -5,7 +5,7 @@
 ## Usage
 
 - `paper.tex` is the main document
-- Use "lualatex + bibtex" in your TeX editor or `latexmk  paper` / `make` in the command line
+- Use "lualatex + bibtex" in your TeX editor or `latexmk paper` / `make` in the command line
 
 ### Using `latexmk`
 
