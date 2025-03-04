@@ -53,6 +53,7 @@ jobs:
           path: |
             paper.pdf
             paper.log
+            paper.fls
   word-count:
     runs-on: ubuntu-latest
     steps:
