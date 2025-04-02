@@ -1,4 +1,4 @@
-# Simplified LNCS Template
+# Enhanced LNCS Template
 
 > Quick start for modern LaTeXing with [LNCS](http://www.springer.com/computer/lncs).
 
@@ -104,10 +104,10 @@ A first step towards that is done at [biblatex-lncs](https://ctan.org/pkg/biblat
 
 ## Examples
 
-- [paper.pdf](https://latextemplates.github.io/LNCS/paper.pdf) - normal paper.
-- [paper-minted.pdf](https://latextemplates.github.io/LNCS/paper-minted.pdf) - paper showing minted in action.
-- [paper-newtx.pdf](http://latextemplates.github.io/LNCS/paper-newtx.pdf) - paper typeset in Times Roman to save some space.
-- [paper-minted-newtx.pdf](http://latextemplates.github.io/LNCS/paper-minted-newtx.pdf) - paper typeset in Times Roman to save some space.
+- [paper.pdf](https://latextemplates.github.io/lncs-enhanced/paper.pdf) - normal paper.
+- [paper-minted.pdf](https://latextemplates.github.io/lncs-enhanced/paper-minted.pdf) - paper showing minted in action.
+- [paper-newtx.pdf](http://latextemplates.github.io/lncs-enhanced/paper-newtx.pdf) - paper typeset in Times Roman to save some space.
+- [paper-minted-newtx.pdf](http://latextemplates.github.io/lncs-enhanced/paper-minted-newtx.pdf) - paper typeset in Times Roman to save some space.
 
 ## Background
 
@@ -115,7 +115,7 @@ The official template is available at <https://www.springer.com/gp/computer-scie
 
 ## Quick start
 
-- Click on `Download ZIP` or [here](https://github.com/latextemplates/LNCS/archive/main.zip).
+- Click on `Download ZIP` or [here](https://github.com/latextemplates/lncs-enhanced/archive/main.zip).
 - Extract `LNCS-main.zip` in the folder where you want to write your paper.
 - Edit [paper.tex](paper.tex).
 - `latexmk paper`.
