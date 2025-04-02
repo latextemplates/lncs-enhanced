@@ -1,4 +1,4 @@
-# Simplified LNCS Template
+# Enhanced LNCS Template
 
 > Quick start for modern LaTeXing with [LNCS](http://www.springer.com/computer/lncs).
 
@@ -115,7 +115,7 @@ The official template is available at <https://www.springer.com/gp/computer-scie
 
 ## Quick start
 
-- Click on `Download ZIP` or [here](https://github.com/latextemplates/LNCS/archive/main.zip).
+- Click on `Download ZIP` or [here](https://github.com/latextemplates/lncs-enhanced/archive/main.zip).
 - Extract `LNCS-main.zip` in the folder where you want to write your paper.
 - Edit [paper.tex](paper.tex).
 - `latexmk paper`.
