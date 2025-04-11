@@ -45,7 +45,7 @@ jobs:
       - name: Job summary using texlogsieve
         run: |
           echo '```' >> $GITHUB_STEP_SUMMARY
-          texlogsieve < paper.log >> $GITHUB_STEP_SUMMARY || true
+          texlogsieve paper.log | tee -a "$GITHUB_STEP_SUMMARY" || true
           echo '```' >> $GITHUB_STEP_SUMMARY
       - uses: actions/upload-artifact@v4
         with:
@@ -97,9 +97,9 @@ jobs:
 
       # Original action does not work well - see https://github.com/awalsh128/cache-apt-pkgs-action/pull/136
       # The action is not updated - and thus the dictionaries are not updated
-      - uses: bscott-zebra/cache-apt-pkgs-action@avoid_using_xargs
+      - uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          packages: aspell aspell-en
+          packages: aspell aspell-en aspell-de
           version: 1.0
           execute_install_scripts: true
 
