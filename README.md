@@ -323,11 +323,20 @@ Moreover, ensure that python and [pygments](https://pygments.org/) are installed
 
 ### Q: I have troubles with minted on Windows.
 
+For instance, on gets following output:
+
+```text
+! Package minted Error: minted v3+ executable is not installed, is not added to
+ PATH, or is not permitted with restricted shell escape; or MiKTeX is being use
+d with -aux-directory or -output-directory without setting a TEXMF_OUTPUT_DIREC
+TORY environment variable.
+```
+
 Try out following command to update `latexminted`.
 See [minted#425](https://github.com/gpoore/minted/issues/425) for details.
 
 ```shell
-py -m pip install --force-reinstall latexminted
+python3 -m pip install --force-reinstall latexminted
 ```
 
 ### Q: Is it possible to have a footer indicating that the paper is intended to be submitted/submitted/published?
