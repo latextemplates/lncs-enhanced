@@ -2,6 +2,9 @@
 
 > Quick start for modern LaTeXing with [LNCS](http://www.springer.com/computer/lncs).
 
+Please be aware that this template is optimized for overleaf, which is based on TeXLive 2024.
+In case you are running a later TeXLive version (or use MiKTeX), please regenerate the template with the help of the [latex template generator].
+
 ## Usage
 
 - `paper.tex` is the main document
