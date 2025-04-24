@@ -50,7 +50,7 @@ jobs:
            --latexcompiler=both\
            --bibtextool=bibtex\
            --overleaf=true\
-           --texlive=2024\
+           --texlive=2025\
            --lang=${{ matrix.language }}\
            --font=${{ matrix.font }}\
            --listings=${{ matrix.listings }}\
