@@ -41,7 +41,7 @@ It is configured for Windows and especially sets Sumatra PDF as default PDF view
 You can make this local configuration a global configuration, when you put it at [the right place](http://tex.stackexchange.com/a/41149/9075).
 
 If you want to add more packages, configure it there.
-For instance, for support of makeglossaries see <http://tex.stackexchange.com/questions/1226/how-to-make-latexmk-use-makeglossaries>.
+For instance, for support of `makeglossaries` see <http://tex.stackexchange.com/questions/1226/how-to-make-latexmk-use-makeglossaries>.
 
 ### Debugging LaTeX errors
 
@@ -78,7 +78,7 @@ Following features are enabled in this template:
   Thanx to [cleveref].
 - Sharper font (still compatible with Springer's requirements).
 - (Optional) Typesetting of listings using advanced highlighting powered by the [minted] package.
-  `minted` provides better output than [listings], but requires [pygments] to be installed.
+  `minted` provides better output than [listings], but requires [latexminted] to be installed.
 - Generated PDF allows for copy and paste of text without getting words with [ligatures](https://en.wikipedia.org/wiki/Typographic_ligature) such as "workflow" destroyed.
   This is enabled by `glyphtounicode`, which encodes ligatures (such as fl) using unicode characters.
 - Ligatures are removed if they are typeset at the wrong place.
@@ -123,7 +123,7 @@ The official template is available at <https://www.springer.com/gp/computer-scie
 - Edit [paper.tex](paper.tex).
 - `latexmk paper`.
 
-When using on overleaf, you have to switch Overleaf to use TeXLive 2024 (or later).
+When using on overleaf, you have to switch Overleaf to use TeXLive 2025 (or later).
 
 As you see on GitHub actions, the paper compiles out of the box.
 There is no need to adjust the packages or to remove some of them.
@@ -148,24 +148,24 @@ In case you think, a package needs to be altered or added, feel free to open an 
 To have minted running properly, you have to do following steps on Windows:
 
 1. Install python: `choco install python` - that uses [chocolatey](https://chocolatey.org/) to install Python
-2. Install [pygments]: `pip instal pygments` - that uses the Pyhton package manager to install the pygments library
+2. Install [latexminted]: `pip instal latexminted` - that uses the Python package manager to install the minted library
 3. When latexing, use `-shell-escape`: `pdflatex -shell-escape paper`.
    You can also just execute `latexmk paper`.
 
-### VSCode configuration
+### VS Code configuration
 
 Currently, following extensions are recommended:
 
-- [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) to support LaTeX in VSCode and
+- [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) to support LaTeX in VS Code and
 - [LaTeX Utilities](https://marketplace.visualstudio.com/items?itemName=tecosaur.latex-utilities) to enhance LaTeX Workshop
 - [LTeX+] to have a nice spell checker that also identifies grammar issues
 
-Then, change the setting of LaTeX Workshop to use biber:
+Then, change the setting of LaTeX Workshop to use `biber`:
 
 Press <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>P</kbd> to open the command palette.
 Then type "JSON" and select "Preferences: Open Settings (JSON)" to open `settings.json`.
 
-Update the following lines in VSCode's `settings.json` to contain:
+Update the following lines in VS Code's `settings.json` to contain:
 
 ```javascript
     "latex-workshop.latex.recipes": [
@@ -205,7 +205,7 @@ The following settings are additionally recommended:
 }
 ```
 
-Alternatively, just copy and paste the contents of the [vscode.settings.json](vscode.settings.json) file to your VSCode settings file.
+Alternatively, just copy and paste the contents of the [vscode.settings.json](vscode.settings.json) file to your VS Code settings file.
 
 You can manually trigger compilation by hitting the green button in the extension or using other methods provided by LaTeX Workshop.
 
@@ -319,10 +319,10 @@ See "How can I reformat my `.tex` files?"
 ### Q: I want to use minted, because I think its syntax highlighting seems to be better.
 
 You can re-generate the template and choose `minted` as listings environment.
-Moreover, ensure that python and [pygments](https://pygments.org/) are installed properly:
+Moreover, ensure that python and [latexminted] are installed properly:
 
 - `choco install python`
-- `pip install pygments`
+- `pip install latexminted`
 
 ### Q: I have troubles with minted on Windows.
 
@@ -373,6 +373,10 @@ luaotfload | resolve : sequence of 3 lookups yielded nothing appropriate.
 ```
 
 Install the package `lm-math` manually.
+
+### Q: I get ``File `ushyphex.tex' not found.``
+
+Install package `tugboat`.
 
 ### Q: I get `! Package fontspec Error: The font "TeXGyreTermes" cannot be found.`. What can I do?
 
@@ -458,7 +462,7 @@ Any derived work can freely be relicensed and can omit original copyright and li
 [LanguageTool]: https://languagetool.org/
 [latex template generator]: https://www.npmjs.com/package/generator-latex-template
 [LTeX+]: https://marketplace.visualstudio.com/items?itemName=ltex-plus.vscode-ltex-plus
-[pygments]: https://pygments.org/
+[latexminted]: https://pypi.org/project/latexminted/
 [Sumatra PDF]: https://www.sumatrapdfreader.org/free-pdf-reader
 
 [llncs2e.zip]: ftp://ftp.springernature.com/cs-proceeding/llncs/llncs2e.zip
