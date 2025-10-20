@@ -1,6 +1,9 @@
 name: Check
 on:
   push:
+    branches:
+      - main
+  pull_request:
   schedule:
     - cron: "5 6 * * 1"
   workflow_dispatch:
@@ -13,11 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Install TeX Live
-        uses: zauguin/install-texlive@v3
+        uses: zauguin/install-texlive@v4
         with:
           package_file: '${{ github.workspace }}/Texlivefile'
+          texlive_version: 2025
       - name: Prepare latexmk
         run: |
           updmap -sys
@@ -57,6 +61,8 @@ jobs:
 
       - name: Job summary using texlogsieve
         run: |
+          texlogsieve --version | head -n 1
+
           echo '```' >> $GITHUB_STEP_SUMMARY
           texlogsieve paper.log | tee -a "$GITHUB_STEP_SUMMARY" || true
           echo '```' >> $GITHUB_STEP_SUMMARY
@@ -71,12 +77,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Install TeX Live
         uses: zauguin/install-texlive@v4
         with:
           package_file: '${{ github.workspace }}/Texlivefile'
-          texlive_version: 2024
+          texlive_version: 2025
       - name: Count words
         run: |
           texcount -utf8 -inc paper.tex > texcount.txt
@@ -106,7 +112,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # Original action does not work well - see https://github.com/awalsh128/cache-apt-pkgs-action/pull/136
       # The action is not updated - and thus the dictionaries are not updated
@@ -151,7 +157,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - uses: awalsh128/cache-apt-pkgs-action@latest
         with:
           packages: libyaml-tiny-perl libfile-homedir-perl
@@ -161,7 +167,7 @@ jobs:
         uses: zauguin/install-texlive@v4
         with:
           packages: latexindent
-          texlive_version: 2024
+          texlive_version: 2025
       - run: make format
       - name: No changes made by latexindent
         run: git diff --exit-code

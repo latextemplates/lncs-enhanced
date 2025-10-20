@@ -22,11 +22,11 @@ jobs:
         examples: [true]
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           submodules: recursive
           ref: '${{ github.event.pull_request.head.ref }}'
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: '22'
           cache: 'npm'
@@ -50,7 +50,7 @@ jobs:
            --latexcompiler=both\
            --bibtextool=bibtex\
            --overleaf=true\
-           --texlive=2024\
+           --texlive=2025\
            --lang=${{ matrix.language }}\
            --font=${{ matrix.font }}\
            --listings=${{ matrix.listings }}\
@@ -130,7 +130,7 @@ jobs:
     needs: [generatetex]
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: '${{ github.event.pull_request.head.ref }}'
       - name: Create latexmkrc
@@ -138,7 +138,7 @@ jobs:
           # use latexmkrc (which is disabled due to easy overleaf usage)
           cp _latexmkrc latexmkrc
       - name: Install TeX Live
-        uses: zauguin/install-texlive@v3
+        uses: zauguin/install-texlive@v4
         with:
           package_file: '${{ github.workspace }}/Texlivefile'
       - name: Prepare latexmk
