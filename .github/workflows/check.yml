@@ -100,7 +100,7 @@ jobs:
           # echo "## TeXcount LaTeX interpretation" >> $GITHUB_STEP_SUMMARY
           # echo "" >> $GITHUB_STEP_SUMMARY
           # cat "texcount.html-body" >> $GITHUB_STEP_SUMMARY
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: word-count
           path: |
