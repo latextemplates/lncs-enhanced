@@ -2,8 +2,6 @@ paper.pdf
 paper-*.pdf
 figures/*.pdf_tex
 
-printer-version--cover/cover.pdf
-
 # glossaries
 *.glo-abr
 

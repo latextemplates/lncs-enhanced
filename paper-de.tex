@@ -198,8 +198,6 @@
   %
   showstringspaces=false,
   %
-  extendedchars=true,
-  %
   basicstyle=\footnotesize\ttfamily,
   %
   commentstyle=\slshape,
@@ -233,9 +231,9 @@
 
 \ifpdftex
   % Ermögliche Umlaute falls \lstinputputlisting genutzt wird
-  % Siehe https://stackoverflow.com/a/29260603/873282 für Details.
+  % Siehe https://stackoverflow.com/a/29260603/873282 und https://tex.stackexchange.com/a/24532/9075 für Details.
   % listingsutf8 hat im Juni 2020 nicht funktioniert.
-  \lstset{literate=
+  \lstset{extendedchars=true, literate=
     {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
   {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
   {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
@@ -1007,11 +1005,6 @@ Identification of funding sources and other support, and thanks to individuals a
 %%% ===============================================================================
 %%% Bibliography
 %%% ===============================================================================
-
-In the bibliography, use \texttt{\textbackslash textsuperscript} for \enquote{st}, \enquote{nd}, \ldots:
-E.g., \enquote{The 2\textsuperscript{nd} conference on examples}.
-When you use \href{https://www.jabref.org}{JabRef}, you can use the clean up command to achieve that.
-See \url{https://help.jabref.org/en/CleanupEntries} for an overview of the cleanup functionality.
 
 \renewcommand{\bibsection}{\section*{Literatur}} % requried for natbib to have "References" printed and as section*, not chapter*
 % Use natbib compatbile splncs04nat style.
