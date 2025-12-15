@@ -166,7 +166,7 @@ jobs:
           cp paper.tex publish/
           cp README.md publish/
           cp .github/_config.yml publish/
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: publish
           path: publish/
