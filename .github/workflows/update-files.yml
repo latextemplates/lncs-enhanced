@@ -133,6 +133,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           ref: '${{ github.event.pull_request.head.ref }}'
+          token: ${{ secrets.GH_TOKEN_WRITE }}
       - name: Create latexmkrc
         run: |
           # use latexmkrc (which is disabled due to easy overleaf usage)
