@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/).
+The format is based on [Keep a Changelog](https://keepachangelog.com/).
 From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://calver.org/).
 
 ## [2025-04-11]
@@ -162,7 +162,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 ### Added
 
-- Support for [lualatex](http://www.luatex.org/) as compiler.
+- Support for [lualatex](https://www.luatex.org/) as compiler.
   When using "Times New Roman" due to space limitations, the font of the code is still "Latin Modern" in the case of lualatex.
 
 ### Fixed
@@ -202,7 +202,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 ### Changed
 
 - Ligatures are disabled for monospaced font. E.g., \texttt{--} stays `--` and is not converted to an en dash.
-- Replace `splncs03.bst` by `splncsnat.bst`, which was [developed in a clean way](http://phaseportrait.blogspot.de/2011/02/natbib-compatible-bibtex-style-bst-file.html) by [@tpavlic](https://github.com/tpavlic).
+- Replace `splncs03.bst` by `splncsnat.bst`, which was [developed in a clean way](https://phaseportrait.blogspot.de/2011/02/natbib-compatible-bibtex-style-bst-file.html) by [@tpavlic](https://github.com/tpavlic).
 
 ### Added
 
