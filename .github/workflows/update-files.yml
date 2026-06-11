@@ -26,6 +26,8 @@ jobs:
         with:
           submodules: recursive
           ref: '${{ github.event.pull_request.head.ref }}'
+          # PAT with workflow scope so the bot can push regenerated .github/workflows/check.yml
+          token: ${{ secrets.GH_TOKEN_WRITE }}
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
