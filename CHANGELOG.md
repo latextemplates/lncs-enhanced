@@ -96,12 +96,12 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 ### Changed
 
 - Refined description of usage of [llncsconf](https://ctan.org/pkg/llncsconf) package.
-- Update `splncsnat` to [splncs04nat](https://github.com/tpavlic/splncs04nat). [lncs#35](https://github.com/latextemplates/LNCS/issues/35)
-- `_latexmkrc` is available instead of `latexmkrc` to ease usage at overleaf. [lncs#40](https://github.com/latextemplates/LNCS/issues/40)
+- Update `splncsnat` to [splncs04nat](https://github.com/tpavlic/splncs04nat). [lncs#35](https://github.com/latextemplates/lncs-enhanced/issues/35)
+- `_latexmkrc` is available instead of `latexmkrc` to ease usage at overleaf. [lncs#40](https://github.com/latextemplates/lncs-enhanced/issues/40)
 
 ### Fixed
 
-- Correct `\keywords{}` syntax for LCNS. [lncs#39](https://github.com/latextemplates/LNCS/issues/39)
+- Correct `\keywords{}` syntax for LCNS. [lncs#39](https://github.com/latextemplates/lncs-enhanced/issues/39)
 - Fixed line break in introduction
 
 ## [2022-03-01]
@@ -158,7 +158,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 ### Fixed
 
-- Numbers can be copied. Enabled by switching from [cmap](https://www.ctan.org/pkg/cmap) to `glyphtounicode`. Fixes [#22](https://github.com/latextemplates/LNCS/issues/22).
+- Numbers can be copied. Enabled by switching from [cmap](https://www.ctan.org/pkg/cmap) to `glyphtounicode`. Fixes [#22](https://github.com/latextemplates/lncs-enhanced/issues/22).
 
 ### Removed
 
@@ -281,30 +281,30 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 First release using semantic versioning.
 
-[Unreleased]: https://github.com/latextemplates/LNCS/compare/2026-06-25...HEAD
-[2026-06-25]: https://github.com/latextemplates/LNCS/compare/2025-04-11...2026-06-25
-[2025-04-11]: https://github.com/latextemplates/LNCS/compare/2025-03-04...2025-04-11
-[2025-03-04]: https://github.com/latextemplates/LNCS/compare/2025-02-12...2025-03-04
-[2025-02-12]: https://github.com/latextemplates/LNCS/compare/2025-01-31...2025-02-12
-[2025-01-31]: https://github.com/latextemplates/LNCS/compare/2025-01-25...2025-01-31
-[2025-01-25]: https://github.com/latextemplates/LNCS/compare/2025-01-20...2025-01-25
-[2025-01-20]: https://github.com/latextemplates/LNCS/compare/2025-01-14...2025-01-20
-[2025-01-14]: https://github.com/latextemplates/LNCS/compare/2022-06-06...2025-01-14
-[2022-06-06]: https://github.com/latextemplates/LNCS/compare/2022-03-01...2022-06-06
-[2022-03-01]: https://github.com/latextemplates/LNCS/compare/1.9.1...2022-03-01
-[1.9.1]: https://github.com/latextemplates/LNCS/compare/1.9.0...1.9.1
-[1.9.0]: https://github.com/latextemplates/LNCS/compare/1.8.0...1.9.0
-[1.8.0]: https://github.com/latextemplates/LNCS/compare/1.7.0...1.8.0
-[1.7.0]: https://github.com/latextemplates/LNCS/compare/1.6.1...1.7.0
-[1.6.1]: https://github.com/latextemplates/LNCS/compare/1.6.0...1.6.1
-[1.6.0]: https://github.com/latextemplates/LNCS/compare/1.5.0...1.6.0
-[1.5.0]: https://github.com/latextemplates/LNCS/compare/1.4.1...1.5.0
-[1.4.1]: https://github.com/latextemplates/LNCS/compare/1.4.0...1.4.1
-[1.4.0]: https://github.com/latextemplates/LNCS/compare/1.3.0...1.4.0
-[1.3.0]: https://github.com/latextemplates/LNCS/compare/1.2.0...1.3.0
-[1.2.0]: https://github.com/latextemplates/LNCS/compare/1.1.1...1.2.0
-[1.1.1]: https://github.com/latextemplates/LNCS/compare/1.1.0...1.1.1
-[1.1.0]: https://github.com/latextemplates/LNCS/compare/1.0.0...1.1.0
-[1.0.0]: https://github.com/latextemplates/LNCS/releases/tag/1.0.0
+[Unreleased]: https://github.com/latextemplates/lncs-enhanced/compare/2026-06-25...HEAD
+[2026-06-25]: https://github.com/latextemplates/lncs-enhanced/compare/2025-04-11...2026-06-25
+[2025-04-11]: https://github.com/latextemplates/lncs-enhanced/compare/2025-03-04...2025-04-11
+[2025-03-04]: https://github.com/latextemplates/lncs-enhanced/compare/2025-02-12...2025-03-04
+[2025-02-12]: https://github.com/latextemplates/lncs-enhanced/compare/2025-01-31...2025-02-12
+[2025-01-31]: https://github.com/latextemplates/lncs-enhanced/compare/2025-01-25...2025-01-31
+[2025-01-25]: https://github.com/latextemplates/lncs-enhanced/compare/2025-01-20...2025-01-25
+[2025-01-20]: https://github.com/latextemplates/lncs-enhanced/compare/2025-01-14...2025-01-20
+[2025-01-14]: https://github.com/latextemplates/lncs-enhanced/compare/2022-06-06...2025-01-14
+[2022-06-06]: https://github.com/latextemplates/lncs-enhanced/compare/2022-03-01...2022-06-06
+[2022-03-01]: https://github.com/latextemplates/lncs-enhanced/compare/1.9.1...2022-03-01
+[1.9.1]: https://github.com/latextemplates/lncs-enhanced/compare/1.9.0...1.9.1
+[1.9.0]: https://github.com/latextemplates/lncs-enhanced/compare/1.8.0...1.9.0
+[1.8.0]: https://github.com/latextemplates/lncs-enhanced/compare/1.7.0...1.8.0
+[1.7.0]: https://github.com/latextemplates/lncs-enhanced/compare/1.6.1...1.7.0
+[1.6.1]: https://github.com/latextemplates/lncs-enhanced/compare/1.6.0...1.6.1
+[1.6.0]: https://github.com/latextemplates/lncs-enhanced/compare/1.5.0...1.6.0
+[1.5.0]: https://github.com/latextemplates/lncs-enhanced/compare/1.4.1...1.5.0
+[1.4.1]: https://github.com/latextemplates/lncs-enhanced/compare/1.4.0...1.4.1
+[1.4.0]: https://github.com/latextemplates/lncs-enhanced/compare/1.3.0...1.4.0
+[1.3.0]: https://github.com/latextemplates/lncs-enhanced/compare/1.2.0...1.3.0
+[1.2.0]: https://github.com/latextemplates/lncs-enhanced/compare/1.1.1...1.2.0
+[1.1.1]: https://github.com/latextemplates/lncs-enhanced/compare/1.1.0...1.1.1
+[1.1.0]: https://github.com/latextemplates/lncs-enhanced/compare/1.0.0...1.1.0
+[1.0.0]: https://github.com/latextemplates/lncs-enhanced/releases/tag/1.0.0
 
 <!-- markdownlint-disable-file MD013 MD024 CHANGELOG-RULE-003 -->
