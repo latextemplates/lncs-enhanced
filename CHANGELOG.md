@@ -281,6 +281,8 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 First release using semantic versioning.
 
+[Unreleased]: https://github.com/latextemplates/LNCS/compare/2026-06-25...HEAD
+[2026-06-25]: https://github.com/latextemplates/LNCS/compare/2025-04-11...2026-06-25
 [2025-04-11]: https://github.com/latextemplates/LNCS/compare/2025-03-04...2025-04-11
 [2025-03-04]: https://github.com/latextemplates/LNCS/compare/2025-02-12...2025-03-04
 [2025-02-12]: https://github.com/latextemplates/LNCS/compare/2025-01-31...2025-02-12
