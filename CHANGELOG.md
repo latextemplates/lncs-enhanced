@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://calver.org/).
 
+## [2026-06-30]
+
+### Added
+
+- Inline acronym typesetting with `\initialism` (and the ready-made `\OMG`, `\BPEL`, `\BPMN`, `\UML`) now works — the required `lccaps` package is now loaded — demonstrated by a new example in the "LaTeX Hints" chapter.
+
+### Fixed
+
+- The generated German aspell dictionary (`.aspell.de.pws`) is now tagged as language `de` (was `en`), fixing the CI spell-check for the German paper variants.
+
 ## [2026-06-25]
 
 ### Added
@@ -281,7 +291,8 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 First release using semantic versioning.
 
-[Unreleased]: https://github.com/latextemplates/lncs-enhanced/compare/2026-06-25...HEAD
+[Unreleased]: https://github.com/latextemplates/lncs-enhanced/compare/2026-06-30...HEAD
+[2026-06-30]: https://github.com/latextemplates/lncs-enhanced/compare/2026-06-25...2026-06-30
 [2026-06-25]: https://github.com/latextemplates/lncs-enhanced/compare/2025-04-11...2026-06-25
 [2025-04-11]: https://github.com/latextemplates/lncs-enhanced/compare/2025-03-04...2025-04-11
 [2025-03-04]: https://github.com/latextemplates/lncs-enhanced/compare/2025-02-12...2025-03-04
