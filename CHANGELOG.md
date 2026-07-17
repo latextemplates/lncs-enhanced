@@ -11,6 +11,10 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 - The compiled PDF now embeds `paper.bib`, so the reference data can be extracted from the PDF (e.g., with JabRef).
 
+### Fixed
+
+- arXiv uploads no longer fail with "! I can't find file `clmr28t10+20`": `paper.tex` now starts with `\ifdefined\pdfoutput\pdfoutput=1\fi`, which makes arXiv use `pdflatex` instead of DVI-producing `latex`. See the README section "Final submission". [lncs-enhanced#44](https://github.com/latextemplates/lncs-enhanced/issues/44)
+
 ## [2026-06-30]
 
 ### Added
