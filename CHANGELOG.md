@@ -14,6 +14,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 ### Fixed
 
+- The README links for the original LNCS demonstration and documentation (`llncs-dem.pdf`, `llncs-doc.pdf`) were dead: the documentation now points to the CTAN-hosted `llncsdoc.pdf`; the `llncs.dem` demonstration is no longer distributed, so the README points to `samplepaper.tex` in Springer's proceedings-templates zip instead. [#29](https://github.com/latextemplates/lncs-enhanced/issues/29)
 - arXiv uploads no longer fail with "! I can't find file `clmr28t10+20`": `paper.tex` now starts with `\ifdefined\pdfoutput\pdfoutput=1\fi`, which makes arXiv use `pdflatex` instead of DVI-producing `latex`. See the README section "Final submission". [lncs-enhanced#44](https://github.com/latextemplates/lncs-enhanced/issues/44)
 
 ## [2026-06-30]
