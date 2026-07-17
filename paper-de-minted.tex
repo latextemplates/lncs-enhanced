@@ -761,6 +761,45 @@ Cleveref demonstration: Cref at beginning of sentence, cref in all other cases.
 \Cref{sec:ex:cref} shows a simple fact, although \cref{sec:ex:cref} could also show something else.
 \end{ltgexample}
 
+\subsection{Theorem-like Environments and Mathematics}
+
+The \texttt{llncs} class predefines the theorem-like environments \texttt{theorem}, \texttt{proposition}, \texttt{lemma}, \texttt{corollary}, \texttt{definition}, \texttt{example}, \texttt{exercise}, \texttt{note}, \texttt{problem}, \texttt{question}, \texttt{remark}, and \texttt{solution} as well as the unnumbered \texttt{proof} environment -- no additional package is required.
+
+\begin{ltgexample}
+\begin{definition}[Idempotence]
+  An operation $f$ is \emph{idempotent} if $f(f(x)) = f(x)$ holds for all inputs $x$.
+\end{definition}
+
+\begin{proposition}
+  The identity operation is idempotent.
+\end{proposition}
+
+\begin{lemma}\label{lem:fixed}
+  An idempotent operation fixes every element of its image.
+\end{lemma}
+
+\begin{theorem}\label{thm:idempotent-composition}
+  If two idempotent operations $f$ and $g$ commute, their composition $f \circ g$ is idempotent.
+\end{theorem}
+
+\begin{proof}
+  Since $f$ and $g$ commute and are idempotent,
+  \begin{equation}
+    (f \circ g)\bigl((f \circ g)(x)\bigr) = f\bigl(f(g(g(x)))\bigr) = f(g(x)) = (f \circ g)(x).
+    \label{eq:idempotent-composition}
+  \end{equation}
+  \qed
+\end{proof}
+
+\begin{corollary}
+  Applying $f \circ g$ a second time yields no further change, as \cref{eq:idempotent-composition} shows.
+\end{corollary}
+
+\begin{example}
+  Normalizing whitespace in a string is idempotent: \cref{lem:fixed} applies to every already-normalized string.
+\end{example}
+\end{ltgexample}
+
 \subsection{Abbildungen}
 
 \begin{ltgexample}
