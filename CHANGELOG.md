@@ -9,6 +9,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 ### Added
 
+- The README documents biblatex support (`--bibtextool=biblatex`, using the `biblatex-lncs` style) and the new `--authoryear` generator switch for author-year citations, answering the long-standing `citeauthoryear` question. [#23](https://github.com/latextemplates/lncs-enhanced/issues/23)
 - The compiled PDF now embeds `paper.bib`, so the reference data can be extracted from the PDF (e.g., with JabRef).
 
 ### Fixed
