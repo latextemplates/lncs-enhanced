@@ -154,6 +154,16 @@
 % Avoid a widow line being split off a displayed equation.
 \displaywidowpenalty=10000
 
+% Avoid a lone short word (or hyphenated fragment) as the last line of a paragraph.
+% LuaTeX only: impnattypo's lastparline feature vetoes the offending line break in
+% each affected paragraph. The package's pdfTeX fallback instead stretches
+% \parfillskip globally, which loosens interword spacing everywhere -- the reason
+% the package was once reverted, see
+% https://github.com/latextemplates/lncs-enhanced/issues/16
+\ifdefined\directlua
+  \usepackage[lastparline]{impnattypo}
+\fi
+
 \usepackage{graphicx}
 
 % Diagonal lines in a table - http://tex.stackexchange.com/questions/17745/diagonal-lines-in-table-cell
