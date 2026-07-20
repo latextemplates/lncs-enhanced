@@ -9,6 +9,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 ### Added
 
+- Opt-in rectangular ("block") paragraphs: uncomment `\rectangularparagraphstrue` in the preamble to stretch every paragraph's last line to the full column width (off by default; see the comment in `paper.tex` for the copy-fitting trade-off).
 - LuaLaTeX builds avoid a lone short word as the last line of a paragraph (`impnattypo` with its `lastparline` feature; pdfLaTeX builds are unaffected). [lncs-enhanced#16](https://github.com/latextemplates/lncs-enhanced/issues/16)
 - The example content demonstrates the theorem-like environments of the `llncs` class (`definition`, `proposition`, `lemma`, `theorem`, `proof`, `corollary`, `example`) with a displayed, referenced equation -- the paper example now covers what the retired upstream `llncs.dem` demonstration showed. [#29](https://github.com/latextemplates/lncs-enhanced/issues/29)
 - The README documents biblatex support (`--bibtextool=biblatex`, using the `biblatex-lncs` style) and the new `--authoryear` generator switch for author-year citations, answering the long-standing `citeauthoryear` question. [#23](https://github.com/latextemplates/lncs-enhanced/issues/23) [#3](https://github.com/latextemplates/lncs-enhanced/issues/3)
