@@ -164,6 +164,21 @@
   \usepackage[lastparline]{impnattypo}
 \fi
 
+% --- Rectangular ("block") paragraphs -------------------------------------
+% When enabled, the last line of every paragraph is stretched to the full
+% column width, so each paragraph forms a perfect rectangle. This is
+% demanding typography: paragraphs whose last line is naturally short get
+% visibly wide interword spaces, and good results usually require rewording
+% sentences until every paragraph fits (copy fitting). The lone-word tweak
+% above (impnattypo) becomes irrelevant while this is active.
+% Enable by uncommenting the \rectangularparagraphstrue line:
+\newif\ifrectangularparagraphs
+%\rectangularparagraphstrue
+\ifrectangularparagraphs
+  \setlength{\parfillskip}{0pt}      % force the last line to reach the margin
+  \setlength{\emergencystretch}{3em} % soften overfull lines this may cause
+\fi
+
 \usepackage{graphicx}
 
 % Diagonal lines in a table - http://tex.stackexchange.com/questions/17745/diagonal-lines-in-table-cell
