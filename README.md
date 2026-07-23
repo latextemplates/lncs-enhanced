@@ -5,6 +5,13 @@
 Please be aware that this template is optimized for overleaf, which is based on TeXLive 2024.
 In case you are running a later TeXLive version (or use MiKTeX), please regenerate the template with the help of the [latex template generator].
 
+## Examples
+
+- [paper.pdf](https://latextemplates.github.io/lncs-enhanced/paper.pdf) - normal paper.
+- [paper-minted.pdf](https://latextemplates.github.io/lncs-enhanced/paper-minted.pdf) - paper showing minted in action.
+- [paper-newtx.pdf](http://latextemplates.github.io/lncs-enhanced/paper-newtx.pdf) - paper typeset in Times Roman to save some space.
+- [paper-minted-newtx.pdf](http://latextemplates.github.io/lncs-enhanced/paper-minted-newtx.pdf) - paper typeset in Times Roman to save some space.
+
 ## Usage
 
 - `paper.tex` is the main document
@@ -105,13 +112,6 @@ Hints on writing an abstract and thesis by Dirk Fahland.
 Besides the default BibTeX setup (natbib + `splncs04nat`), biblatex is supported: generate with `--bibtextool=biblatex` to use the [biblatex-lncs](https://ctan.org/pkg/biblatex-lncs) style (numeric, mimicking Springer's `splncs04` look, processed with biber).
 
 For **author-year citations** (this template's answer to `llncs`'s `citeauthoryear` option, whose Springer `.bst` files are not part of TeX Live), generate with `--authoryear=true`: this switches to biblatex with the `authoryear` style, so `\citep{key}` renders as "(Author, year)" and `\citet{key}` as "Author (year)".
-
-## Examples
-
-- [paper.pdf](https://latextemplates.github.io/lncs-enhanced/paper.pdf) - normal paper.
-- [paper-minted.pdf](https://latextemplates.github.io/lncs-enhanced/paper-minted.pdf) - paper showing minted in action.
-- [paper-newtx.pdf](http://latextemplates.github.io/lncs-enhanced/paper-newtx.pdf) - paper typeset in Times Roman to save some space.
-- [paper-minted-newtx.pdf](http://latextemplates.github.io/lncs-enhanced/paper-minted-newtx.pdf) - paper typeset in Times Roman to save some space.
 
 ## Background
 
