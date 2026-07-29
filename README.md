@@ -5,6 +5,8 @@
 Please be aware that this template is optimized for overleaf, which is based on TeXLive 2024.
 In case you are running a later TeXLive version (or use MiKTeX), please regenerate the template with the help of the [latex template generator].
 
+The LaTeX snippets this template is assembled from can be inspected at <https://latextemplates.github.io/latex-snippets/>.
+
 ## Examples
 
 - [paper.pdf](https://latextemplates.github.io/lncs-enhanced/paper.pdf) - normal paper.
