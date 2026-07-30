@@ -1,3 +1,4 @@
+\ifdefined\pdfoutput\pdfoutput=1\fi % forces arXiv to process this file with pdflatex instead of DVI-producing "latex"; see README section "Final submission"
 % This template has been tested with LLNCS DOCUMENT CLASS -- version 2.21 (12-Jan-2022)
 
 % !TeX spellcheck = en-US
@@ -152,6 +153,31 @@
 % Avoid a widow line being split off a displayed equation.
 \displaywidowpenalty=10000
 
+% Avoid a lone short word (or hyphenated fragment) as the last line of a paragraph.
+% LuaTeX only: impnattypo's lastparline feature vetoes the offending line break in
+% each affected paragraph. The package's pdfTeX fallback instead stretches
+% \parfillskip globally, which loosens interword spacing everywhere -- the reason
+% the package was once reverted, see
+% https://github.com/latextemplates/lncs-enhanced/issues/16
+\ifdefined\directlua
+  \usepackage[lastparline]{impnattypo}
+\fi
+
+% --- Rectangular ("block") paragraphs -------------------------------------
+% When enabled, the last line of every paragraph is stretched to the full
+% column width, so each paragraph forms a perfect rectangle. This is
+% demanding typography: paragraphs whose last line is naturally short get
+% visibly wide interword spaces, and good results usually require rewording
+% sentences until every paragraph fits (copy fitting). The lone-word tweak
+% above (impnattypo) becomes irrelevant while this is active.
+% Enable by uncommenting the \rectangularparagraphstrue line:
+\newif\ifrectangularparagraphs
+%\rectangularparagraphstrue
+\ifrectangularparagraphs
+  \setlength{\parfillskip}{0pt}      % force the last line to reach the margin
+  \setlength{\emergencystretch}{3em} % soften overfull lines this may cause
+\fi
+
 \usepackage{graphicx}
 
 % Diagonal lines in a table - http://tex.stackexchange.com/questions/17745/diagonal-lines-in-table-cell
@@ -166,6 +192,9 @@
 \usepackage[dvipsnames, table]{xcolor}
 % Code Listings
 \usepackage{listings}
+
+% accsupp keeps the soft-wrap arrow (see postbreak below) out of the copied text
+\usepackage{accsupp}
 
 \definecolor{eclipseStrings}{RGB}{42,0.0,255}
 \definecolor{eclipseKeywords}{RGB}{127,0,85}
@@ -218,6 +247,10 @@
   stringstyle=\ttfamily,
   %
   breaklines=true,            % Lines are wrapped
+  %
+  % Mark a soft-wrapped line with a gray hook arrow that stays out of the
+  % copied and extracted text. Source: https://tex.stackexchange.com/a/649475/9075
+  postbreak=\raisebox{0ex}[0ex][0ex]{\BeginAccSupp{ActualText={}}\ensuremath{\color{gray}\hookrightarrow\space}\EndAccSupp{}},
   %
   breakatwhitespace=true,
   %
@@ -307,6 +340,11 @@
 \makeatletter
 \patchcmd{\NAT@test}{\else \NAT@nm}{\else \NAT@hyper@{\NAT@nm}}{}{}
 \makeatother
+
+% Embed the bibliography data into the PDF so that readers can extract it
+% (e.g., with JabRef via "Import into library" on the PDF)
+\usepackage{embedfile}
+\embedfile[mimetype=application/x-bibtex,desc=BibTeX entries of all references]{paper.bib}
 
 % Prepare more space-saving rendering of the bibliography
 % Source: https://tex.stackexchange.com/a/280936/9075
@@ -609,7 +647,7 @@ Finally, a conclusion is drawn and outlook on future work is made (\cref{sec:out
 \section{Related Work}
 \label{sec:relatedwork}
 
-Winery~\cite{Winery} is a graphical \textcomment{modeling}{modeling with one ``l'', because of American English} tool.
+Winery~\citep{Winery} is a graphical \textcomment{modeling}{modeling with one ``l'', because of American English} tool.
 The whole idea of TOSCA is explained by \citet{Binz2009}.
 
 \section{LaTeX Hints}
@@ -786,6 +824,45 @@ Cleveref demonstration: Cref at beginning of sentence, cref in all other cases.
 \Cref{tab:ex:cref} shows a simple fact, although \cref{tab:ex:cref} could also show something else.
 
 \Cref{sec:ex:cref} shows a simple fact, although \cref{sec:ex:cref} could also show something else.
+\end{ltgexample}
+
+\subsection{Theorem-like Environments and Mathematics}
+
+The \texttt{llncs} class already provides the theorem-like environments \texttt{theorem}, \texttt{proposition}, \texttt{lemma}, \texttt{corollary}, \texttt{definition}, \texttt{example}, \texttt{exercise}, \texttt{note}, \texttt{problem}, \texttt{question}, \texttt{remark}, and \texttt{solution} as well as the unnumbered \texttt{proof} environment -- no additional package is required.
+
+\begin{ltgexample}
+\begin{definition}[Idempotence]
+  An operation $f$ is \emph{idempotent} if $f(f(x)) = f(x)$ holds for all inputs $x$.
+\end{definition}
+
+\begin{proposition}
+  The identity operation is idempotent.
+\end{proposition}
+
+\begin{lemma}\label{lem:fixed}
+  An idempotent operation fixes every element of its image.
+\end{lemma}
+
+\begin{theorem}\label{thm:idempotent-composition}
+  If two idempotent operations $f$ and $g$ commute, their composition $f \circ g$ is idempotent.
+\end{theorem}
+
+\begin{proof}
+  Since $f$ and $g$ commute and are idempotent,
+  \begin{equation}
+    (f \circ g)\bigl((f \circ g)(x)\bigr) = f\bigl(f(g(g(x)))\bigr) = f(g(x)) = (f \circ g)(x).
+    \label{eq:idempotent-composition}
+  \end{equation}
+  \qed
+\end{proof}
+
+\begin{corollary}
+  Applying $f \circ g$ a second time yields no further change, as \cref{eq:idempotent-composition} shows.
+\end{corollary}
+
+\begin{example}
+  Trimming spaces in a string is idempotent: \cref{lem:fixed} applies to every already-trimmed string.
+\end{example}
 \end{ltgexample}
 
 \subsection{Figures}

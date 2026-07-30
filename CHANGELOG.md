@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://calver.org/).
 
+## [Unreleased]
+
+### Added
+
+- The Overleaf note now states the template is based on TeX Live 2025 (was 2024), matching Overleaf's current TeX Live.
+- The README now links the [latex-snippets site](https://latextemplates.github.io/latex-snippets/) near the top, so you can inspect the source snippets this template is assembled from.
+- Soft-wrapped lines in code listings now show a gray hook arrow (↪) at the start of each continuation line, so they are distinguishable from real line breaks; the arrow is not copied when you select the code from the PDF.
+- The "Examples" section with the rendered example-PDF links now appears right below the title, before "Usage", so you see the output first.
+- Opt-in rectangular ("block") paragraphs: uncomment `\rectangularparagraphstrue` in the preamble to stretch every paragraph's last line to the full column width (off by default; see the comment in `paper.tex` for the copy-fitting trade-off).
+- LuaLaTeX builds avoid a lone short word as the last line of a paragraph (`impnattypo` with its `lastparline` feature; pdfLaTeX builds are unaffected). [lncs-enhanced#16](https://github.com/latextemplates/lncs-enhanced/issues/16)
+- The example content demonstrates the theorem-like environments of the `llncs` class (`definition`, `proposition`, `lemma`, `theorem`, `proof`, `corollary`, `example`) with a displayed, referenced equation -- the paper example now covers what the retired upstream `llncs.dem` demonstration showed. [#29](https://github.com/latextemplates/lncs-enhanced/issues/29)
+- The README documents biblatex support (`--bibtextool=biblatex`, using the `biblatex-lncs` style) and the new `--authoryear` generator switch for author-year citations, answering the long-standing `citeauthoryear` question. [#23](https://github.com/latextemplates/lncs-enhanced/issues/23) [#3](https://github.com/latextemplates/lncs-enhanced/issues/3)
+- The compiled PDF now embeds `paper.bib`, so the reference data can be extracted from the PDF (e.g., with JabRef).
+
+### Fixed
+
+- The README links for the original LNCS demonstration and documentation (`llncs-dem.pdf`, `llncs-doc.pdf`) were dead: the documentation now points to the CTAN-hosted `llncsdoc.pdf`; the `llncs.dem` demonstration is no longer distributed, so the README points to `samplepaper.tex` in Springer's proceedings-templates zip instead. [#29](https://github.com/latextemplates/lncs-enhanced/issues/29)
+- arXiv uploads no longer fail with "! I can't find file `clmr28t10+20`": `paper.tex` now starts with `\ifdefined\pdfoutput\pdfoutput=1\fi`, which makes arXiv use `pdflatex` instead of DVI-producing `latex`. See the README section "Final submission". [lncs-enhanced#44](https://github.com/latextemplates/lncs-enhanced/issues/44)
+
 ## [2026-06-30]
 
 ### Added

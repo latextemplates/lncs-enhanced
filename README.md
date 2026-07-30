@@ -2,8 +2,17 @@
 
 > Quick start for modern LaTeXing with [LNCS](http://www.springer.com/computer/lncs).
 
-Please be aware that this template is optimized for overleaf, which is based on TeXLive 2024.
+Please be aware that this template is optimized for overleaf, which is based on TeXLive 2025.
 In case you are running a later TeXLive version (or use MiKTeX), please regenerate the template with the help of the [latex template generator].
+
+The LaTeX snippets this template is assembled from can be inspected at <https://latextemplates.github.io/latex-snippets/>.
+
+## Examples
+
+- [paper.pdf](https://latextemplates.github.io/lncs-enhanced/paper.pdf) - normal paper.
+- [paper-minted.pdf](https://latextemplates.github.io/lncs-enhanced/paper-minted.pdf) - paper showing minted in action.
+- [paper-newtx.pdf](http://latextemplates.github.io/lncs-enhanced/paper-newtx.pdf) - paper typeset in Times Roman to save some space.
+- [paper-minted-newtx.pdf](http://latextemplates.github.io/lncs-enhanced/paper-minted-newtx.pdf) - paper typeset in Times Roman to save some space.
 
 ## Usage
 
@@ -60,7 +69,7 @@ On the command line, there are additional features:
 - `latexmk -C` or `make clean` for cleaning up
 - `make format` to reformat the `.tex` files (one sentence per line and indent)
 - `make aspell` for interactive spell checking
-- `make stand`: Creates a new PDF with the current status of the thesis.
+- `make stand`: Creates a new PDF with the current status of the document.
 - `make view`: Opens the configured viewer
 - `make mrproper`: Cleans up and removes also editor backup files.
 
@@ -102,15 +111,9 @@ You can run the [latex template generator] to enable the features.
 
 Hints on writing an abstract and thesis by Dirk Fahland.
 
-There is currently no official biblatex support.
-A first step towards that is done at [biblatex-lncs](https://ctan.org/pkg/biblatex-lncs).
+Besides the default BibTeX setup (natbib + `splncs04nat`), biblatex is supported: generate with `--bibtextool=biblatex` to use the [biblatex-lncs](https://ctan.org/pkg/biblatex-lncs) style (numeric, mimicking Springer's `splncs04` look, processed with biber).
 
-## Examples
-
-- [paper.pdf](https://latextemplates.github.io/lncs-enhanced/paper.pdf) - normal paper.
-- [paper-minted.pdf](https://latextemplates.github.io/lncs-enhanced/paper-minted.pdf) - paper showing minted in action.
-- [paper-newtx.pdf](http://latextemplates.github.io/lncs-enhanced/paper-newtx.pdf) - paper typeset in Times Roman to save some space.
-- [paper-minted-newtx.pdf](http://latextemplates.github.io/lncs-enhanced/paper-minted-newtx.pdf) - paper typeset in Times Roman to save some space.
+For **author-year citations** (this template's answer to `llncs`'s `citeauthoryear` option, whose Springer `.bst` files are not part of TeX Live), generate with `--authoryear=true`: this switches to biblatex with the `authoryear` style, so `\citep{key}` renders as "(Author, year)" and `\citet{key}` as "Author (year)".
 
 ## Background
 
@@ -129,6 +132,19 @@ As you see on GitHub actions, the paper compiles out of the box.
 There is no need to adjust the packages or to remove some of them.
 This might lead to undesired results such as hyperlinks not working any more or no good microtypographic features.
 In case you think, a package needs to be altered or added, feel free to open an issue.
+
+## Final submission
+
+The compiled PDF embeds the `paper.bib` file (via the [embedfile](https://ctan.org/pkg/embedfile) package), so readers can extract the reference data from the PDF, e.g., with JabRef via "Import into library".
+Some publishers' final-submission checks (e.g., IEEE PDF eXpress or PDF/A validation) reject PDFs containing file attachments.
+If your submission system complains, comment out the `\embedfile` line in `paper.tex` for the camera-ready version.
+
+### arXiv
+
+The first line of `paper.tex` is `\ifdefined\pdfoutput\pdfoutput=1\fi`.
+Keep it when uploading to arXiv: arXiv scans the first lines for `\pdfoutput=1` to decide between `pdflatex` and DVI-producing `latex`.
+Without the line, arXiv falls back to `latex`, which cannot build the modern fonts (they ship without Metafont sources) and aborts with an error such as `! I can't find file 'clmr28t10+20'`.
+See [this question on TeX.SE](https://tex.stackexchange.com/q/584702/9075) for details.
 
 ## Tool hints
 
@@ -209,7 +225,7 @@ Alternatively, just copy and paste the contents of the [vscode.settings.json](vs
 
 You can manually trigger compilation by hitting the green button in the extension or using other methods provided by LaTeX Workshop.
 
-Please remove the magic comments (`% !TeX program ...`) at the top of the `main-....tex` file.
+Please remove the magic comments (`% !TeX program ...`) at the top of the `paper.tex` file.
 Although [LaTeX-Workshop supports magic comments](https://github.com/James-Yu/LaTeX-Workshop/blob/master/README.md#magic-comments), it currently does not work reliably.
 Without the magic comments, compilation works.
 
@@ -425,8 +441,7 @@ Just answer "(a) allow for this document" and it will work.
 ## Further information
 
 - tex.stackexchange.com questions regarding LNCS: <https://tex.stackexchange.com/questions/tagged/lncs>
-- Original LNCS demonstration (without the improvements): [llncs-dem.pdf](llncs-dem.pdf)
-- Original LNCS documentation (without the improvements): [llncs-doc.pdf](llncs-doc.pdf)
+- Original LNCS documentation (without the improvements): [llncsdoc.pdf](https://mirrors.ctan.org/macros/latex/contrib/llncs/llncsdoc.pdf) from the [llncs CTAN package](https://ctan.org/pkg/llncs). The old `llncs.dem` demonstration is no longer part of that package; the official sample paper (`samplepaper.tex`) is contained in Springer's [LaTeX2e Proceedings Templates (zip)](https://www.springer.com/gp/computer-science/lncs/conference-proceedings-guidelines).
 - Other templates: <https://latextemplates.github.io/>
 - For German users, go to <https://texfragen.de/>.
 - Frank Mittelbach with Ulrike Fischer: [The LaTeX Companion](https://www.latex-project.org/news/2023/03/17/TLC3/) is the ultimate guide for LaTeX: The authors went through all packages offered by [CTAN](https://ctan.org/), selected the most promising ones, described them, and provide minimal working example for each of it.
