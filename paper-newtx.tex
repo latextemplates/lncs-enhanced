@@ -456,7 +456,7 @@
 
 \usepackage[group-minimum-digits=4,per-mode=fraction]{siunitx}
 
-% Enable that parameters of \cref{}, \ref{}, \cite{}, ... are linked so that a reader can click on the number an jump to the target in the document
+% Enable that parameters of \zcref{}, \ref{}, \cite{}, ... are linked so that a reader can click on the number an jump to the target in the document
 \usepackage{hyperref}
 
 % Enable hyperref without colors and without bookmarks
@@ -485,18 +485,15 @@
 
 \usepackage{mindflow}
 
-% Extensions for references inside the document (\cref{fig:sample}, ...)
-% Enable usage \cref{...} and \Cref{...} instead of \ref: Type of reference included in the link
+% Extensions for references inside the document (\zcref{fig:sample}, ...)
+% Use \zcref{...} (and \zcref[S]{...} at the beginning of a sentence) instead of \ref: Type of reference included in the link
 % That means, "Figure 5" is a full link instead of just "5".
-\usepackage[capitalise,nameinlink]{cleveref}
-
-\crefname{section}{Sect.}{Sect.}
-\Crefname{section}{Section}{Sections}
-\crefname{listing}{List.}{List.}
-\crefname{listing}{Listing}{Listings}
-\Crefname{listing}{Listing}{Listings}
-\crefname{lstlisting}{Listing}{Listings}
-\Crefname{lstlisting}{Listing}{Listings}
+% The names follow the document language (babel); zref-clever is compatible with tagged PDFs.
+% Each \label also sets a zref label, so \zcref works with standard \label.
+\usepackage{zref-clever}
+\zcsetup{cap, nameinlink=true, abbrev}
+\zcRefTypeSetup{section}{Name-sg-ab=Sect., Name-pl-ab=Sect.}
+\zcRefTypeSetup{listing}{Name-sg-ab=List., Name-pl-ab=List.}
 
 \usepackage{lipsum}
 
@@ -628,9 +625,9 @@
 \label{sec:introduction}
 \lipsum[1-3]\todo{Refine me}
 
-The remainder of the paper starts with a presentation of related work (\cref{sec:relatedwork}).
-It is followed by a presentation of hints on \LaTeX{} (\cref{sec:latexhints}).
-Finally, a conclusion is drawn and outlook on future work is made (\cref{sec:outlook}).
+The remainder of the paper starts with a presentation of related work (\zcref{sec:relatedwork}).
+It is followed by a presentation of hints on \LaTeX{} (\zcref{sec:latexhints}).
+Finally, a conclusion is drawn and outlook on future work is made (\zcref{sec:outlook}).
 
 \section{Related Work}
 \label{sec:relatedwork}
@@ -780,15 +777,15 @@ Quoting with "`quote"' or ``quote'' also works.
 
 \end{ltgexample}
 
-\subsection{Cleveref examples}
+\subsection{Cross-reference examples}
 \label{sec:ex:cref}
 
-Cleveref demonstration: Cref at beginning of sentence, cref in all other cases.
+zref-clever demonstration: zcref[S] at beginning of sentence, zcref in all other cases.
 
 \begin{figure}
   \centering
   \includegraphics[width=.75\linewidth]{example-image-a}
-  \caption{Example figure for cref demo}
+  \caption{Example figure for reference demo}
   \label{fig:ex:cref}
 \end{figure}
 
@@ -802,16 +799,16 @@ Cleveref demonstration: Cref at beginning of sentence, cref in all other cases.
     Thee     & Four     \\
     \bottomrule
   \end{tabular}
-  \caption{Example table for cref demo}
+  \caption{Example table for reference demo}
   \label{tab:ex:cref}
 \end{table}
 
 \begin{ltgexample}
-\Cref{fig:ex:cref} shows a simple fact, although \cref{fig:ex:cref} could also show something else.
+\zcref[S]{fig:ex:cref} shows a simple fact, although \zcref{fig:ex:cref} could also show something else.
 
-\Cref{tab:ex:cref} shows a simple fact, although \cref{tab:ex:cref} could also show something else.
+\zcref[S]{tab:ex:cref} shows a simple fact, although \zcref{tab:ex:cref} could also show something else.
 
-\Cref{sec:ex:cref} shows a simple fact, although \cref{sec:ex:cref} could also show something else.
+\zcref[S]{sec:ex:cref} shows a simple fact, although \zcref{sec:ex:cref} could also show something else.
 \end{ltgexample}
 
 \subsection{Theorem-like Environments and Mathematics}
@@ -845,18 +842,18 @@ The \texttt{llncs} class already provides the theorem-like environments \texttt{
 \end{proof}
 
 \begin{corollary}
-  Applying $f \circ g$ a second time yields no further change, as \cref{eq:idempotent-composition} shows.
+  Applying $f \circ g$ a second time yields no further change, as \zcref{eq:idempotent-composition} shows.
 \end{corollary}
 
 \begin{example}
-  Trimming spaces in a string is idempotent: \cref{lem:fixed} applies to every already-trimmed string.
+  Trimming spaces in a string is idempotent: \zcref{lem:fixed} applies to every already-trimmed string.
 \end{example}
 \end{ltgexample}
 
 \subsection{Figures}
 
 \begin{ltgexample}
-\Cref{fig:label} shows something interesting.
+\zcref[S]{fig:label} shows something interesting.
 
 \begin{figure}
   \centering
@@ -882,7 +879,7 @@ One can also have pictures floating inside text:
 
 \subsection{Sub Figures}
 
-An example of two sub figures is shown in \cref{fig:two_sub_figures}.
+An example of two sub figures is shown in \zcref{fig:two_sub_figures}.
 
 \begin{ltgexample}
 \begin{figure}[!b]
@@ -1024,8 +1021,8 @@ The header (\verb+\endhead+) and footer (\verb+\endfoot+) rows are repeated on e
 \subsection{Source Code}
 
 \begin{ltgexample}
-\Cref{lst:XML} shows source code written in XML.
-\Cref{line:comment} contains a comment.
+\zcref[S]{lst:XML} shows source code written in XML.
+\zcref[S]{line:comment} contains a comment.
 
 \begin{lstlisting}[
   language=XML,
@@ -1039,7 +1036,7 @@ The header (\verb+\endhead+) and footer (\verb+\endfoot+) rows are repeated on e
 \end{ltgexample}
 
 One can also add \verb+float+ as parameter to have the listing floating.
-\Cref{lst:flXML} shows the floating listing.
+\zcref[S]{lst:flXML} shows the floating listing.
 
 \begin{ltgexample}
 \begin{lstlisting}[
@@ -1056,7 +1053,7 @@ One can also add \verb+float+ as parameter to have the listing floating.
 \end{lstlisting}
 \end{ltgexample}
 
-One can also typeset JSON as shown in \cref{lst:json}.
+One can also typeset JSON as shown in \zcref{lst:json}.
 
 \begin{ltgexample}
 \begin{lstlisting}[
@@ -1070,7 +1067,7 @@ One can also typeset JSON as shown in \cref{lst:json}.
 \end{lstlisting}
 \end{ltgexample}
 
-Java is also possible as shown in \cref{lst:java}.
+Java is also possible as shown in \zcref{lst:java}.
 
 \begin{ltgexample}
 \begin{lstlisting}[
