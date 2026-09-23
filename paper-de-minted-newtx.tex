@@ -216,7 +216,7 @@
 % \AtEndEnvironment{listing}{\stepcounter{lstlisting}}
 
 % Intermediate solution for hyperlinked refs. See https://tex.stackexchange.com/q/132420/9075 for more information.
-\newcommand{\labelline}[1]{\label[line]{#1}\hypertarget{#1}{}}
+\newcommand{\labelline}[1]{\label{#1}\hypertarget{#1}{}}
 \newcommand{\refline}[1]{\hyperlink{#1}{\FancyVerbLineautorefname~\ref*{#1}}}
 
 % For easy quotations: \enquote{text}
@@ -388,7 +388,7 @@
 \usepackage[group-minimum-digits=4,per-mode=fraction]{siunitx}
 \addto\extrasgerman{\sisetup{locale = DE}}
 
-% Enable that parameters of \cref{}, \ref{}, \cite{}, ... are linked so that a reader can click on the number an jump to the target in the document
+% Enable that parameters of \zcref{}, \ref{}, \cite{}, ... are linked so that a reader can click on the number an jump to the target in the document
 \usepackage{hyperref}
 
 % Enable hyperref without colors and without bookmarks
@@ -424,29 +424,15 @@
 
 \usepackage{mindflow}
 
-% cleveref für cref statt autoref, da cleveref auch bei Definitionen funktioniert
-\usepackage[capitalise,nameinlink]{cleveref}
-
-\crefname{table}{Tabelle}{Tab.}
-\Crefname{table}{Tabelle}{Tabellen}
-\crefname{figure}{Abbildung}{Abbildungen}
-\Crefname{figure}{Abbildung}{Abbildungen}
-\crefname{equation}{Gleichung}{Gleichungen}
-\Crefname{equation}{Gleichung}{Gleichungen}
-\crefname{theorem}{Theorem}{Theoreme}
-\Crefname{theorem}{Theorem}{Theoreme}
-\crefname{listing}{Listing}{Listings}
-\Crefname{listing}{Listing}{Listings}
-\crefname{section}{Abschnitt}{Abschnitte}
-\Crefname{section}{Abschnitt}{Abschnitte}
-\crefname{paragraph}{Abschnitt}{Abschnitte}
-\Crefname{paragraph}{Abschnitt}{Abschnitte}
-\crefname{subparagraph}{Abschnitt}{Abschnitte}
-\Crefname{subparagraph}{Abschnitt}{Abschnitte}
-
-% Intermediate solution for hyperlinked refs. See https://tex.stackexchange.com/q/132420/9075 for more information.
-\newcommand{\llabel}[1]{\label[line]{#1}\hypertarget{#1}{}}
-\newcommand{\lref}[1]{\hyperlink{#1}{\FancyVerbLineautorefname~\ref*{#1}}}
+% Extensions for references inside the document (\zcref{fig:sample}, ...)
+% Use \zcref{...} (and \zcref[S]{...} at the beginning of a sentence) instead of \ref: Type of reference included in the link
+% That means, "Figure 5" is a full link instead of just "5".
+% The names follow the document language (babel); zref-clever is compatible with tagged PDFs.
+% Each \label also sets a zref label, so \zcref works with standard \label.
+\usepackage{zref-clever}
+\zcsetup{cap, nameinlink=true, abbrev}
+\zcRefTypeSetup{section}{Name-sg-ab=Sect., Name-pl-ab=Sect.}
+\zcRefTypeSetup{listing}{Name-sg-ab=List., Name-pl-ab=List.}
 
 \usepackage{lipsum}
 
@@ -590,9 +576,9 @@ Sie soll nur als Beispiel dienen.
 Nun viel Erfolg bei der Arbeit!
 
 Die Arbeit ist in folgender Weise gegliedert:
-Zuerst werden Grundlagen und verwandte Arbeiten vorgestellt (\cref{sec:relatedwork}).
-It is followed by a presentation of hints on \LaTeX{} (\cref{sec:latexhints}).
-Schließlich fasst \cref{sec:outlook} die Ergebnisse der Arbeit zusammen und stellt Anknüpfungspunkte vor.
+Zuerst werden Grundlagen und verwandte Arbeiten vorgestellt (\zcref{sec:relatedwork}).
+It is followed by a presentation of hints on \LaTeX{} (\zcref{sec:latexhints}).
+Schließlich fasst \zcref{sec:outlook} die Ergebnisse der Arbeit zusammen und stellt Anknüpfungspunkte vor.
 
 \section{Verwandte Arbeiten}
 \label{sec:relatedwork}
@@ -740,15 +726,15 @@ Quoting with "`quote"' or ``quote'' also works.
 
 \end{ltgexample}
 
-\subsection{Cleveref examples}
+\subsection{Cross-reference examples}
 \label{sec:ex:cref}
 
-Cleveref demonstration: Cref at beginning of sentence, cref in all other cases.
+zref-clever demonstration: zcref[S] at beginning of sentence, zcref in all other cases.
 
 \begin{figure}
   \centering
   \includegraphics[width=.75\linewidth]{example-image-a}
-  \caption{Example figure for cref demo}
+  \caption{Example figure for reference demo}
   \label{fig:ex:cref}
 \end{figure}
 
@@ -762,16 +748,16 @@ Cleveref demonstration: Cref at beginning of sentence, cref in all other cases.
     Thee     & Four     \\
     \bottomrule
   \end{tabular}
-  \caption{Example table for cref demo}
+  \caption{Example table for reference demo}
   \label{tab:ex:cref}
 \end{table}
 
 \begin{ltgexample}
-\Cref{fig:ex:cref} shows a simple fact, although \cref{fig:ex:cref} could also show something else.
+\zcref[S]{fig:ex:cref} shows a simple fact, although \zcref{fig:ex:cref} could also show something else.
 
-\Cref{tab:ex:cref} shows a simple fact, although \cref{tab:ex:cref} could also show something else.
+\zcref[S]{tab:ex:cref} shows a simple fact, although \zcref{tab:ex:cref} could also show something else.
 
-\Cref{sec:ex:cref} shows a simple fact, although \cref{sec:ex:cref} could also show something else.
+\zcref[S]{sec:ex:cref} shows a simple fact, although \zcref{sec:ex:cref} could also show something else.
 \end{ltgexample}
 
 \subsection{Theorem-like Environments and Mathematics}
@@ -805,18 +791,18 @@ The \texttt{llncs} class already provides the theorem-like environments \texttt{
 \end{proof}
 
 \begin{corollary}
-  Applying $f \circ g$ a second time yields no further change, as \cref{eq:idempotent-composition} shows.
+  Applying $f \circ g$ a second time yields no further change, as \zcref{eq:idempotent-composition} shows.
 \end{corollary}
 
 \begin{example}
-  Trimming spaces in a string is idempotent: \cref{lem:fixed} applies to every already-trimmed string.
+  Trimming spaces in a string is idempotent: \zcref{lem:fixed} applies to every already-trimmed string.
 \end{example}
 \end{ltgexample}
 
 \subsection{Abbildungen}
 
 \begin{ltgexample}
-\Cref{fig:label} zeigt etwas Interessantes
+\zcref[S]{fig:label} zeigt etwas Interessantes
 
 \begin{figure}
   \centering
@@ -839,7 +825,7 @@ One can also have pictures floating inside text:
 
 \subsection{Sub Figures}
 
-An example of two sub figures is shown in \cref{fig:two_sub_figures}.
+An example of two sub figures is shown in \zcref{fig:two_sub_figures}.
 
 \begin{ltgexample}
 \begin{figure}[!b]
@@ -984,7 +970,7 @@ The header (\verb+\endhead+) and footer (\verb+\endfoot+) rows are repeated on e
 It uses the \href{http://pygments.org/}{pygments} library, which in turn requires Python.
 
 \begin{ltgexample}
-\Cref{lst:XML} shows source code written in XML.
+\zcref[S]{lst:XML} shows source code written in XML.
 \refline{line:comment} contains a comment.
 
 \begin{listing}[htbp]
@@ -999,7 +985,7 @@ It uses the \href{http://pygments.org/}{pygments} library, which in turn require
 \end{listing}
 \end{ltgexample}
 
-One can also typeset JSON as shown in \cref{lst:flJSON}.
+One can also typeset JSON as shown in \zcref{lst:flJSON}.
 
 \begin{ltgexample}
 \begin{listing}[htbp]
@@ -1013,7 +999,7 @@ One can also typeset JSON as shown in \cref{lst:flJSON}.
 \end{listing}
 \end{ltgexample}
 
-Java is also possible as shown in \cref{lst:flJava}.
+Java is also possible as shown in \zcref{lst:flJava}.
 
 \begin{ltgexample}
 \begin{listing}[htbp]
