@@ -496,14 +496,18 @@
 \usepackage{mindflow}
 
 % Extensions for references inside the document (\zcref{fig:sample}, ...)
-% Use \zcref{...} (and \zcref[S]{...} at the beginning of a sentence) instead of \ref: Type of reference included in the link
+% Use \zcref{...} (and \Zcref{...} at the beginning of a sentence) instead of \ref: Type of reference included in the link
 % That means, "Figure 5" is a full link instead of just "5".
 % The names follow the document language (babel); zref-clever is compatible with tagged PDFs.
 % Each \label also sets a zref label, so \zcref works with standard \label.
 \usepackage{zref-clever}
 \zcsetup{cap, nameinlink=true, abbrev}
-\zcRefTypeSetup{section}{Name-sg-ab=Sect., Name-pl-ab=Sect.}
-\zcRefTypeSetup{listing}{Name-sg-ab=List., Name-pl-ab=List.}
+% \Zcref{...} is short for \zcref[S]{...}: capitalized, unabbreviated name at the beginning of a sentence
+\NewDocumentCommand{\Zcref}{s O{} m}{\IfBooleanTF{#1}{\zcref*[S,#2]{#3}}{\zcref[S,#2]{#3}}}
+\zcLanguageSetup{english}{
+  type=section, Name-sg-ab=Sect., Name-pl-ab=Sect.,
+  type=listing, Name-sg-ab=List., Name-pl-ab=List.,
+}
 
 \usepackage{lipsum}
 
@@ -804,7 +808,7 @@ Quoting with "`quote"' or ``quote'' also works.
 \subsection{Zref-clever examples}
 \label{sec:ex:cref}
 
-zref-clever demonstration: zcref[S] at beginning of sentence, zcref in all other cases.
+zref-clever demonstration: Zcref (short for zcref[S]) at beginning of sentence, zcref in all other cases.
 
 \begin{figure}
   \centering
@@ -828,11 +832,11 @@ zref-clever demonstration: zcref[S] at beginning of sentence, zcref in all other
 \end{table}
 
 \begin{ltgexample}
-\zcref[S]{fig:ex:cref} shows a simple fact, although \zcref{fig:ex:cref} could also show something else.
+\Zcref{fig:ex:cref} shows a simple fact, although \zcref{fig:ex:cref} could also show something else.
 
-\zcref[S]{tab:ex:cref} shows a simple fact, although \zcref{tab:ex:cref} could also show something else.
+\Zcref{tab:ex:cref} shows a simple fact, although \zcref{tab:ex:cref} could also show something else.
 
-\zcref[S]{sec:ex:cref} shows a simple fact, although \zcref{sec:ex:cref} could also show something else.
+\Zcref{sec:ex:cref} shows a simple fact, although \zcref{sec:ex:cref} could also show something else.
 \end{ltgexample}
 
 \subsection{Theorem-like Environments and Mathematics}
@@ -877,7 +881,7 @@ The \texttt{llncs} class already provides the theorem-like environments \texttt{
 \subsection{Abbildungen}
 
 \begin{ltgexample}
-\zcref[S]{fig:label} zeigt etwas Interessantes
+\Zcref{fig:label} zeigt etwas Interessantes
 
 \begin{figure}
   \centering
@@ -1042,8 +1046,8 @@ The header (\verb+\endhead+) and footer (\verb+\endfoot+) rows are repeated on e
 \subsection{Quellcode}
 
 \begin{ltgexample}
-\zcref[S]{lst:XML} zeigt XML-Quelltext.
-\zcref[S]{line:comment} enthält einen Kommentar.
+\Zcref{lst:XML} zeigt XML-Quelltext.
+\Zcref{line:comment} enthält einen Kommentar.
 
 \begin{lstlisting}[
   language=XML,
@@ -1057,7 +1061,7 @@ The header (\verb+\endhead+) and footer (\verb+\endfoot+) rows are repeated on e
 \end{ltgexample}
 
 Der zusätzliche Paramter \verb+float+ führt dazu, dass das Listing auch floated.
-\zcref[S]{lst:flXML} zeigt das gleitendede Listing.
+\Zcref{lst:flXML} zeigt das gleitendede Listing.
 
 \begin{ltgexample}
 \begin{lstlisting}[
