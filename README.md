@@ -83,7 +83,7 @@ Following features are enabled in this template:
   Contains a fix to increase compatibility with Babel.
   See <https://tex.stackexchange.com/a/441701/9075> for details.
 - Automatic setting of "Fig." and "Section"/"Sect." according to the LNCS style.
-  Just use `\zcref[S]{sec:xy}` at the beginning of a sentence and `\zcref{sec:xy}` in the middle of a sentence.
+  Just use `\Zcref{sec:xy}` at the beginning of a sentence and `\zcref{sec:xy}` in the middle of a sentence.
   Thanx to [zref-clever].
 - Sharper font (still compatible with Springer's requirements).
 - (Optional) Typesetting of listings using advanced highlighting powered by the [minted] package.
