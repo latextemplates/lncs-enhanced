@@ -471,7 +471,7 @@
 \usepackage[group-minimum-digits=4,per-mode=fraction]{siunitx}
 \addto\extrasgerman{\sisetup{locale = DE}}
 
-% Enable that parameters of \cref{}, \ref{}, \cite{}, ... are linked so that a reader can click on the number an jump to the target in the document
+% Enable that parameters of \zcref{}, \ref{}, \cite{}, ... are linked so that a reader can click on the number an jump to the target in the document
 \usepackage{hyperref}
 
 % Enable hyperref without colors and without bookmarks
@@ -507,25 +507,19 @@
 
 \usepackage{mindflow}
 
-% cleveref für cref statt autoref, da cleveref auch bei Definitionen funktioniert
-\usepackage[capitalise,nameinlink]{cleveref}
-
-\crefname{table}{Tabelle}{Tab.}
-\Crefname{table}{Tabelle}{Tabellen}
-\crefname{figure}{Abbildung}{Abbildungen}
-\Crefname{figure}{Abbildung}{Abbildungen}
-\crefname{equation}{Gleichung}{Gleichungen}
-\Crefname{equation}{Gleichung}{Gleichungen}
-\crefname{theorem}{Theorem}{Theoreme}
-\Crefname{theorem}{Theorem}{Theoreme}
-\crefname{listing}{Listing}{Listings}
-\Crefname{listing}{Listing}{Listings}
-\crefname{section}{Abschnitt}{Abschnitte}
-\Crefname{section}{Abschnitt}{Abschnitte}
-\crefname{paragraph}{Abschnitt}{Abschnitte}
-\Crefname{paragraph}{Abschnitt}{Abschnitte}
-\crefname{subparagraph}{Abschnitt}{Abschnitte}
-\Crefname{subparagraph}{Abschnitt}{Abschnitte}
+% Extensions for references inside the document (\zcref{fig:sample}, ...)
+% Use \zcref{...} (and \Zcref{...} at the beginning of a sentence) instead of \ref: Type of reference included in the link
+% That means, "Figure 5" is a full link instead of just "5".
+% The names follow the document language (babel); zref-clever is compatible with tagged PDFs.
+% Each \label also sets a zref label, so \zcref works with standard \label.
+\usepackage{zref-clever}
+\zcsetup{cap, nameinlink=true, abbrev}
+% \Zcref{...} is short for \zcref[S]{...}: capitalized, unabbreviated name at the beginning of a sentence
+\NewDocumentCommand{\Zcref}{s O{} m}{\IfBooleanTF{#1}{\zcref*[S,#2]{#3}}{\zcref[S,#2]{#3}}}
+\zcLanguageSetup{english}{
+  type=section, Name-sg-ab=Sect., Name-pl-ab=Sect.,
+  type=listing, Name-sg-ab=List., Name-pl-ab=List.,
+}
 
 \usepackage{lipsum}
 
@@ -669,9 +663,9 @@ Sie soll nur als Beispiel dienen.
 Nun viel Erfolg bei der Arbeit!
 
 Die Arbeit ist in folgender Weise gegliedert:
-Zuerst werden Grundlagen und verwandte Arbeiten vorgestellt (\cref{sec:relatedwork}).
-It is followed by a presentation of hints on \LaTeX{} (\cref{sec:latexhints}).
-Schließlich fasst \cref{sec:outlook} die Ergebnisse der Arbeit zusammen und stellt Anknüpfungspunkte vor.
+Zuerst werden Grundlagen und verwandte Arbeiten vorgestellt (\zcref{sec:relatedwork}).
+It is followed by a presentation of hints on \LaTeX{} (\zcref{sec:latexhints}).
+Schließlich fasst \zcref{sec:outlook} die Ergebnisse der Arbeit zusammen und stellt Anknüpfungspunkte vor.
 
 \section{Verwandte Arbeiten}
 \label{sec:relatedwork}
@@ -786,7 +780,7 @@ Hier nur ein Kommentar\sidecomment{Kommentar}.
 
 \LaTeX{} automatically hyphenates words.
 When using \href{https://ctan.org/pkg/microtype}{microtype}, there should be fewer hyphenations than in other settings.
-It might be necessary to tweak the hyphenations nevertheless.
+You might still need to tweak the hyphenation.
 Here are some hints:
 
 \begin{ltgexample}
@@ -823,15 +817,15 @@ Quoting with "`quote"' or ``quote'' also works.
 
 \end{ltgexample}
 
-\subsection{Cleveref examples}
+\subsection{Zref-clever examples}
 \label{sec:ex:cref}
 
-Cleveref demonstration: Cref at beginning of sentence, cref in all other cases.
+zref-clever demonstration: Zcref (short for zcref[S]) at beginning of sentence, zcref in all other cases.
 
 \begin{figure}
   \centering
   \includegraphics[width=.75\linewidth]{example-image-a}
-  \caption{Example figure for cref demo}
+  \caption{Example figure for zcref demo}
   \label{fig:ex:cref}
 \end{figure}
 
@@ -845,16 +839,16 @@ Cleveref demonstration: Cref at beginning of sentence, cref in all other cases.
     Thee     & Four     \\
     \bottomrule
   \end{tabular}
-  \caption{Example table for cref demo}
+  \caption{Example table for zcref demo}
   \label{tab:ex:cref}
 \end{table}
 
 \begin{ltgexample}
-\Cref{fig:ex:cref} shows a simple fact, although \cref{fig:ex:cref} could also show something else.
+\Zcref{fig:ex:cref} shows a simple fact, although \zcref{fig:ex:cref} could also show something else.
 
-\Cref{tab:ex:cref} shows a simple fact, although \cref{tab:ex:cref} could also show something else.
+\Zcref{tab:ex:cref} shows a simple fact, although \zcref{tab:ex:cref} could also show something else.
 
-\Cref{sec:ex:cref} shows a simple fact, although \cref{sec:ex:cref} could also show something else.
+\Zcref{sec:ex:cref} shows a simple fact, although \zcref{sec:ex:cref} could also show something else.
 \end{ltgexample}
 
 \subsection{Theorem-like Environments and Mathematics}
@@ -888,18 +882,18 @@ The \texttt{llncs} class already provides the theorem-like environments \texttt{
 \end{proof}
 
 \begin{corollary}
-  Applying $f \circ g$ a second time yields no further change, as \cref{eq:idempotent-composition} shows.
+  Applying $f \circ g$ a second time yields no further change, as \zcref{eq:idempotent-composition} shows.
 \end{corollary}
 
 \begin{example}
-  Trimming spaces in a string is idempotent: \cref{lem:fixed} applies to every already-trimmed string.
+  Trimming spaces in a string is idempotent: \zcref{lem:fixed} applies to every already-trimmed string.
 \end{example}
 \end{ltgexample}
 
 \subsection{Abbildungen}
 
 \begin{ltgexample}
-\Cref{fig:label} zeigt etwas Interessantes
+\Zcref{fig:label} zeigt etwas Interessantes
 
 \begin{figure}
   \centering
@@ -922,7 +916,7 @@ One can also have pictures floating inside text:
 
 \subsection{Sub Figures}
 
-An example of two sub figures is shown in \cref{fig:two_sub_figures}.
+An example of two sub figures is shown in \zcref{fig:two_sub_figures}.
 
 \begin{ltgexample}
 \begin{figure}[!b]
@@ -940,7 +934,7 @@ An example of two sub figures is shown in \cref{fig:two_sub_figures}.
 \subsection{Figures with tikz}
 
 The \href{https://ctan.org/pkg/pgf}{tikz} package creates graphics programmatically.
-With this package, grids or other regular structures can be generated easily.
+This package generates grids and other regular structures.
 
 \begin{ltgexample}
 \begin{figure}[ht]
@@ -1064,8 +1058,8 @@ The header (\verb+\endhead+) and footer (\verb+\endfoot+) rows are repeated on e
 \subsection{Quellcode}
 
 \begin{ltgexample}
-\Cref{lst:XML} zeigt XML-Quelltext.
-\Cref{line:comment} enthält einen Kommentar.
+\Zcref{lst:XML} zeigt XML-Quelltext.
+\Zcref{line:comment} enthält einen Kommentar.
 
 \begin{lstlisting}[
   language=XML,
@@ -1079,7 +1073,7 @@ The header (\verb+\endhead+) and footer (\verb+\endfoot+) rows are repeated on e
 \end{ltgexample}
 
 Der zusätzliche Paramter \verb+float+ führt dazu, dass das Listing auch floated.
-\Cref{lst:flXML} zeigt das gleitendede Listing.
+\Zcref{lst:flXML} zeigt das gleitendede Listing.
 
 \begin{ltgexample}
 \begin{lstlisting}[
@@ -1096,7 +1090,7 @@ Der zusätzliche Paramter \verb+float+ führt dazu, dass das Listing auch floate
 \end{lstlisting}
 \end{ltgexample}
 
-Es ist möglich auch JSON zu setzen, wie in \cref{lst:json} gezeigt.
+Es ist möglich auch JSON zu setzen, wie in \zcref{lst:json} gezeigt.
 
 \begin{ltgexample}
 \begin{lstlisting}[
@@ -1110,7 +1104,7 @@ Es ist möglich auch JSON zu setzen, wie in \cref{lst:json} gezeigt.
 \end{lstlisting}
 \end{ltgexample}
 
-Java ist auch möglich -- \cref{lst:java}.
+Java ist auch möglich -- \zcref{lst:java}.
 
 \begin{ltgexample}
 \begin{lstlisting}[

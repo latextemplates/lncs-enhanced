@@ -73,6 +73,13 @@ On the command line, there are additional features:
 - `make view`: Opens the configured viewer
 - `make mrproper`: Cleans up and removes also editor backup files.
 
+The `textlint` job of the `Check` workflow reports weakening words (e.g., "clearly", "just") in the English `.tex` files as annotations.
+Run it locally with `npx` (needs Node.js; rules come from `.textlintrc.json`):
+
+```bash
+npx --yes --package textlint --package textlint-plugin-latex2e --package textlint-filter-rule-allowlist --package textlint-rule-terminology --package textlint-rule-write-good textlint paper.tex
+```
+
 ## Benefits
 
 Following features are enabled in this template:
@@ -83,8 +90,8 @@ Following features are enabled in this template:
   Contains a fix to increase compatibility with Babel.
   See <https://tex.stackexchange.com/a/441701/9075> for details.
 - Automatic setting of "Fig." and "Section"/"Sect." according to the LNCS style.
-  Just use `\Cref{sec:xy}` at the beginning of a sentence and `\cref{sec:xy}` in the middle of a sentence.
-  Thanx to [cleveref].
+  Just use `\Zcref{sec:xy}` at the beginning of a sentence and `\zcref{sec:xy}` in the middle of a sentence.
+  Thanx to [zref-clever].
 - Sharper font (still compatible with Springer's requirements).
 - (Optional) Typesetting of listings using advanced highlighting powered by the [minted] package.
   `minted` provides better output than [listings], but requires [latexminted] to be installed.
@@ -97,7 +104,7 @@ Following features are enabled in this template:
 - Support for `\powerset` command.
 - (Optional) Support todos as pdf annotations. This is enabled by the [pdfcomment] package.
 - [microtypographic extensions](https://www.ctan.org/pkg/microtype) for a better look of the paper.
-- Modern packages such as [microtype], [cleveref], [csquotes], [hyperref], [hypcap], [upquote], [natbib], [booktabs].
+- Modern packages such as [microtype], [zref-clever], [csquotes], [hyperref], [hypcap], [upquote], [natbib], [booktabs].
 - (Optional) LaTeX compilation using the modern [lualatex] compiler.
   For older systems, [pdflatex](https://en.wikipedia.org/wiki/PdfTeX) is still supported.
 - [latexmk] for easy compilation of the LaTeX document.
@@ -458,7 +465,7 @@ Any derived work can freely be relicensed and can omit original copyright and li
 [biblatex]: http://tex.stackexchange.com/tags/biblatex/info
 [bibtex]: https://www.ctan.org/pkg/bibtex
 [booktabs]: https://ctan.org/pkg/booktabs
-[cleveref]: https://ctan.org/pkg/cleveref
+[zref-clever]: https://ctan.org/pkg/zref-clever
 [csquotes]: https://www.ctan.org/pkg/csquotes
 [hypcap]: https://www.ctan.org/pkg/hypcap
 [hyperref]: https://ctan.org/pkg/hyperref
