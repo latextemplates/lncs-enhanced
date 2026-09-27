@@ -10,10 +10,17 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 ### Added
 
 - The `Check` workflow has a `textlint` job that reports weakening words (e.g., "clearly", "just") in the English `.tex` files as annotations, without failing the build ("only" is allowed). Configure it in `.textlintrc.json`; the README shows how to run it locally.
+- The figure examples show how to include a JPEG photo (`figures/ulm-minster.jpg`, CC0 from Wikimedia Commons).
+- The "Related Work" section points to [ScienceOS](https://www.scienceos.ai/) (EU-hosted) for searching related work and to writing hints in [Student Thesis Projects](https://vdf.ch/product/student-thesis-projects-en.html) and [Writing for Computer Science](https://doi.org/10.1007/978-1-4471-6639-9); each title is a clickable link, and its URL is also given in a footnote.
 
 ### Changed
 
 - Cross-references use [zref-clever](https://ctan.org/pkg/zref-clever) instead of [cleveref](https://ctan.org/pkg/cleveref), because zref-clever works with tagged (accessible) PDFs: write `\zcref{...}` instead of `\cref` and, at the start of a sentence, `\Zcref{...}` (short for `\zcref[S]{...}`) instead of `\Cref`.
+
+### Fixed
+
+- Long code lines without spaces (e.g., `\includegraphics[width=.4\linewidth]{example-image-a}`) in the "Corresponding LaTeX code" boxes of the `listings` variant are wrapped instead of running out of the box.
+- Fixed typos in the example and writing-hint texts.
 
 ## [2026-07-30]
 
