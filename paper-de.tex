@@ -676,6 +676,10 @@ Der Abschnitt kann je nach Kontext auch an anderer Stelle stehen.
 Winery~\citep{Winery} is a graphical \textcomment{modeling}{modeling with one ``l'', because of American English} tool.
 The whole idea of TOSCA is explained by \citet{Binz2009}.
 
+Für die Suche nach verwandten Arbeiten eignet sich \href{https://www.scienceos.ai/}{ScienceOS}\footnote{\url{https://www.scienceos.ai/}}; es speichert Daten in der EU und belegt seine Antworten mit Quellen, die man trotzdem selbst lesen und prüfen muss.
+Schreibhinweise für studentische Arbeiten gibt das Open-Access-Buch \href{https://vdf.ch/product/student-thesis-projects-en.html}{\emph{Student Thesis Projects}}\footnote{\url{https://vdf.ch/product/student-thesis-projects-en.html}}.
+Weitere Hinweise gibt \href{https://doi.org/10.1007/978-1-4471-6639-9}{\emph{Writing for Computer Science}}\footnote{\url{https://doi.org/10.1007/978-1-4471-6639-9}}.
+
 \section{LaTeX Hinweise}
 \label{sec:latexhints}
 
@@ -702,6 +706,8 @@ The whole idea of TOSCA is explained by \citet{Binz2009}.
         lastline=\the\LTGendlineexample,
         firstnumber=\the\LTGbeginlineexample,
         basewidth=.5em,
+        % lange Zeilen auch ohne Leerzeichen umbrechen (z.B. \includegraphics[...]{...}); sonst ragen sie aus der Box
+        breakatwhitespace=false,
         aboveskip=0mm,
         belowskip=0mm,
         numbers=left,
@@ -731,7 +737,7 @@ In LaTeX erreicht man dies durch Doppelbackslashes (\textbackslash\textbackslash
 \\
 Dies verwendet man quasi nie.
 
-Folglich werden neue Abstäze insbesondere \emph{nicht} durch Doppelbackslashes erzeugt.
+Folglich werden neue Absätze insbesondere \emph{nicht} durch Doppelbackslashes erzeugt.
 Beispielsweise begann der letzte Satz in einem neuen Absatz.
 Eine ausführliche Motivation hierfür findet sich in \url{http://loopspace.mathforge.org/HowDidIDoThat/TeX/VCS/#section.3}.
 \end{ltgexample}
@@ -836,7 +842,7 @@ zref-clever demonstration: Zcref (short for zcref[S]) at beginning of sentence, 
     Heading1 & Heading2 \\
     \midrule
     One      & Two      \\
-    Thee     & Four     \\
+    Three    & Four     \\
     \bottomrule
   \end{tabular}
   \caption{Example table for zcref demo}
@@ -900,6 +906,17 @@ The \texttt{llncs} class already provides the theorem-like environments \texttt{
   Füge deine Abbildung hier ein.
   \caption{Bildunterschrift.}
   \label{fig:label}
+\end{figure}
+\end{ltgexample}
+
+Fotos im JPEG- oder PNG-Format werden genauso eingebunden, wie \zcref{fig:jpg} zeigt.
+
+\begin{ltgexample}
+\begin{figure}
+  \centering
+  \includegraphics[width=.5\linewidth]{figures/ulm-minster.jpg}
+  \caption{Ulmer Münster. Foto: wkrauth, CC0, via Wikimedia Commons.}
+  \label{fig:jpg}
 \end{figure}
 \end{ltgexample}
 
@@ -993,7 +1010,7 @@ Coordinates can also be given explicitly instead of as a function:
     Heading1 & Heading2 \\
     \midrule
     One      & Two      \\
-    Thee     & Four     \\
+    Three    & Four     \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -1072,8 +1089,8 @@ The header (\verb+\endhead+) and footer (\verb+\endfoot+) rows are repeated on e
 \end{lstlisting}
 \end{ltgexample}
 
-Der zusätzliche Paramter \verb+float+ führt dazu, dass das Listing auch floated.
-\Zcref{lst:flXML} zeigt das gleitendede Listing.
+Der zusätzliche Parameter \verb+float+ führt dazu, dass das Listing auch floated.
+\Zcref{lst:flXML} zeigt das gleitende Listing.
 
 \begin{ltgexample}
 \begin{lstlisting}[
