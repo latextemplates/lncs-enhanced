@@ -17,6 +17,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 - Cross-references use [zref-clever](https://ctan.org/pkg/zref-clever) instead of [cleveref](https://ctan.org/pkg/cleveref), because zref-clever works with tagged (accessible) PDFs: write `\zcref{...}` instead of `\cref` and, at the start of a sentence, `\Zcref{...}` (short for `\zcref[S]{...}`) instead of `\Cref`.
 - `_latexmkrc` is organized in sections and lists commented-out alternatives for continuous preview (`-pvc`), the job name, and the PDF viewer (e.g., evince).
+- The example and paper-structure texts avoid words that textlint's `write-good` rule flags (`Finally`, `rarely`, `a few`, `just`, `several`), so a fresh paper has no textlint annotations. A sentence-initial `Finally,` is allowed in `.textlintrc.json`, because it marks a sequence rather than weakening a statement.
 
 ### Fixed
 
