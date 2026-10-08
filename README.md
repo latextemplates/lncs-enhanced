@@ -157,23 +157,53 @@ See [this question on TeX.SE](https://tex.stackexchange.com/q/584702/9075) for d
 
 ### Prerequisites
 
+You need a LaTeX distribution.
+Choose one of the two setups.
+
+#### Docker-based (recommended)
+
+The [TeX Live docker image by the Island of TeX](https://gitlab.com/islandoftex/images/texlive#tex-live-docker-image) works the same on Windows, macOS, and Linux.
+It ships a complete TeX Live including `latexmk`, `biber`, `latexindent`, Python, and [latexminted].
+Thus, `minted` works out of the box - also on Windows, without a separate Python setup.
+
+1. Install [Docker](https://docs.docker.com/get-started/get-docker/) ([Docker Desktop](https://docs.docker.com/desktop/) on Windows and macOS).
+1. Build the image once: `docker build -t ltg .`.
+   The generated `Dockerfile` is based on the image of the Island of TeX and selects the TeX Live version of this template.
+   The first build downloads the image (approx. 3 GB).
+1. Compile in the container:
+
+   ```cmd
+   docker run --rm -v "c:\users\example\latex-document:/workdir" ltg latexmk paper
+   ```
+
+   Replace `c:\users\example\latex-document` by the directory of this document.
+   On Linux and macOS, use `-v "$PWD:/workdir"`.
+1. Optional: Let VS Code compile in the container, see ["VS Code configuration"](#vs-code-configuration).
+
+#### Traditional
+
+Install a LaTeX distribution on your machine:
+
 - Windows: Recent [MiKTeX](http://miktex.org/). MiKTeX installation hints are given at <http://latextemplates.github.io/scientific-thesis-template/#installation-hints-for-windows>.
-- Mac OS X: Recent [TeX Live](https://www.tug.org/texlive/) (e.g. through [MacTeX](https://tug.org/mactex/)) - Try `sudo tlmgr update --all` if you encounter issues with biblatex
+- macOS: Recent [TeX Live](https://www.tug.org/texlive/) (e.g. through [MacTeX](https://tug.org/mactex/)) - Try `sudo tlmgr update --all` if you encounter issues with biblatex
 - Linux: Recent TeX Live distribution
+
+To have `minted` running with a traditional installation, you have to do following steps on Windows (the Docker image already contains all of this):
+
+1. Install python: `choco install python` - that uses [chocolatey](https://chocolatey.org/) to install Python
+2. Install [latexminted]: `pip install latexminted` - that uses the Python package manager to install the minted library
+3. When latexing, use `-shell-escape`: `pdflatex -shell-escape paper`.
+   You can also just execute `latexmk paper`.
+
+#### Editor and bibliography
+
+Independent of the chosen setup:
+
 - Grammar and spell checking is available at [TeXstudio].
   Please download [LanguageTool] (Windows: `choco install languagetool`) and [configure TeXstudio to use it](http://wiki.languagetool.org/checking-la-tex-with-languagetool#toc4).
   Note that it is enough to point to `languagetool.jar`.
   **If TeXstudio doesn't fit your need, check [the list of all available LaTeX Editors](http://tex.stackexchange.com/questions/339/latex-editors-ides).**
 - Use [JabRef] to manage your bibliography (Windows: `choco install jabref`).
-
-### Usage of `minted`
-
-To have minted running properly, you have to do following steps on Windows:
-
-1. Install python: `choco install python` - that uses [chocolatey](https://chocolatey.org/) to install Python
-2. Install [latexminted]: `pip instal latexminted` - that uses the Python package manager to install the minted library
-3. When latexing, use `-shell-escape`: `pdflatex -shell-escape paper`.
-   You can also just execute `latexmk paper`.
 
 ### VS Code configuration
 
@@ -230,6 +260,14 @@ The following settings are additionally recommended:
 
 Alternatively, just copy and paste the contents of the [vscode.settings.json](vscode.settings.json) file to your VS Code settings file.
 
+With the Docker-based setup (see ["Prerequisites"](#prerequisites)), LaTeX Workshop can run the LaTeX tools in the container instead of on your machine.
+This is an experimental feature of LaTeX Workshop; the recipes and tools stay the same.
+
+```javascript
+    "latex-workshop.docker.enabled": true,
+    "latex-workshop.docker.image.latex": "ltg",
+```
+
 You can manually trigger compilation by hitting the green button in the extension or using other methods provided by LaTeX Workshop.
 
 Please remove the magic comments (`% !TeX program ...`) at the top of the `paper.tex` file.
@@ -257,10 +295,14 @@ For example:
 ## Usage with docker
 
 The generated `Dockerfile` is based on the [Dockerfile by the Island of TeX](https://gitlab.com/islandoftex/images/texlive#tex-live-docker-image).
+It selects the image matching the TeX Live version of this template.
+See ["Prerequisites"](#prerequisites) for the installation of Docker.
 
 ```cmd
-docker run --rm -v "c:\users\example\latex-document:/workdir" ltg latexmk
+docker run --rm -v "c:\users\example\latex-document:/workdir" ltg latexmk paper
 ```
+
+On Linux and macOS, use `-v "$PWD:/workdir"`.
 
 Following one-time setup is required:
 
