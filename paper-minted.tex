@@ -572,7 +572,7 @@
 
 The remainder of the paper starts with a presentation of related work (\zcref{sec:relatedwork}).
 It is followed by a presentation of hints on \LaTeX{} (\zcref{sec:latexhints}).
-Finally, a conclusion is drawn and outlook on future work is made (\zcref{sec:outlook}).
+The paper closes with a conclusion and an outlook on future work (\zcref{sec:outlook}).
 
 \section{Related Work}
 \label{sec:relatedwork}
@@ -635,11 +635,11 @@ This leads to a hard line break.
 The text starts at the beginning of a new line.
 In LaTeX, you can do that by using two backslashes (\textbackslash\textbackslash).
 \\
-This is rarely used.
+Running text seldom needs a hard line break.
 
 Please do \textit{not} use two backslashes for new paragraphs.
 For instance, this sentence belongs to the same paragraph, whereas the last one started a new one.
-A long motivation for that is provided at \url{http://loopspace.mathforge.org/HowDidIDoThat/TeX/VCS/#section.3}.
+Andrew Stacey gives a long motivation for that in the section \enquote{Line Wrapping} of his \href{https://loopspace.mathforge.org/HowDidIDoThat/TeX/VCS/#section.3}{\emph{Document Revision System}}\footnote{\url{https://loopspace.mathforge.org/HowDidIDoThat/TeX/VCS/}}.
 \end{ltgexample}
 
 \subsection{Notes separated from the text}
@@ -690,10 +690,10 @@ Here are some hints:
 
 \begin{ltgexample}
 In case you write \enquote{application-specific}, then the word will only be hyphenated at the dash.
-You can also write \verb1applica\allowbreak{}tion-specific1 (result: applica\allowbreak{}tion-specific), but this is much more effort.
+You can also insert \verb1\allowbreak{}1 into the word, as in applica\allowbreak{}tion-specific, but this is much more effort.
 
 You can now write words containing hyphens which are hyphenated at other places in the word.
-For instance, \verb1application"=specific1 gets application"=specific.
+For that, write \verb1"=1 instead of \verb1-1, as in application"=specific.
 This is enabled by an additional configuration of the babel package.
 \end{ltgexample}
 
@@ -919,16 +919,16 @@ Coordinates can also be given explicitly instead of as a function:
 \end{ltgexample}
 
 \begin{ltgexample}
-% Source: https://tex.stackexchange.com/a/468994/9075
+% Adapted from https://tex.stackexchange.com/a/468994/9075
 \begin{table}
   \caption{Table with diagonal line}
   \label{tab:diag}
   \begin{center}
     \begin{tabular}{|l|c|c|}
       \hline
-      \diagbox[width=10em]{Diag \\Column Head I}{Diag Column\\Head II} & Second & Third \\
+      \diagbox{Row}{Column} & A & B \\
       \hline
-                                                                       & foo    & bar   \\
+      1                     & x & y \\
       \hline
     \end{tabular}
   \end{center}
@@ -939,7 +939,7 @@ Coordinates can also be given explicitly instead of as a function:
 \subsection{Tables spanning multiple pages}
 
 The \href{https://ctan.org/pkg/longtable}{longtable} package typesets tables that automatically break across page boundaries.
-The header (\verb+\endhead+) and footer (\verb+\endfoot+) rows are repeated on every page; once enough rows are added, the table spans several pages on its own.
+The header (\verb+\endhead+) and footer (\verb+\endfoot+) rows are repeated on every page; once enough rows are added, the table spans more than one page on its own.
 
 \begin{ltgexample}
 \begin{longtable}{|l|l|l|}
@@ -1075,7 +1075,7 @@ Brackets work as designed:
 One can also input backticks in verbatim text: \verb|`test`|.
 \end{ltgexample}
 
-Acronyms can be typeset in running text with \verb+\initialism+, which sets them as small caps that blend into the surrounding lowercase text. It is the lightweight alternative to the full acronym and glossary management (\verb+\gls+, with an automatic list of abbreviations) provided by the thesis variants: \verb+\initialism+ only typesets the acronym and does not add it to any list. The macro and a few ready-made acronyms (\verb+\OMG+, \verb+\BPEL+, \verb+\BPMN+, \verb+\UML+) are defined in \texttt{commands.tex}, where you can add your own.
+Acronyms can be typeset in running text with \verb+\initialism+, which sets them as small caps that blend into the surrounding lowercase text. It is the lightweight alternative to the full acronym and glossary management (\verb+\gls+, with an automatic list of abbreviations) provided by the thesis variants: \verb+\initialism+ only typesets the acronym and does not add it to any list. The macro and the ready-made acronyms (\verb+\OMG+, \verb+\BPEL+, \verb+\BPMN+, \verb+\UML+) are defined in \texttt{commands.tex}, where you can add your own.
 
 \begin{ltgexample}
 The \UML is maintained by the \OMG; related standards include \BPEL and \BPMN.
@@ -1089,7 +1089,7 @@ Any acronym can be set inline with \initialism{REST} or \initialism{HTTP}.
 
 \subsubsection*{Acknowledgments}
 
-Identification of funding sources and other support, and thanks to individuals and groups that assisted in the research and the preparation of the work should be included in an acknowledgment section, which is placed just before the reference section in your document \cite{acmart}.
+Identification of funding sources and other support, and thanks to individuals and groups that assisted in the research and the preparation of the work should be included in an acknowledgment section, which comes right before the reference section in your document \cite{acmart}.
 
 %%% ===============================================================================
 %%% Bibliography
