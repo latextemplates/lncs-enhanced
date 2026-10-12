@@ -8,6 +8,10 @@
 % !TeX TXS-program:compile = txs:///lualatex/[--shell-escape]
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
+%
+% vvvvvvvv  The content starts in line 540 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 579.
+%           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
 %
@@ -384,6 +388,24 @@
 \newcommand{\modified}[1]{{\color{blue!60!black} #1}\xspace}
 
 \usepackage[group-minimum-digits=4,per-mode=fraction]{siunitx}
+
+% Write text in Markdown instead of LaTeX: \begin{markdown} ... \end{markdown}, or \markdownInput{chapter.md} for a whole file.
+% Doc: https://ctan.org/pkg/markdown
+% LuaLaTeX only: under pdfLaTeX, the package needs --shell-escape.
+\ifluatex
+  \usepackage[
+    citations,          % [@key] citation syntax
+    hybrid,             % pass raw LaTeX through (e.g., \zcref)
+    notes,              % [^label] referenced footnotes
+    inlineNotes,        % ^[inline footnote text]
+    pipeTables,         % | a | b | style tables
+    tableCaptions,      % : Caption text below a table
+    tableAttributes,    % {#id} identifier on a table caption
+    headerAttributes,   % {#id} identifier on a heading
+    relativeReferences, % <#id> to reference an id defined via {#id}
+    hashEnumerators,    % 1) 2) 3) style enumerators
+  ]{markdown}
+\fi
 
 % Enable that parameters of \zcref{}, \ref{}, \cite{}, ... are linked so that a reader can click on the number an jump to the target in the document
 \usepackage{hyperref}
@@ -1044,6 +1066,43 @@ With paralist, one can even have all items typeset after each other and have the
   \item This is enabled by the paralist package.
 \end{inparaenum}
 \end{ltgexample}
+
+\subsection{Writing in Markdown}\label{sec:markdown}
+
+\ifluatex
+  If you are new to \LaTeX{}, you can start by writing your text in Markdown using the \href{https://ctan.org/pkg/markdown}{markdown} package.
+  \LaTeX{} then takes care of the typesetting.
+  Markdown and \LaTeX{} can be mixed:
+  \Zcref{tbl:markdown} is referenced from within the Markdown text below.
+  A longer part, such as a whole section, can be placed in a separate file included by \verb|\markdownInput{introduction.md}|.
+  The \href{https://github.com/latextemplates/markdown-latex-quickstart}{markdown-latex-quickstart} shows a complete document written in Markdown.
+
+  \begin{ltgexample}
+  \begin{markdown}
+Text can be *emphasized* or **bold**, and `code` is set in a monospaced font.
+A citation looks like this [@mwe], and here is a footnote.^[This is an inline footnote.]
+
+- first point
+- second point
+  - sub-point
+
+1) firstly
+2) secondly
+
+| Right | Left | Centered |
+|------:|:-----|:--------:|
+|    12 | 12   |    12    |
+|   123 | 123  |   123    |
+
+: A table written in Markdown {#tbl:markdown}
+
+\Zcref{tbl:markdown} shows that tables get a caption and a label.
+\end{markdown}
+  \end{ltgexample}
+\else
+  This example requires Lua\LaTeX{}.
+  Compile the document with Lua\LaTeX{} to see it.
+\fi
 
 \subsection{Other Features}
 
