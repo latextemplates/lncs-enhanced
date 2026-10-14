@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://calver.org/).
 
+## [Unreleased]
+
+### Added
+
+- The LaTeX hints show how to color table rows and cells (`\rowcolor`, `\cellcolor`). [scientific-thesis-template#87](https://github.com/latextemplates/scientific-thesis-template/pull/87)
+
 ## [2026-10-14]
 
 ### Added
