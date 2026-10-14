@@ -4,7 +4,7 @@ generator-latex-template
 
 paper.pdf
 paper-*.pdf
-graphics/*.pdf_tex
+figures/*.pdf_tex
 
 # spelling
 *.spell.bad
