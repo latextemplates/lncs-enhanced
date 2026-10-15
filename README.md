@@ -10,9 +10,12 @@ The LaTeX snippets this template is assembled from can be inspected at <https://
 ## Examples
 
 - [paper.pdf](https://latextemplates.github.io/lncs-enhanced/paper.pdf) - normal paper.
-- [paper-minted.pdf](https://latextemplates.github.io/lncs-enhanced/paper-minted.pdf) - paper showing minted in action.
-- [paper-newtx.pdf](http://latextemplates.github.io/lncs-enhanced/paper-newtx.pdf) - paper typeset in Times Roman to save some space.
-- [paper-minted-newtx.pdf](http://latextemplates.github.io/lncs-enhanced/paper-minted-newtx.pdf) - paper typeset in Times Roman to save some space.
+- [paper-newtx.pdf](https://latextemplates.github.io/lncs-enhanced/paper-newtx.pdf) - paper typeset in Times Roman to save some space.
+- [paper-basic-listings.pdf](https://latextemplates.github.io/lncs-enhanced/paper-basic-listings.pdf) - paper with listings instead of minted.
+- [paper-basic-listings-newtx.pdf](https://latextemplates.github.io/lncs-enhanced/paper-basic-listings-newtx.pdf) - paper with listings instead of minted, typeset in Times Roman.
+
+The source code examples use [minted], which highlights code best; it needs Python and [latexminted] (contained in the Docker image and on Overleaf).
+The `-basic-listings` variants use [listings] instead and need no extra setup.
 
 ## Quick start
 
