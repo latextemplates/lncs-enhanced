@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  The content starts in line 642 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 681.
+% vvvvvvvv  The content starts in line 637 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 676.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -344,11 +344,6 @@
 \makeatletter
 \patchcmd{\NAT@test}{\else \NAT@nm}{\else \NAT@hyper@{\NAT@nm}}{}{}
 \makeatother
-
-% Embed the bibliography data into the PDF so that readers can extract it
-% (e.g., with JabRef via "Import into library" on the PDF)
-\usepackage{embedfile}
-\embedfile[mimetype=application/x-bibtex,desc=BibTeX entries of all references]{paper.bib}
 
 % Prepare more space-saving rendering of the bibliography
 % Source: https://tex.stackexchange.com/a/280936/9075
