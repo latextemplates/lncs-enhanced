@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  The content starts in line 629 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 668.
+% vvvvvvvv  The content starts in line 628 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 667.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -105,9 +105,8 @@
   % ... thus, we use the good old Latin Modern Mono font for source code.
   \setmonofont{Latin Modern Mono} % "variable=false"
 
-  % Enable proper ligatures
+  % Enable proper ligatures for English documents (German documents use autotype, see ADR-0008)
   % For more information see https://ctan.org/pkg/selnolig
-  % language "english" or "ngerman" is passed to selnolig by the document class
   \usepackage{selnolig}
 
 \else
