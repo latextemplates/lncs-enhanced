@@ -351,7 +351,7 @@ The possible options are listed in `paper.tex`.
 
 ### Q: Is it possible produce a self-archiving version?
 
-Use the [`authorarchive` package](https://ctan.org/pkg/authorarchive) with the layout `LNCS`.
+Use the [`authorarchive` package](https://ctan.org/pkg/authorarchive); `paper.tex` contains a commented example.
 
 ### Q: Can I also write in German?
 
