@@ -18,11 +18,13 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 - VS Code: the background of the PDF viewer follows the light or dark theme.
 - Dependabot groups all GitHub Actions updates into one weekly PR.
 - `check.yml` pins all GitHub Actions to commit SHAs.
+- README: "Quick start" (merged with "Usage") comes first; "Using `latexmk`" and "Advanced usage" moved to "Tool hints"; "Debugging LaTeX errors" is the first FAQ.
 
 ### Fixed
 
 - The README links the `figures/` directory, and `.dockerignore` excludes the generated `figures/*.pdf_tex` files. [generator-latex-template#586](https://github.com/latextemplates/generator-latex-template/pull/586)
 - The `.markdown.in` file of the markdown package is ignored by git and removed by `latexmk -c`.
+- README: the download link points to this repository.
 
 ## [2026-10-14]
 
