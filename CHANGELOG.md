@@ -9,7 +9,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 ### Changed
 
-- `paper*.tex` use minted; the variants with listings are `paper*-basic-listings*.tex`.
+- `paper*.tex` use minted; the variants using the listings package are `paper*-basic-listings*.tex`.
 
 ## [2026-10-15]
 
