@@ -3,7 +3,9 @@ paper-*.pdf
 figures/*.pdf_tex
 
 # glossaries
+*.glg-abr
 *.glo-abr
+*.gls-abr
 
 # glossaries-extra
 *.ist
