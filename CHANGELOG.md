@@ -14,6 +14,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 ### Changed
 
 - `paper*.tex` use minted; the variants using the listings package are `paper*-basic-listings*.tex`.
+- README.md: minted FAQs merged and moved up.
 
 ### Fixed
 
