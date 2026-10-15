@@ -98,10 +98,6 @@ The official template is available at <https://www.springer.com/gp/computer-scie
 
 ## Final submission
 
-The compiled PDF embeds the `paper.bib` file (via the [embedfile](https://ctan.org/pkg/embedfile) package), so readers can extract the reference data from the PDF, e.g., with JabRef via "Import into library".
-Some publishers' final-submission checks (e.g., IEEE PDF eXpress or PDF/A validation) reject PDFs containing file attachments.
-If your submission system complains, comment out the `\embedfile` line in `paper.tex` for the camera-ready version.
-
 ### arXiv
 
 The first line of `paper.tex` is `\ifdefined\pdfoutput\pdfoutput=1\fi`.
