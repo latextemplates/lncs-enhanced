@@ -9,8 +9,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 573 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 617.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 568 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 612.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -263,11 +263,6 @@
 \makeatletter
 \patchcmd{\NAT@test}{\else \NAT@nm}{\else \NAT@hyper@{\NAT@nm}}{}{}
 \makeatother
-
-% Embed the bibliography data into the PDF so that readers can extract it
-% (e.g., with JabRef via "Import into library" on the PDF)
-\usepackage{embedfile}
-\embedfile[mimetype=application/x-bibtex,desc=BibTeX entries of all references]{paper.bib}
 
 % Prepare more space-saving rendering of the bibliography
 % Source: https://tex.stackexchange.com/a/280936/9075
