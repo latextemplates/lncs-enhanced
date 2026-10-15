@@ -9,8 +9,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 567 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 611.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 581 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 625.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -262,6 +262,20 @@
 % To embed the bibliography into the PDF (readers can extract it, e.g., with JabRef via "Import into library" on the PDF), uncomment:
 %\usepackage{embedfile}
 %\embedfile[mimetype=application/x-bibtex,desc=BibTeX entries of all references]{paper.bib}
+
+% Self-archiving version (e.g., for your homepage): uncomment the following lines and fill in the data of the publication.
+% The package adds the copyright notice of the publisher and a link to the published version, see https://ctan.org/pkg/authorarchive.
+%\usepackage[LNCS]{authorarchive}
+%\authorsetup{
+%  key={lastname-paper-YYYY},                 % basename of the PDF (and of the .bib file)
+%  year={YYYY},
+%  publication={Proceedings of the Conference},
+%  startpage={1},
+%  doi={10.0000/00000},
+%  baseurl={https://www.example.org/papers}, % where you publish the PDF
+%  nobib,                                    % remove to embed <key>.bib (the BibTeX entry of this paper) into the PDF
+%  nocopyright,                              % usual case for LNCS
+%}
 
 % Prepare more space-saving rendering of the bibliography
 % Source: https://tex.stackexchange.com/a/280936/9075
