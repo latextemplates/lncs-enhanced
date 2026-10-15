@@ -41,6 +41,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 - `make view` opens the PDF on Linux and macOS.
 - German documents configure `autotype` with `ligatures=selective` instead of the outdated `ligbreak`.
 - README.md: the self-archiving FAQ points to the example in `paper.tex`.
+- `vscode.settings.json`: the recipes run `lualatex` (resp. `pdflatex`) with the right bibliography tool.
 
 ## [2026-10-14]
 
