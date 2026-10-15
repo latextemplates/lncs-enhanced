@@ -70,7 +70,7 @@ Besides the default BibTeX setup (natbib + `splncs04nat`), biblatex is supported
 
 For **author-year citations** (this template's answer to `llncs`'s `citeauthoryear` option, whose Springer `.bst` files are not part of TeX Live), generate with `--authoryear=true`: this switches to biblatex with the `authoryear` style, so `\citep{key}` renders as "(Author, year)" and `\citet{key}` as "Author (year)".
 
-## Contained Directories and Files
+## Contained directories and files
 
 ### Directories
 
@@ -239,7 +239,7 @@ You can manually trigger compilation by hitting the green button in the extensio
 
 [LTeX+] is an offline grammar and spell checker with support for LaTeX and Markdown.
 
-The main file starts with a magic comment that tells LTeX+ the language of the document: `% LTeX: language=de-DE`.
+The main file starts with a magic comment that tells LTeX+ the language of the document: `% LTeX: language=en-US`.
 Add the same comment to further `.tex` files.
 
 ## Final submission
