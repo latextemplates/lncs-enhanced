@@ -11,6 +11,10 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 - The LaTeX hints show how to color table rows and cells (`\rowcolor`, `\cellcolor`). [scientific-thesis-template#87](https://github.com/latextemplates/scientific-thesis-template/pull/87)
 
+### Changed
+
+- `make format` (and thus the latexindent check in CI) indents all main files (`paper*.tex`), not only `MASTER_TEX`. A badly indented variant no longer goes unnoticed until it is made the `MASTER_TEX`.
+
 ### Fixed
 
 - The README links the `figures/` directory (instead of the old `graphics/`), and `.dockerignore` excludes the generated `figures/*.pdf_tex` files. [generator-latex-template#586](https://github.com/latextemplates/generator-latex-template/pull/586)
