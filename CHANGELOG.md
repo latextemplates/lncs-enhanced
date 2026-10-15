@@ -13,11 +13,16 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 ### Changed
 
-- `make format` (and thus the latexindent check in CI) indents all main files (`paper*.tex`), not only `MASTER_TEX`. A badly indented variant no longer goes unnoticed until it is made the `MASTER_TEX`.
+- `make format` (and thus CI) indents all main files (`paper*.tex`), not only `MASTER_TEX`.
+- VS Code: the recommended extension is `james-yu.latex-workshop` (`manhen.latex-workshop-2` was removed from the stores).
+- VS Code: the background of the PDF viewer follows the light or dark theme.
+- Dependabot groups all GitHub Actions updates into one weekly PR.
+- `check.yml` pins all GitHub Actions to commit SHAs.
 
 ### Fixed
 
-- The README links the `figures/` directory (instead of the old `graphics/`), and `.dockerignore` excludes the generated `figures/*.pdf_tex` files. [generator-latex-template#586](https://github.com/latextemplates/generator-latex-template/pull/586)
+- The README links the `figures/` directory, and `.dockerignore` excludes the generated `figures/*.pdf_tex` files. [generator-latex-template#586](https://github.com/latextemplates/generator-latex-template/pull/586)
+- The `.markdown.in` file of the markdown package is ignored by git and removed by `latexmk -c`.
 
 ## [2026-10-14]
 
