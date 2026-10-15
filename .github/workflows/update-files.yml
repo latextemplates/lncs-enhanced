@@ -68,8 +68,8 @@ jobs:
         run: |
           ls -la
 
-          if [ "${{ matrix.language }}-${{ matrix.font }}-${{ matrix.listings }}" = "en-default-listings" ]; then
-            # paper.tex + Makefile should be English, default font, listings, cleveref
+          if [ "${{ matrix.language }}-${{ matrix.font }}-${{ matrix.listings }}" = "en-default-minted" ]; then
+            # paper.tex + Makefile should be English, default font, minted
             echo "Keeping default paper.tex"
           else
             if [ "${{ matrix.language }}" = "en" ]; then
@@ -85,9 +85,9 @@ jobs:
             fi
 
             if [ "${{ matrix.listings }}" = "listings" ]; then
-              LISTINGS_PART=""
+              LISTINGS_PART="-basic-listings"
             else
-              LISTINGS_PART="-${{ matrix.listings }}"
+              LISTINGS_PART=""
             fi
 
             mv paper.tex "paper${LANG_PART}${LISTINGS_PART}${FONT_PART}.tex"
