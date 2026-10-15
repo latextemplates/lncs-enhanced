@@ -22,6 +22,10 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 - README.md: links the decision records of the template generator.
 - README.md: "Usage with docker" merged into "Docker-based (recommended)".
 - Embedding the `.bib` file into the PDF is opt-in.
+- `.latexmkrc` replaces `_latexmkrc`; it works on Overleaf, too.
+- `make` runs the LaTeX tools in the Docker image (`make LOCAL=1` runs them locally).
+- `vscode.settings.json` compiles with `latexmk` in the Docker image.
+- README.md: compilation hints consolidated in "LaTeX compilation".
 
 ### Fixed
 
@@ -30,6 +34,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 - README.md: the download link points to this repository.
 - textlint ignores expl3 function names, Markdown reference IDs, and the name of the markdown package.
 - German documents load only `autotype` (not additionally `selnolig`) for correct ligatures.
+- `make view` opens the PDF on Linux and macOS.
 
 ## [2026-10-14]
 
