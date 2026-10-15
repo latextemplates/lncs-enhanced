@@ -18,6 +18,7 @@ figures/*.pdf_tex
 
 # markdown package (cache of converted Markdown)
 _markdown_*/
+*.markdown.in
 
 # latexindent
 *.bak
