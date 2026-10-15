@@ -88,7 +88,7 @@
     Ligatures=TeX
   ]
   % See https://tug.org/FontCatalogue/texgyreheros/ for more information
-  \setsansfont[Scale=.9]{TeX Gyre Heros Regular}
+  \setsansfont[Scale=.9]{TeX Gyre Heros}
   % newtxtt looks good with times, but no equivalent for lualatex found,
   % therefore tried to replace with inconsolata.
   % However, inconsolata does not look good in the context of LNCS ...
@@ -568,7 +568,7 @@
 \ifluatex
   % Enable correct rendering of ligatures - provided by https://ctan.org/pkg/autotype
   % See ADR-0008 for alternatives
-  \autotypelangoptions{ngerman}{ligbreak}
+  \autotypelangoptions{ngerman}{ligatures=selective}
 \fi
 
 \title{Paper Title}
