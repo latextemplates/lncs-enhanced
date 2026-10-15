@@ -142,8 +142,6 @@ To have `minted` running with a traditional installation, you have to do followi
 
 1. Install python: `choco install python` - that uses [chocolatey](https://chocolatey.org/) to install Python
 2. Install [latexminted]: `pip install latexminted` - that uses the Python package manager to install the minted library
-3. When latexing, use `-shell-escape`: `pdflatex -shell-escape paper`.
-   You can also just execute `latexmk paper`.
 ### latexmk hints
 
 [latexmk] runs the LaTeX tools (e.g., lualatex and bibtex) as often as needed to get the final PDF ([why `latexmk` is great](https://tex.stackexchange.com/a/249243/9075)).
@@ -256,7 +254,7 @@ See [this question on TeX.SE](https://tex.stackexchange.com/q/584702/9075) for d
 In case something goes wrong, you can instruct the LaTeX compiler to stop at the first error:
 
 ```bash
-lualatex --synctex=1 --shell-escape paper
+lualatex --synctex=1 paper
 ```
 
 Run `bibtex paper` to get the bibliography rendered (execute `lualatex` afterwards).
@@ -411,13 +409,6 @@ See installation hints of how to update them at different systems.
 
 Use the [MiKTeX console](https://miktex.org/howto/miktex-console) to refresh the package index.
 Then, automatic installation should work again.
-
-### Q: I cannot get minted to run. There is this `-shell-escape` warning.
-
-Please ensure that your compilation command includes `-shell-escape`.
-E.g., `lualatex -shell-escape -synctex=1 main-minted-german.tex`.
-When compiling `main-minted-german.tex` with TeXStudio, you will see a dialog warning about overriding the compilation command.
-Just answer "(a) allow for this document" and it will work.
 
 ### Q: How to include Excel charts properly?
 
