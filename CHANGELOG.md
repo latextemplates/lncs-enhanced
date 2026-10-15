@@ -26,6 +26,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 - The README links the `figures/` directory, and `.dockerignore` excludes the generated `figures/*.pdf_tex` files. [generator-latex-template#586](https://github.com/latextemplates/generator-latex-template/pull/586)
 - The `.markdown.in` file of the markdown package is ignored by git and removed by `latexmk -c`.
 - README.md: the download link points to this repository.
+- textlint ignores expl3 function names, Markdown reference IDs, and the name of the markdown package.
 
 ## [2026-10-14]
 
