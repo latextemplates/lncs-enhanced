@@ -29,6 +29,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 - The `.markdown.in` file of the markdown package is ignored by git and removed by `latexmk -c`.
 - README.md: the download link points to this repository.
 - textlint ignores expl3 function names, Markdown reference IDs, and the name of the markdown package.
+- German documents load only `autotype` (not additionally `selnolig`) for correct ligatures.
 
 ## [2026-10-14]
 
