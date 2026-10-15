@@ -10,6 +10,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 ### Added
 
 - The LaTeX hints show how to color table rows and cells (`\rowcolor`, `\cellcolor`). [scientific-thesis-template#87](https://github.com/latextemplates/scientific-thesis-template/pull/87)
+- `make log` shows the relevant messages of the LaTeX log (texlogsieve).
 
 ### Changed
 
@@ -35,6 +36,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 - textlint ignores expl3 function names, Markdown reference IDs, and the name of the markdown package.
 - German documents load only `autotype` (not additionally `selnolig`) for correct ligatures.
 - `make view` opens the PDF on Linux and macOS.
+- German documents configure `autotype` with `ligatures=selective` instead of the outdated `ligbreak`.
 
 ## [2026-10-14]
 
