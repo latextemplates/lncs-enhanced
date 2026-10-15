@@ -2,8 +2,8 @@
 
 > Quick start for modern LaTeXing with [LNCS](http://www.springer.com/computer/lncs).
 
-Please be aware that this template is optimized for overleaf, which is based on TeXLive 2025.
-In case you are running a later TeXLive version (or use MiKTeX), please regenerate the template with the help of the [latex template generator].
+This template is made for TeX Live 2026.
+On Overleaf, select TeX Live 2026 in the project settings (Menu → Settings → Compiler → TeX Live version).
 
 The LaTeX snippets this template is assembled from can be inspected at <https://latextemplates.github.io/latex-snippets/>.
 
@@ -20,8 +20,6 @@ The LaTeX snippets this template is assembled from can be inspected at <https://
 - Extract `lncs-enhanced-main.zip` in the folder where you want to write your paper.
 - Edit [`paper.tex`](paper.tex).
 - Compile with "lualatex + bibtex" in your TeX editor or with `latexmk paper` / `make` on the command line.
-
-When using on overleaf, you have to switch Overleaf to use TeXLive 2025 (or later).
 
 As you see on GitHub actions, the paper compiles out of the box.
 There is no need to adjust the packages or to remove some of them.
@@ -150,7 +148,7 @@ To have `minted` running with a traditional installation, you have to do followi
 
 [latexmk] runs the LaTeX tools (e.g., lualatex and bibtex) as often as needed to get the final PDF ([why `latexmk` is great](https://tex.stackexchange.com/a/249243/9075)).
 It reads its configuration from `.latexmkrc` in the directory of the document.
-Overleaf reads `.latexmkrc`, too, so the "Compiler" setting of the Overleaf project does not matter.
+Overleaf reads `.latexmkrc`, too, so the "Compiler" setting of the Overleaf project does not matter; select TeX Live 2026 there.
 To use the configuration for all your documents, put it at [the right place](http://tex.stackexchange.com/a/41149/9075).
 
 Build the document:
@@ -239,7 +237,7 @@ You can manually trigger compilation by hitting the green button in the extensio
 
 [LTeX+] is an offline grammar and spell checker with support for LaTeX and Markdown.
 
-The main file starts with a magic comment that tells LTeX+ the language of the document: `% LTeX: language=en-US`.
+The main file starts with a magic comment that tells LTeX+ the language of the document: `% LTeX: language=de-DE`.
 Add the same comment to further `.tex` files.
 
 ## Final submission
