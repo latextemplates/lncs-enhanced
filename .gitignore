@@ -3,7 +3,9 @@ paper-*.pdf
 figures/*.pdf_tex
 
 # glossaries
+*.glg-abr
 *.glo-abr
+*.gls-abr
 
 # glossaries-extra
 *.ist
@@ -18,6 +20,7 @@ figures/*.pdf_tex
 
 # markdown package (cache of converted Markdown)
 _markdown_*/
+*.markdown.in
 
 # latexindent
 *.bak

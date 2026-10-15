@@ -1,17 +1,20 @@
 {
+    "latex-workshop.docker.enabled": true,
+    "latex-workshop.docker.image.latex": "registry.gitlab.com/islandoftex/images/texlive:latest",
     "editor.wordWrap": "on",
     "latex-workshop.view.pdf.viewer": "tab",
-    "latex-workshop.view.pdf.backgroundColor": "#cccccc",
+    "latex-workshop.view.pdf.color.light.backgroundColor": "#cccccc",
+    "latex-workshop.view.pdf.color.dark.backgroundColor": "#121314",
     "editor.renderWhitespace": "all",
-    "latex-workshop.latex.autoBuild.run": "onSave",
+    "latex-workshop.latex.autoBuild.run": "never",
     "latex-workshop.latex.recipes": [
         {
             "name": "lualatex ➞ bibtex ➞ lualatex × 2 🔃",
             "tools": [
-                "pdflatex",
+                "lualatex",
                 "bibtex",
-                "pdflatex",
-                "pdflatex"
+                "lualatex",
+                "lualatex"
             ]
         },
         {

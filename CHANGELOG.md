@@ -5,6 +5,45 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://calver.org/).
 
+## [Unreleased]
+
+### Added
+
+- The LaTeX hints show how to color table rows and cells (`\rowcolor`, `\cellcolor`). [scientific-thesis-template#87](https://github.com/latextemplates/scientific-thesis-template/pull/87)
+- `make log` shows the relevant messages of the LaTeX log (texlogsieve).
+- `paper.tex` shows how to produce a self-archiving version (`authorarchive`, commented out).
+
+### Changed
+
+- `make format` (and thus CI) indents all main files (`paper*.tex`), not only `MASTER_TEX`.
+- VS Code: the recommended extension is `james-yu.latex-workshop` (`manhen.latex-workshop-2` was removed from the stores).
+- VS Code: the background of the PDF viewer follows the light or dark theme.
+- Dependabot groups all GitHub Actions updates into one weekly PR.
+- `check.yml` pins all GitHub Actions to commit SHAs.
+- README.md: sections reordered.
+- README.md: on Overleaf, select TeX Live 2026.
+- README.md: passages in another language are an FAQ.
+- README.md: links the decision records of the template generator.
+- README.md: "Usage with docker" merged into "Docker-based (recommended)".
+- Embedding the `.bib` file into the PDF is opt-in.
+- `.latexmkrc` replaces `_latexmkrc`; it works on Overleaf, too.
+- `make` runs the LaTeX tools in the Docker image (`make LOCAL=1` runs them locally).
+- `vscode.settings.json` contains the Docker settings of LaTeX Workshop and does not build on save.
+- README.md: compilation hints consolidated in "LaTeX compilation".
+- minted compiles without `--shell-escape`.
+
+### Fixed
+
+- The README links the `figures/` directory, and `.dockerignore` excludes the generated `figures/*.pdf_tex` files. [generator-latex-template#586](https://github.com/latextemplates/generator-latex-template/pull/586)
+- The `.markdown.in` file of the markdown package is ignored by git and removed by `latexmk -c`.
+- README.md: the download link points to this repository.
+- textlint ignores expl3 function names, Markdown reference IDs, and the name of the markdown package.
+- German documents load only `autotype` (not additionally `selnolig`) for correct ligatures.
+- `make view` opens the PDF on Linux and macOS.
+- German documents configure `autotype` with `ligatures=selective` instead of the outdated `ligbreak`.
+- README.md: the self-archiving FAQ points to the example in `paper.tex`.
+- `vscode.settings.json`: the recipes run `lualatex` (resp. `pdflatex`) with the right bibliography tool.
+
 ## [2026-10-14]
 
 ### Added

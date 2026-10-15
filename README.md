@@ -2,8 +2,8 @@
 
 > Quick start for modern LaTeXing with [LNCS](http://www.springer.com/computer/lncs).
 
-Please be aware that this template is optimized for overleaf, which is based on TeXLive 2025.
-In case you are running a later TeXLive version (or use MiKTeX), please regenerate the template with the help of the [latex template generator].
+This template is made for TeX Live 2026.
+On Overleaf, select TeX Live 2026 in the project settings (Menu → Settings → Compiler → TeX Live version).
 
 The LaTeX snippets this template is assembled from can be inspected at <https://latextemplates.github.io/latex-snippets/>.
 
@@ -14,71 +14,17 @@ The LaTeX snippets this template is assembled from can be inspected at <https://
 - [paper-newtx.pdf](http://latextemplates.github.io/lncs-enhanced/paper-newtx.pdf) - paper typeset in Times Roman to save some space.
 - [paper-minted-newtx.pdf](http://latextemplates.github.io/lncs-enhanced/paper-minted-newtx.pdf) - paper typeset in Times Roman to save some space.
 
-## Usage
+## Quick start
 
-- `paper.tex` is the main document
-- Use "lualatex + bibtex" in your TeX editor or `latexmk paper` / `make` in the command line
+- Click on `Download ZIP` or [here](https://github.com/latextemplates/lncs-enhanced/archive/main.zip).
+- Extract `lncs-enhanced-main.zip` in the folder where you want to write your paper.
+- Edit [`paper.tex`](paper.tex).
+- Compile with "lualatex + bibtex" in your TeX editor or with `latexmk paper` / `make` on the command line.
 
-### Using `latexmk`
-
-[latexmk] is a very smart tool for latex compilation.
-It executes the latex tools as often as needed to get the final PDF.
-(More information about why `latexmk` is great can be found at <https://tex.stackexchange.com/a/249243/9075>.)
-
-To build the whole document, execute following command.
-Note that this requires a working perl installation.
-
-```bash
-latexmk paper
-```
-
-To enable latexmk, please move `_latexmkrc` to `latexmkrc`.
-
-If you want automatic compilation use following command:
-
-```bash
-latexmk -pvc paper
-```
-
-This will also open a [Sumatra PDF] and only works with the supplied configuration.
-
-#### latexmk configuration
-
-This repository ships a `.latexmkrc` which is read by latexmk.
-In case there is a `_latexmkrc` file, you need to rename it to `.latexmkrc`.
-It is configured for Windows and especially sets Sumatra PDF as default PDF viewer.
-You can make this local configuration a global configuration, when you put it at [the right place](http://tex.stackexchange.com/a/41149/9075).
-
-If you want to add more packages, configure it there.
-For instance, for support of `makeglossaries` see <http://tex.stackexchange.com/questions/1226/how-to-make-latexmk-use-makeglossaries>.
-
-### Debugging LaTeX errors
-
-In case something goes wrong, you can instruct the LaTeX compiler to stop at the first error:
-
-```bash
-lualatex --synctex=1 --shell-escape paper
-```
-
-Run `bibtex paper` to get the bibliography rendered (execute `lualatex` afterwards).
-
-### Advanced usage
-
-On the command line, there are additional features:
-
-- `latexmk -C` or `make clean` for cleaning up
-- `make format` to reformat the `.tex` files (one sentence per line and indent)
-- `make aspell` for interactive spell checking
-- `make stand`: Creates a new PDF with the current status of the document.
-- `make view`: Opens the configured viewer
-- `make mrproper`: Cleans up and removes also editor backup files.
-
-The `textlint` job of the `Check` workflow reports weakening words (e.g., "clearly", "just") in the English `.tex` files as annotations.
-Run it locally with `npx` (needs Node.js; rules come from `.textlintrc.json`):
-
-```bash
-npx --yes --package textlint --package textlint-plugin-latex2e --package textlint-filter-rule-allowlist --package textlint-rule-terminology --package textlint-rule-write-good textlint paper.tex
-```
+As you see on GitHub actions, the paper compiles out of the box.
+There is no need to adjust the packages or to remove some of them.
+This might lead to undesired results such as hyperlinks not working any more or no good microtypographic features.
+In case you think, a package needs to be altered or added, feel free to open an issue.
 
 ## Benefits
 
@@ -96,7 +42,7 @@ Following features are enabled in this template:
 - (Optional) Typesetting of listings using advanced highlighting powered by the [minted] package.
   `minted` provides better output than [listings], but requires [latexminted] to be installed.
 - Generated PDF allows for copy and paste of text without getting words with [ligatures](https://en.wikipedia.org/wiki/Typographic_ligature) such as "workflow" destroyed.
-  This is enabled by `glyphtounicode`, which encodes ligatures (such as fl) using unicode characters.
+  With pdfLaTeX, this is enabled by `glyphtounicode`, which encodes ligatures (such as fl) using unicode characters; LuaLaTeX does this by itself.
 - Ligatures are removed if they are typeset at the wrong place.
   This is enabled by the [selnolig](https://tex.meta.stackexchange.com/questions/2884/new-package-selnolig-that-automates-suppression-of-typographic-ligatures) package.
 - Support of hyperlinked references without extra color thanx to [hyperref].
@@ -122,45 +68,37 @@ Besides the default BibTeX setup (natbib + `splncs04nat`), biblatex is supported
 
 For **author-year citations** (this template's answer to `llncs`'s `citeauthoryear` option, whose Springer `.bst` files are not part of TeX Live), generate with `--authoryear=true`: this switches to biblatex with the `authoryear` style, so `\citep{key}` renders as "(Author, year)" and `\citet{key}` as "Author (year)".
 
+## Contained directories and files
+
+### Directories
+
+- [figures](figures/) Directory containing the figures.
+  By using LuaLaTex/PDFLaTeX it is possible to use PDFs, JPGs, PNGs, ... We recommend to use PDFs to enable smooth scaling.
+
+### Files
+
+- `paper.tex` - The main `.tex` file loading all LaTeX packages and their configurations.
+  - Add text here
+  - Adjust title etc. here
+- [bibliography.bib](bibliography.bib) - Bibliography. [biblatex] format. Manage it with [JabRef].
+- [abbreviations.tex](abbreviations.tex) - Acronyms and abbreviations.
+- [commands.tex](commands.tex) - Example LaTeX macros.
+
+Following additional files are included, which do not need to be adapted:
+
+- [localSettings.yaml](localSettings.yaml) - Settings for [latexindent](https://ctan.org/pkg/latexindent)
+- [Makefile](Makefile) - The Makefile. Builds on latexmk.
+- [Texlivefile](Texlivefile) - List of packages required for a minimal TeXLive installation.
+
 ## Background
 
 The official template is available at <https://www.springer.com/gp/computer-science/lncs/conference-proceedings-guidelines> --> "Templates, samples files & useful links" --> "LaTeX2e Proceedings Templates (zip)"
 
-## Quick start
+## LaTeX compilation
 
-- Click on `Download ZIP` or [here](https://github.com/latextemplates/lncs-enhanced/archive/main.zip).
-- Extract `LNCS-main.zip` in the folder where you want to write your paper.
-- Edit [paper.tex](paper.tex).
-- `latexmk paper`.
+Compile either in a Docker container (recommended) or with a LaTeX distribution installed on your machine.
 
-When using on overleaf, you have to switch Overleaf to use TeXLive 2025 (or later).
-
-As you see on GitHub actions, the paper compiles out of the box.
-There is no need to adjust the packages or to remove some of them.
-This might lead to undesired results such as hyperlinks not working any more or no good microtypographic features.
-In case you think, a package needs to be altered or added, feel free to open an issue.
-
-## Final submission
-
-The compiled PDF embeds the `paper.bib` file (via the [embedfile](https://ctan.org/pkg/embedfile) package), so readers can extract the reference data from the PDF, e.g., with JabRef via "Import into library".
-Some publishers' final-submission checks (e.g., IEEE PDF eXpress or PDF/A validation) reject PDFs containing file attachments.
-If your submission system complains, comment out the `\embedfile` line in `paper.tex` for the camera-ready version.
-
-### arXiv
-
-The first line of `paper.tex` is `\ifdefined\pdfoutput\pdfoutput=1\fi`.
-Keep it when uploading to arXiv: arXiv scans the first lines for `\pdfoutput=1` to decide between `pdflatex` and DVI-producing `latex`.
-Without the line, arXiv falls back to `latex`, which cannot build the modern fonts (they ship without Metafont sources) and aborts with an error such as `! I can't find file 'clmr28t10+20'`.
-See [this question on TeX.SE](https://tex.stackexchange.com/q/584702/9075) for details.
-
-## Tool hints
-
-### Prerequisites
-
-You need a LaTeX distribution.
-Choose one of the two setups.
-
-#### Docker-based (recommended)
+### Docker-based (recommended)
 
 The [TeX Live docker image by the Island of TeX](https://gitlab.com/islandoftex/images/texlive#tex-live-docker-image) works the same on Windows, macOS, and Linux.
 It ships a complete TeX Live including `latexmk`, `biber`, `latexindent`, Python, and [latexminted].
@@ -190,7 +128,9 @@ Thus, `minted` works out of the box - also on Windows, without a separate Python
 
 1. Optional: Let VS Code compile in the container, see ["VS Code configuration"](#vs-code-configuration).
 
-#### Traditional
+If you need additional tools in the image (for instance, PlantUML), extend the generated `Dockerfile`, build it with `docker build -t ltg .`, and use `ltg` instead of the image name.
+
+### Traditional
 
 Install a LaTeX distribution on your machine:
 
@@ -202,10 +142,33 @@ To have `minted` running with a traditional installation, you have to do followi
 
 1. Install python: `choco install python` - that uses [chocolatey](https://chocolatey.org/) to install Python
 2. Install [latexminted]: `pip install latexminted` - that uses the Python package manager to install the minted library
-3. When latexing, use `-shell-escape`: `pdflatex -shell-escape paper`.
-   You can also just execute `latexmk paper`.
+### latexmk hints
 
-#### Editor and bibliography
+[latexmk] runs the LaTeX tools (e.g., lualatex and bibtex) as often as needed to get the final PDF ([why `latexmk` is great](https://tex.stackexchange.com/a/249243/9075)).
+It reads its configuration from `.latexmkrc` in the directory of the document.
+Overleaf reads `.latexmkrc`, too, so the "Compiler" setting of the Overleaf project does not matter; select TeX Live 2026 there.
+To use the configuration for all your documents, put it at [the right place](http://tex.stackexchange.com/a/41149/9075).
+
+Build the document:
+
+```bash
+latexmk paper
+```
+
+In the Docker-based setup, put the `docker run ...` part from ["Docker-based (recommended)"](#docker-based-recommended) in front, or just run `make`.
+In the traditional setup, `latexmk` needs Perl (TeX Live ships it; with MiKTeX, install it, e.g., via `choco install strawberryperl`).
+
+To recompile on every change and open the PDF, run:
+
+```bash
+latexmk -pvc paper
+```
+
+On Windows, the configuration opens the PDF in [Sumatra PDF], which reloads the PDF automatically.
+
+## Tool hints
+
+### Editor and bibliography
 
 Independent of the chosen setup:
 
@@ -215,6 +178,26 @@ Independent of the chosen setup:
   **If TeXstudio doesn't fit your need, check [the list of all available LaTeX Editors](http://tex.stackexchange.com/questions/339/latex-editors-ides).**
 - Use [JabRef] to manage your bibliography (Windows: `choco install jabref`).
 
+### Advanced usage
+
+On the command line, there are additional features:
+
+- `make` builds the PDF in the Docker container; `make LOCAL=1` uses your local LaTeX distribution (this works for all `make` targets)
+- `latexmk -C` or `make clean` for cleaning up
+- `make log` shows only the relevant messages of the last LaTeX run (using [texlogsieve](https://ctan.org/pkg/texlogsieve))
+- `make format` to reformat the `.tex` files (one sentence per line and indent)
+- `make aspell` for interactive spell checking
+- `make stand`: Creates a new PDF with the current status of the document.
+- `make view`: Opens the configured viewer
+- `make mrproper`: Cleans up and removes also editor backup files.
+
+The `textlint` job of the `Check` workflow reports weakening words (e.g., "clearly", "just") in the English `.tex` files as annotations.
+Run it locally with `npx` (needs Node.js; rules come from `.textlintrc.json`):
+
+```bash
+npx --yes --package textlint --package textlint-plugin-latex2e --package textlint-filter-rule-allowlist --package textlint-rule-terminology --package textlint-rule-write-good textlint paper.tex
+```
+
 ### VS Code configuration
 
 Currently, following extensions are recommended:
@@ -223,115 +206,68 @@ Currently, following extensions are recommended:
 - [LaTeX Utilities](https://marketplace.visualstudio.com/items?itemName=tecosaur.latex-utilities) to enhance LaTeX Workshop
 - [LTeX+] to have a nice spell checker that also identifies grammar issues
 
-Then, change the setting of LaTeX Workshop to use `biber`:
-
-Press <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>P</kbd> to open the command palette.
-Then type "JSON" and select "Preferences: Open Settings (JSON)" to open `settings.json`.
-
-Update the following lines in VS Code's `settings.json` to contain:
-
-```javascript
-    "latex-workshop.latex.recipes": [
-        {
-            "name": "lualatex ➞ bibtex ➞ lualatex × 2 🔃",
-            "tools": [
-                "lualatex",
-                "bibtex",
-                "lualatex",
-                "lualatex"
-            ]
-        },
-    ],
-    "latex-workshop.latex.tools": [
-        // ...
-        {
-            "name": "bibtex",
-            "command": "bibtex",
-            "args": [
-                "%DOCFILE%"
-            ],
-            "env": {}
-        },
-        // ...
-    ],
-```
-
-The following settings are additionally recommended:
-
-```javascript
-{
-    "editor.wordWrap": "on",                              // enable soft line breaks
-    "latex-workshop.view.pdf.viewer": "tab",              // display the generaded PDF in a separate tab
-    "latex-workshop.view.pdf.backgroundColor": "#cccccc", // use a darker background in de PDF viewer to lift of the pages from it
-    "latex-workshop.latex.autoBuild.run": "never",        // never automatically build; alternative: "onSave" (on saving .tex files)
-    "editor.renderWhitespace": "all",                     // display all whitespaces
-}
-```
-
-Alternatively, just copy and paste the contents of the [vscode.settings.json](vscode.settings.json) file to your VS Code settings file.
-
-With the Docker-based setup (see ["Prerequisites"](#prerequisites)), LaTeX Workshop can run the LaTeX tools in the container instead of on your machine.
-This is an experimental feature of LaTeX Workshop; the recipes and tools stay the same.
+With the settings below, LaTeX Workshop compiles with the recipe "lualatex ➞ bibtex ➞ lualatex × 2".
+To compile in the Docker container (see ["Docker-based (recommended)"](#docker-based-recommended)), add the following lines to VS Code's `settings.json` (<kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>P</kbd>, then "Preferences: Open Settings (JSON)"):
 
 ```javascript
     "latex-workshop.docker.enabled": true,
     "latex-workshop.docker.image.latex": "registry.gitlab.com/islandoftex/images/texlive:latest",
 ```
 
-You can manually trigger compilation by hitting the green button in the extension or using other methods provided by LaTeX Workshop.
+The following settings are additionally recommended:
 
-Please remove the magic comments (`% !TeX program ...`) at the top of the `paper.tex` file.
-Although [LaTeX-Workshop supports magic comments](https://github.com/James-Yu/LaTeX-Workshop/blob/master/README.md#magic-comments), it currently does not work reliably.
-Without the magic comments, compilation works.
+```javascript
+{
+    "editor.wordWrap": "on",                                          // enable soft line breaks
+    "latex-workshop.view.pdf.viewer": "tab",                          // display the generated PDF in a separate tab
+    "latex-workshop.view.pdf.color.light.backgroundColor": "#cccccc", // light theme: use a darker background in the PDF viewer to lift the pages off it
+    "latex-workshop.view.pdf.color.dark.backgroundColor": "#121314",  // dark theme: same, with a dark gray matching the editor
+    "latex-workshop.latex.autoBuild.run": "never",                    // never automatically build; alternative: "onSave" (on saving .tex files)
+    "editor.renderWhitespace": "all",                                 // display all whitespaces
+}
+```
+
+Alternatively, just copy and paste the contents of the [vscode.settings.json](vscode.settings.json) file to your VS Code settings file.
+
+You can manually trigger compilation by hitting the green button in the extension or using other methods provided by LaTeX Workshop.
 
 ### LTeX+ tips and tricks
 
 [LTeX+] is an offline grammar and spell checker with support for LaTeX and Markdown.
 
-Add a magic comment to your files to tell LTeX+ which language to use:
+The main file starts with a magic comment that tells LTeX+ the language of the document, e.g., `% LTeX: language=en-US`.
+Add the same comment to further `.tex` files.
 
-```latex
-% LTeX: language=de-DE
+## Final submission
+
+### arXiv
+
+The first line of `paper.tex` is `\ifdefined\pdfoutput\pdfoutput=1\fi`.
+Keep it when uploading to arXiv: arXiv scans the first lines for `\pdfoutput=1` to decide between `pdflatex` and DVI-producing `latex`.
+Without the line, arXiv falls back to `latex`, which cannot build the modern fonts (they ship without Metafont sources) and aborts with an error such as `! I can't find file 'clmr28t10+20'`.
+See [this question on TeX.SE](https://tex.stackexchange.com/q/584702/9075) for details.
+
+## FAQs
+
+### Q: How do I find the cause of a LaTeX error?
+
+In case something goes wrong, you can instruct the LaTeX compiler to stop at the first error:
+
+```bash
+lualatex --synctex=1 paper
 ```
 
-If you want to use different languages in the text, use the `\foreignlanguage{language}{text}` command.
+Run `bibtex paper` to get the bibliography rendered (execute `lualatex` afterwards).
+
+### Q: How do I spell check a passage in another language?
+
+Use the `\foreignlanguage{language}{text}` command.
 LTeX+ will detect these elements and automatically switch the spell checker's language.
 For example:
 
 ```latex
 \foreignlanguage{english}{Therefore, our proposed approach will change the world.}
 ```
-
-## Usage with docker
-
-The [TeX Live image by the Island of TeX](https://gitlab.com/islandoftex/images/texlive#tex-live-docker-image) is used as is - there is no need to build an own image.
-See ["Docker-based (recommended)"](#docker-based-recommended) for the installation of Docker and the commands to compile on Windows, Linux, and macOS.
-
-If you need additional tools in the image (for instance, PlantUML), extend the generated `Dockerfile`, build it with `docker build -t ltg .`, and use `ltg` instead of the image name.
-
-## Contained Directories and Files
-
-### Directories
-
-- [figures](graphics/) Directory containing the figures.
-  By using LuaLaTex/PDFLaTeX it is possible to use PDFs, JPGs, PNGs, ... We recommend to use PDFs to enable smooth scaling.
-
-### Files
-
-- `paper.tex` - The main `.tex` file loading all LaTeX packages and their configurations.
-  - Add text here
-  - Adjust title etc. here
-- [bibliography.bib](bibliography.bib) - Bibliography. [biblatex] format. Manage it with [JabRef].
-- [abbreviations.tex](abbreviations.tex) - Acronyms and abbreviations.
-- [commands.tex](commands.tex) - Example LaTeX macros.
-
-Following additional files are included, which do not need to be adapted:
-
-- [localSettings.yaml](localSettings.yaml) - Settings for [latexindent](https://ctan.org/pkg/latexindent)
-- [Makefile](Makefile) - The Makefile. Builds on latexmk.
-- [Texlivefile](Texlivefile) - List of packages required for a minimal TeXLive installation.
-
-## FAQs
 
 ### Q: Overleaf outputs a warning regarding the llncs class
 
@@ -411,6 +347,10 @@ python3 -m pip install --force-reinstall latexminted
 Activate the `llncsconf` package.
 The possible options are listed in `paper.tex`.
 
+### Q: Is it possible produce a self-archiving version?
+
+Use the [`authorarchive` package](https://ctan.org/pkg/authorarchive); `paper.tex` contains a commented example.
+
 ### Q: Can I also write in German?
 
 Yes. You can regenerate the template and choose "German" as language.
@@ -421,9 +361,8 @@ Install the package `dehyph-exptl`.
 
 ### Q: I get ``! I can't find file `clmr28t10+20'.``
 
-You seem to use `latexmk` locally.
-Please move `_latexmkrc` to `latexmkrc` to get `latexmk` working.
-If you don't do this, `latexmk` tries to execute `latex`, which tries to produce a DVI file (and not a PDF file).
+`latexmk` runs `latex`, which produces a DVI file (and not a PDF file), because it does not find its configuration.
+Make sure that `.latexmkrc` is in the directory of the document.
 
 ### Q: I get `Font "LatinModernMath-Regular" not found.`. What can I do?
 
@@ -471,13 +410,6 @@ See installation hints of how to update them at different systems.
 Use the [MiKTeX console](https://miktex.org/howto/miktex-console) to refresh the package index.
 Then, automatic installation should work again.
 
-### Q: I cannot get minted to run. There is this `-shell-escape` warning.
-
-Please ensure that your compilation command includes `-shell-escape`.
-E.g., `lualatex -shell-escape -synctex=1 main-minted-german.tex`.
-When compiling `main-minted-german.tex` with TeXStudio, you will see a dialog warning about overriding the compilation command.
-Just answer "(a) allow for this document" and it will work.
-
 ### Q: How to include Excel charts properly?
 
 1. Select the Excel chart you want to use.
@@ -490,6 +422,7 @@ Just answer "(a) allow for this document" and it will work.
 
 - tex.stackexchange.com questions regarding LNCS: <https://tex.stackexchange.com/questions/tagged/lncs>
 - Original LNCS documentation (without the improvements): [llncsdoc.pdf](https://mirrors.ctan.org/macros/latex/contrib/llncs/llncsdoc.pdf) from the [llncs CTAN package](https://ctan.org/pkg/llncs). The old `llncs.dem` demonstration is no longer part of that package; the official sample paper (`samplepaper.tex`) is contained in Springer's [LaTeX2e Proceedings Templates (zip)](https://www.springer.com/gp/computer-science/lncs/conference-proceedings-guidelines).
+- Why the templates use which packages: [decision records of the template generator](https://github.com/latextemplates/generator-latex-template/tree/main/docs/decisions)
 - Other templates: <https://latextemplates.github.io/>
 - For German users, go to <https://texfragen.de/>.
 - Frank Mittelbach with Ulrike Fischer: [The LaTeX Companion](https://www.latex-project.org/news/2023/03/17/TLC3/) is the ultimate guide for LaTeX: The authors went through all packages offered by [CTAN](https://ctan.org/), selected the most promising ones, described them, and provide minimal working example for each of it.
