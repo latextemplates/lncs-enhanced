@@ -14,71 +14,19 @@ The LaTeX snippets this template is assembled from can be inspected at <https://
 - [paper-newtx.pdf](http://latextemplates.github.io/lncs-enhanced/paper-newtx.pdf) - paper typeset in Times Roman to save some space.
 - [paper-minted-newtx.pdf](http://latextemplates.github.io/lncs-enhanced/paper-minted-newtx.pdf) - paper typeset in Times Roman to save some space.
 
-## Usage
+## Quick start
 
-- `paper.tex` is the main document
-- Use "lualatex + bibtex" in your TeX editor or `latexmk paper` / `make` in the command line
+- Click on `Download ZIP` or [here](https://github.com/latextemplates/lncs-enhanced/archive/main.zip).
+- Extract `lncs-enhanced-main.zip` in the folder where you want to write your paper.
+- Edit [`paper.tex`](paper.tex).
+- Compile with "lualatex + bibtex" in your TeX editor or with `latexmk paper` / `make` on the command line.
 
-### Using `latexmk`
+When using on overleaf, you have to switch Overleaf to use TeXLive 2025 (or later).
 
-[latexmk] is a very smart tool for latex compilation.
-It executes the latex tools as often as needed to get the final PDF.
-(More information about why `latexmk` is great can be found at <https://tex.stackexchange.com/a/249243/9075>.)
-
-To build the whole document, execute following command.
-Note that this requires a working perl installation.
-
-```bash
-latexmk paper
-```
-
-To enable latexmk, please move `_latexmkrc` to `latexmkrc`.
-
-If you want automatic compilation use following command:
-
-```bash
-latexmk -pvc paper
-```
-
-This will also open a [Sumatra PDF] and only works with the supplied configuration.
-
-#### latexmk configuration
-
-This repository ships a `.latexmkrc` which is read by latexmk.
-In case there is a `_latexmkrc` file, you need to rename it to `.latexmkrc`.
-It is configured for Windows and especially sets Sumatra PDF as default PDF viewer.
-You can make this local configuration a global configuration, when you put it at [the right place](http://tex.stackexchange.com/a/41149/9075).
-
-If you want to add more packages, configure it there.
-For instance, for support of `makeglossaries` see <http://tex.stackexchange.com/questions/1226/how-to-make-latexmk-use-makeglossaries>.
-
-### Debugging LaTeX errors
-
-In case something goes wrong, you can instruct the LaTeX compiler to stop at the first error:
-
-```bash
-lualatex --synctex=1 --shell-escape paper
-```
-
-Run `bibtex paper` to get the bibliography rendered (execute `lualatex` afterwards).
-
-### Advanced usage
-
-On the command line, there are additional features:
-
-- `latexmk -C` or `make clean` for cleaning up
-- `make format` to reformat the `.tex` files (one sentence per line and indent)
-- `make aspell` for interactive spell checking
-- `make stand`: Creates a new PDF with the current status of the document.
-- `make view`: Opens the configured viewer
-- `make mrproper`: Cleans up and removes also editor backup files.
-
-The `textlint` job of the `Check` workflow reports weakening words (e.g., "clearly", "just") in the English `.tex` files as annotations.
-Run it locally with `npx` (needs Node.js; rules come from `.textlintrc.json`):
-
-```bash
-npx --yes --package textlint --package textlint-plugin-latex2e --package textlint-filter-rule-allowlist --package textlint-rule-terminology --package textlint-rule-write-good textlint paper.tex
-```
+As you see on GitHub actions, the paper compiles out of the box.
+There is no need to adjust the packages or to remove some of them.
+This might lead to undesired results such as hyperlinks not working any more or no good microtypographic features.
+In case you think, a package needs to be altered or added, feel free to open an issue.
 
 ## Benefits
 
@@ -125,20 +73,6 @@ For **author-year citations** (this template's answer to `llncs`'s `citeauthorye
 ## Background
 
 The official template is available at <https://www.springer.com/gp/computer-science/lncs/conference-proceedings-guidelines> --> "Templates, samples files & useful links" --> "LaTeX2e Proceedings Templates (zip)"
-
-## Quick start
-
-- Click on `Download ZIP` or [here](https://github.com/latextemplates/lncs-enhanced/archive/main.zip).
-- Extract `LNCS-main.zip` in the folder where you want to write your paper.
-- Edit [paper.tex](paper.tex).
-- `latexmk paper`.
-
-When using on overleaf, you have to switch Overleaf to use TeXLive 2025 (or later).
-
-As you see on GitHub actions, the paper compiles out of the box.
-There is no need to adjust the packages or to remove some of them.
-This might lead to undesired results such as hyperlinks not working any more or no good microtypographic features.
-In case you think, a package needs to be altered or added, feel free to open an issue.
 
 ## Final submission
 
@@ -214,6 +148,67 @@ Independent of the chosen setup:
   Note that it is enough to point to `languagetool.jar`.
   **If TeXstudio doesn't fit your need, check [the list of all available LaTeX Editors](http://tex.stackexchange.com/questions/339/latex-editors-ides).**
 - Use [JabRef] to manage your bibliography (Windows: `choco install jabref`).
+
+### Using `latexmk`
+
+[latexmk] is a very smart tool for latex compilation.
+It executes the latex tools as often as needed to get the final PDF.
+(More information about why `latexmk` is great can be found at <https://tex.stackexchange.com/a/249243/9075>.)
+
+To build the whole document, execute following command.
+Note that this requires a working perl installation.
+
+```bash
+latexmk paper
+```
+
+To enable latexmk, please move `_latexmkrc` to `latexmkrc`.
+
+If you want automatic compilation use following command:
+
+```bash
+latexmk -pvc paper
+```
+
+This will also open a [Sumatra PDF] and only works with the supplied configuration.
+
+#### latexmk configuration
+
+This repository ships a `.latexmkrc` which is read by latexmk.
+In case there is a `_latexmkrc` file, you need to rename it to `.latexmkrc`.
+It is configured for Windows and especially sets Sumatra PDF as default PDF viewer.
+You can make this local configuration a global configuration, when you put it at [the right place](http://tex.stackexchange.com/a/41149/9075).
+
+If you want to add more packages, configure it there.
+For instance, for support of `makeglossaries` see <http://tex.stackexchange.com/questions/1226/how-to-make-latexmk-use-makeglossaries>.
+
+### Debugging LaTeX errors
+
+In case something goes wrong, you can instruct the LaTeX compiler to stop at the first error:
+
+```bash
+lualatex --synctex=1 --shell-escape paper
+```
+
+Run `bibtex paper` to get the bibliography rendered (execute `lualatex` afterwards).
+
+### Advanced usage
+
+On the command line, there are additional features:
+
+- `latexmk -C` or `make clean` for cleaning up
+- `make format` to reformat the `.tex` files (one sentence per line and indent)
+- `make aspell` for interactive spell checking
+- `make stand`: Creates a new PDF with the current status of the document.
+- `make view`: Opens the configured viewer
+- `make mrproper`: Cleans up and removes also editor backup files.
+
+The `textlint` job of the `Check` workflow reports weakening words (e.g., "clearly", "just") in the English `.tex` files as annotations.
+Run it locally with `npx` (needs Node.js; rules come from `.textlintrc.json`):
+
+```bash
+npx --yes --package textlint --package textlint-plugin-latex2e --package textlint-filter-rule-allowlist --package textlint-rule-terminology --package textlint-rule-write-good textlint paper.tex
+```
 
 ### VS Code configuration
 
