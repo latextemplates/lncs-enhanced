@@ -70,6 +70,28 @@ Besides the default BibTeX setup (natbib + `splncs04nat`), biblatex is supported
 
 For **author-year citations** (this template's answer to `llncs`'s `citeauthoryear` option, whose Springer `.bst` files are not part of TeX Live), generate with `--authoryear=true`: this switches to biblatex with the `authoryear` style, so `\citep{key}` renders as "(Author, year)" and `\citet{key}` as "Author (year)".
 
+## Contained Directories and Files
+
+### Directories
+
+- [figures](figures/) Directory containing the figures.
+  By using LuaLaTex/PDFLaTeX it is possible to use PDFs, JPGs, PNGs, ... We recommend to use PDFs to enable smooth scaling.
+
+### Files
+
+- `paper.tex` - The main `.tex` file loading all LaTeX packages and their configurations.
+  - Add text here
+  - Adjust title etc. here
+- [bibliography.bib](bibliography.bib) - Bibliography. [biblatex] format. Manage it with [JabRef].
+- [abbreviations.tex](abbreviations.tex) - Acronyms and abbreviations.
+- [commands.tex](commands.tex) - Example LaTeX macros.
+
+Following additional files are included, which do not need to be adapted:
+
+- [localSettings.yaml](localSettings.yaml) - Settings for [latexindent](https://ctan.org/pkg/latexindent)
+- [Makefile](Makefile) - The Makefile. Builds on latexmk.
+- [Texlivefile](Texlivefile) - List of packages required for a minimal TeXLive installation.
+
 ## Background
 
 The official template is available at <https://www.springer.com/gp/computer-science/lncs/conference-proceedings-guidelines> --> "Templates, samples files & useful links" --> "LaTeX2e Proceedings Templates (zip)"
@@ -294,28 +316,6 @@ The [TeX Live image by the Island of TeX](https://gitlab.com/islandoftex/images/
 See ["Docker-based (recommended)"](#docker-based-recommended) for the installation of Docker and the commands to compile on Windows, Linux, and macOS.
 
 If you need additional tools in the image (for instance, PlantUML), extend the generated `Dockerfile`, build it with `docker build -t ltg .`, and use `ltg` instead of the image name.
-
-## Contained Directories and Files
-
-### Directories
-
-- [figures](figures/) Directory containing the figures.
-  By using LuaLaTex/PDFLaTeX it is possible to use PDFs, JPGs, PNGs, ... We recommend to use PDFs to enable smooth scaling.
-
-### Files
-
-- `paper.tex` - The main `.tex` file loading all LaTeX packages and their configurations.
-  - Add text here
-  - Adjust title etc. here
-- [bibliography.bib](bibliography.bib) - Bibliography. [biblatex] format. Manage it with [JabRef].
-- [abbreviations.tex](abbreviations.tex) - Acronyms and abbreviations.
-- [commands.tex](commands.tex) - Example LaTeX macros.
-
-Following additional files are included, which do not need to be adapted:
-
-- [localSettings.yaml](localSettings.yaml) - Settings for [latexindent](https://ctan.org/pkg/latexindent)
-- [Makefile](Makefile) - The Makefile. Builds on latexmk.
-- [Texlivefile](Texlivefile) - List of packages required for a minimal TeXLive installation.
 
 ## FAQs
 
