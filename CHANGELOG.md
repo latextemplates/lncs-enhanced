@@ -39,6 +39,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 - German documents load only `autotype` (not additionally `selnolig`) for correct ligatures.
 - `make view` opens the PDF on Linux and macOS.
 - German documents configure `autotype` with `ligatures=selective` instead of the outdated `ligbreak`.
+- README.md: the self-archiving FAQ names the `authorarchive` layout.
 
 ## [2026-10-14]
 
