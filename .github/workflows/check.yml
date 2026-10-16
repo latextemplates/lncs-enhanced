@@ -41,8 +41,9 @@ jobs:
           sudo apt-get install -y aspell-en aspell-de
       - name: aspell
         run: |
-          for tex in $(ls *.tex content/*.tex 2>/dev/null); do
-            if [[ "en" == "de" && "$tex" == thesis-example* ]]; then
+          for tex in *.tex chapters/*.tex; do
+            [ -e "$tex" ] || continue
+            if [[ "en" == "de" && ( "$tex" == thesis-example* || "$tex" == chapters/*.de.tex ) ]]; then
               continue
             fi
 
@@ -52,7 +53,7 @@ jobs:
               --encoding=utf-8\
               --conf=./.aspell.conf\
               -p ./.aspell.en.pws list\
-              < $tex | sort | uniq >> paper.spell.bad
+              < "$tex" | sort | uniq >> paper.spell.bad
           done
       - run: latexmk paper
 
@@ -127,8 +128,9 @@ jobs:
           echo "| file | status |" >> $GITHUB_STEP_SUMMARY
           echo "| -- | -- |" >> $GITHUB_STEP_SUMMARY
           failure=0
-          for tex in $(ls *.tex content/*.tex 2>/dev/null); do
-            if [[ "en" == "de" && "$tex" == thesis-example* ]]; then
+          for tex in *.tex chapters/*.tex; do
+            [ -e "$tex" ] || continue
+            if [[ "en" == "de" && ( "$tex" == thesis-example* || "$tex" == chapters/*.de.tex ) ]]; then
               echo "$tex skipped"
               continue
             fi
@@ -137,17 +139,18 @@ jobs:
             # Pick the dictionary that matches the file's language: the "-de"
             # variants are German, everything else uses the document's language.
             case "$tex" in
-              *-de.tex|*-de-*.tex) aspell_lang="-l de_DE --run-together"; aspell_pws=de ;;
+              *-de.tex|*-de-*.tex|*.de.tex) aspell_lang="-l de_DE --run-together"; aspell_pws=de ;;
+              *.en.tex) aspell_lang="-l en_US"; aspell_pws=en ;;
               *) aspell_lang="-l en_US"; aspell_pws=en ;;
             esac
 
             # Words are output in the order they appear in the document
-            words=$(aspell --mode=tex $aspell_lang --encoding=utf-8 --conf=./.aspell.conf -p ./.aspell.$aspell_pws.pws list < $tex | tr '\n' ' ')
+            words=$(aspell --mode=tex $aspell_lang --encoding=utf-8 --conf=./.aspell.conf -p ./.aspell.$aspell_pws.pws list < "$tex" | tr '\n' ' ')
             if [ -z "$words" ]; then
               echo "| $tex | ✅ |" >> $GITHUB_STEP_SUMMARY
             else
               echo "| $tex | ❌ $words |" >> $GITHUB_STEP_SUMMARY
-              if [[ "$tex" == "paper.tex" ]]; then
+              if [[ "$tex" == "paper.tex" || "$tex" == chapters/*.en.tex ]]; then
                 failure=1
               fi
             fi
@@ -170,8 +173,14 @@ jobs:
           # Report-only: findings show up as annotations, the job does not fail.
           # Rules come from .textlintrc.json. Only English documents (marked by
           # "% !TeX spellcheck = en-US") are linted: write-good targets English.
-          files=$(grep -l '^% !TeX spellcheck = en' *.tex || true)
-          if [ -z "$files" ]; then
+          files=()
+          for tex in *.tex; do
+            [ -e "$tex" ] || continue
+            if [[ "$tex" == chapters/* ]] || grep -q '^% !TeX spellcheck = en' "$tex"; then
+              files+=("$tex")
+            fi
+          done
+          if [ ${#files[@]} -eq 0 ]; then
             echo "No English .tex files to lint." >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
@@ -181,10 +190,10 @@ jobs:
             --package textlint-filter-rule-allowlist \
             --package textlint-rule-terminology \
             --package textlint-rule-write-good \
-            textlint --format github $files \
+            textlint --format github "${files[@]}" \
             | sed "s|${GITHUB_WORKSPACE}/||g" | tee annotations.txt || true
           count=$(grep -c '^::\(error\|warning\)' annotations.txt || true)
-          echo "textlint reported ${count} finding(s) in: ${files//$'\n'/, }" >> "$GITHUB_STEP_SUMMARY"
+          echo "textlint reported ${count} finding(s) in: $(IFS=,; echo "${files[*]}")" >> "$GITHUB_STEP_SUMMARY"
   textidote:
     runs-on: ubuntu-latest
     steps:
