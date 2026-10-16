@@ -10,9 +10,12 @@ The LaTeX snippets this template is assembled from can be inspected at <https://
 ## Examples
 
 - [paper.pdf](https://latextemplates.github.io/lncs-enhanced/paper.pdf) - normal paper.
-- [paper-minted.pdf](https://latextemplates.github.io/lncs-enhanced/paper-minted.pdf) - paper showing minted in action.
-- [paper-newtx.pdf](http://latextemplates.github.io/lncs-enhanced/paper-newtx.pdf) - paper typeset in Times Roman to save some space.
-- [paper-minted-newtx.pdf](http://latextemplates.github.io/lncs-enhanced/paper-minted-newtx.pdf) - paper typeset in Times Roman to save some space.
+- [paper-newtx.pdf](https://latextemplates.github.io/lncs-enhanced/paper-newtx.pdf) - paper typeset in Times Roman to save some space.
+- [paper-basic-listings.pdf](https://latextemplates.github.io/lncs-enhanced/paper-basic-listings.pdf) - paper using the listings package (instead of minted) for source code.
+- [paper-basic-listings-newtx.pdf](https://latextemplates.github.io/lncs-enhanced/paper-basic-listings-newtx.pdf) - paper using the listings package (instead of minted) for source code, typeset in Times Roman.
+
+The source code examples use the [minted] package, which highlights code best; it needs Python and [latexminted] (contained in the Docker image and on Overleaf).
+The `-basic-listings` variants use the [listings] package instead and need no extra setup.
 
 ## Quick start
 
@@ -79,7 +82,7 @@ For **author-year citations** (this template's answer to `llncs`'s `citeauthorye
 
 - `paper.tex` - The main `.tex` file loading all LaTeX packages and their configurations.
   - Add text here
-  - Adjust title etc. here
+  - Adjust title, … here
 - [bibliography.bib](bibliography.bib) - Bibliography. [biblatex] format. Manage it with [JabRef].
 - [abbreviations.tex](abbreviations.tex) - Acronyms and abbreviations.
 - [commands.tex](commands.tex) - Example LaTeX macros.
@@ -128,7 +131,7 @@ Thus, `minted` works out of the box - also on Windows, without a separate Python
 
 1. Optional: Let VS Code compile in the container, see ["VS Code configuration"](#vs-code-configuration).
 
-If you need additional tools in the image (for instance, PlantUML), extend the generated `Dockerfile`, build it with `docker build -t ltg .`, and use `ltg` instead of the image name.
+If you need additional tools in the image, extend the generated `Dockerfile`, build it with `docker build -t ltg .`, and use `ltg` instead of the image name.
 
 ### Traditional
 
@@ -186,7 +189,9 @@ On the command line, there are additional features:
 - `latexmk -C` or `make clean` for cleaning up
 - `make log` shows only the relevant messages of the last LaTeX run (using [texlogsieve](https://ctan.org/pkg/texlogsieve))
 - `make format` to reformat the `.tex` files (one sentence per line and indent)
-- `make aspell` for interactive spell checking
+- `make spellcheck` runs all spell checkers:
+  - `make spellcheck-aspell` for interactive spell checking with aspell
+  - `make spellcheck-textidote` checks spelling, grammar, and style with [TeXtidote](https://github.com/sylvainhalle/textidote) (report in `textidote.html`)
 - `make stand`: Creates a new PDF with the current status of the document.
 - `make view`: Opens the configured viewer
 - `make mrproper`: Cleans up and removes also editor backup files.
@@ -198,6 +203,10 @@ Run it locally with `npx` (needs Node.js; rules come from `.textlintrc.json`):
 npx --yes --package textlint --package textlint-plugin-latex2e --package textlint-filter-rule-allowlist --package textlint-rule-terminology --package textlint-rule-write-good textlint paper.tex
 ```
 
+The `textidote` job of the `Check` workflow checks spelling, grammar, and style of English documents with [TeXtidote](https://github.com/sylvainhalle/textidote) and reports its findings as annotations.
+Its options are in `.textidote`.
+Run it locally with `make spellcheck-textidote`: it downloads `textidote.jar` once and writes the report `textidote.html`.
+
 ### VS Code configuration
 
 Currently, following extensions are recommended:
@@ -205,6 +214,7 @@ Currently, following extensions are recommended:
 - [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) to support LaTeX in VS Code and
 - [LaTeX Utilities](https://marketplace.visualstudio.com/items?itemName=tecosaur.latex-utilities) to enhance LaTeX Workshop
 - [LTeX+] to have a nice spell checker that also identifies grammar issues
+- [JabRef 4 VSCode](https://marketplace.visualstudio.com/items?itemName=jabref.jabref-4-vscode) to use the language server and further features of [JabRef] in VS Code
 
 With the settings below, LaTeX Workshop compiles with the recipe "lualatex ➞ bibtex ➞ lualatex × 2".
 To compile in the Docker container (see ["Docker-based (recommended)"](#docker-based-recommended)), add the following lines to VS Code's `settings.json` (<kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>P</kbd>, then "Preferences: Open Settings (JSON)"):
@@ -258,6 +268,26 @@ lualatex --synctex=1 paper
 ```
 
 Run `bibtex paper` to get the bibliography rendered (execute `lualatex` afterwards).
+
+### Q: I get `! Package minted Error: minted v3+ executable is not installed`
+
+The complete output reads:
+
+```text
+! Package minted Error: minted v3+ executable is not installed, is not added to
+ PATH, or is not permitted with restricted shell escape; or MiKTeX is being use
+d with -aux-directory or -output-directory without setting a TEXMF_OUTPUT_DIREC
+TORY environment variable.
+```
+
+The [minted] package needs Python and the Python package [latexminted].
+The Docker image and Overleaf contain both.
+For a local installation:
+
+1. Install Python, e.g., `choco install python` on Windows.
+2. Install or repair [latexminted]: `python -m pip install --force-reinstall latexminted` (see [minted#425](https://github.com/gpoore/minted/issues/425)).
+
+Without Python, use the `*-basic-listings*.tex` variant: it typesets source code with the [listings] package.
 
 ### Q: How do I spell check a passage in another language?
 
@@ -315,32 +345,6 @@ Alternatively, execute `make format`.
 ### Q: How I want to obey the one-sentence-per-line rule. How to do?
 
 See "How can I reformat my `.tex` files?"
-
-### Q: I want to use minted, because I think its syntax highlighting seems to be better.
-
-You can re-generate the template and choose `minted` as listings environment.
-Moreover, ensure that python and [latexminted] are installed properly:
-
-- `choco install python`
-- `pip install latexminted`
-
-### Q: I have troubles with minted on Windows.
-
-For instance, on gets following output:
-
-```text
-! Package minted Error: minted v3+ executable is not installed, is not added to
- PATH, or is not permitted with restricted shell escape; or MiKTeX is being use
-d with -aux-directory or -output-directory without setting a TEXMF_OUTPUT_DIREC
-TORY environment variable.
-```
-
-Try out following command to update `latexminted`.
-See [minted#425](https://github.com/gpoore/minted/issues/425) for details.
-
-```shell
-python3 -m pip install --force-reinstall latexminted
-```
 
 ### Q: Is it possible to have a footer indicating that the paper is intended to be submitted/submitted/published?
 

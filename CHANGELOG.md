@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://calver.org/).
 
+## [Unreleased]
+
+### Added
+
+- [TeXtidote](https://github.com/sylvainhalle/textidote) checks spelling, grammar, and style (configuration `.textidote`, `make spellcheck-textidote`), for English documents in CI.
+- VS Code: [JabRef 4 VSCode](https://marketplace.visualstudio.com/items?itemName=jabref.jabref-4-vscode) recommended.
+
+### Changed
+
+- `paper*.tex` use minted; the variants using the listings package are `paper*-basic-listings*.tex`.
+- README.md: minted FAQs merged and moved up.
+- `make spellcheck` runs all spell checkers (`make aspell` is now `make spellcheck-aspell`).
+- GitHub workflows: actions pinned to commit SHAs.
+
+### Fixed
+
+- Example texts: spelling and grammar fixed.
+- Makefile: `.PHONY` lists all targets; `make spellcheck-aspell` and `make showundef` work.
+
 ## [2026-10-15]
 
 ### Added
