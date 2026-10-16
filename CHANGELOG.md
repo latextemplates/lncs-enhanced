@@ -17,6 +17,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 - `paper*.tex` use minted; the variants using the listings package are `paper*-basic-listings*.tex`.
 - README.md: minted FAQs merged and moved up.
 - `make spellcheck` runs all spell checkers (`make aspell` is now `make spellcheck-aspell`).
+- GitHub workflows: actions pinned to commit SHAs.
 
 ### Fixed
 
