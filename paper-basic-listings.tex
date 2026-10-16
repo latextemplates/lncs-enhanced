@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  The content starts in line 654 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 693.
+% vvvvvvvv  The content starts in line 688 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 727.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -573,6 +573,40 @@
 \usepackage[realmainfile]{currfile}
 \usepackage{tcolorbox}
 \tcbuselibrary{listings}
+% Required for proper example rendering in the compiled PDF
+\newcount\LTGbeginlineexample
+\newcount\LTGendlineexample
+\newenvironment{ltgexample}%
+{\LTGbeginlineexample=\numexpr\inputlineno+1\relax}%
+{\LTGendlineexample=\numexpr\inputlineno-1\relax%
+  \tcbinputlisting{%
+    listing only,
+    listing file=\currfilepath,
+    colback=green!5!white,
+    colframe=green!25,
+    coltitle=black!90,
+    coltext=black!90,
+    left=8mm,
+    title=Corresponding \LaTeX{} code of \texttt{\currfilepath},
+    listing options={
+        frame=none,
+        language={[LaTeX]TeX},
+        escapeinside={},
+        firstline=\the\LTGbeginlineexample,
+        lastline=\the\LTGendlineexample,
+        firstnumber=\the\LTGbeginlineexample,
+        basewidth=.5em,
+        % break long lines even without whitespace (e.g., \includegraphics[...]{...}); otherwise they run out of the box
+        breakatwhitespace=false,
+        aboveskip=0mm,
+        belowskip=0mm,
+        numbers=left,
+        xleftmargin=0mm,
+        numberstyle=\tiny,
+        numbersep=8pt%
+      }
+  }
+}%
 
 %introduce \powerset - hint by http://matheplanet.com/matheplanet/nuke/html/viewtopic.php?topic=136492&post_id=997377
 \DeclareFontFamily{U}{MnSymbolC}{}
@@ -710,43 +744,6 @@ More hints are given in \href{https://doi.org/10.1007/978-1-4471-6639-9}{\emph{W
 
 \section{LaTeX Hints}
 \label{sec:latexhints}
-
-% textidote: ignore begin
-% Required for proper example rendering in the compiled PDF
-\newcount\LTGbeginlineexample
-\newcount\LTGendlineexample
-\newenvironment{ltgexample}%
-{\LTGbeginlineexample=\numexpr\inputlineno+1\relax}%
-{\LTGendlineexample=\numexpr\inputlineno-1\relax%
-  \tcbinputlisting{%
-    listing only,
-    listing file=\currfilepath,
-    colback=green!5!white,
-    colframe=green!25,
-    coltitle=black!90,
-    coltext=black!90,
-    left=8mm,
-    title=Corresponding \LaTeX{} code of \texttt{\currfilepath},
-    listing options={
-        frame=none,
-        language={[LaTeX]TeX},
-        escapeinside={},
-        firstline=\the\LTGbeginlineexample,
-        lastline=\the\LTGendlineexample,
-        firstnumber=\the\LTGbeginlineexample,
-        basewidth=.5em,
-        % break long lines even without whitespace (e.g., \includegraphics[...]{...}); otherwise they run out of the box
-        breakatwhitespace=false,
-        aboveskip=0mm,
-        belowskip=0mm,
-        numbers=left,
-        xleftmargin=0mm,
-        numberstyle=\tiny,
-        numbersep=8pt%
-      }
-  }
-}%
-% textidote: ignore end
 
 This section contains hints on writing LaTeX.
 It focuses on minimal examples, which can be directly adapted to the content
