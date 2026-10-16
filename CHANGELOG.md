@@ -10,6 +10,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 ### Added
 
 - [TeXtidote](https://github.com/sylvainhalle/textidote) checks spelling, grammar, and style (configuration `.textidote`, `make spellcheck-textidote`), for English documents in CI.
+- VS Code: [JabRef 4 VSCode](https://marketplace.visualstudio.com/items?itemName=jabref.jabref-4-vscode) recommended.
 
 ### Changed
 
