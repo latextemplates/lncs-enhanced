@@ -60,7 +60,7 @@ Following features are enabled in this template:
 - Ready-to-go configuration for [latexindent].
 - Proper hyphenation and microtype for English texts.
 
-## Disabled features
+### Disabled features
 
 Following features were not activated for this template.
 You can run the [latex template generator] to enable the features.

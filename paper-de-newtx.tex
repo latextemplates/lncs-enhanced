@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 580 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 624.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 608 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 652.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -495,6 +495,34 @@
 \usepackage[realmainfile]{currfile}
 \usepackage{tcolorbox}
 \tcbuselibrary{minted}
+% Benötigt für eine korrekte Darstellung der Hinweise im erzeugten PDF
+\newcount\LTGbeginlineexample
+\newcount\LTGendlineexample
+\newenvironment{ltgexample}%
+{\LTGbeginlineexample=\numexpr\inputlineno+1\relax}%
+{\LTGendlineexample=\numexpr\inputlineno-1\relax%
+  \tcbinputlisting{%
+    listing only,
+    listing file=\currfilepath,
+    colback=green!5!white,
+    colframe=green!25,
+    coltitle=black!90,
+    coltext=black!90,
+    left=8mm,
+    title=Zugehöriger \LaTeX{}-Quelltext aus \texttt{\currfilepath},
+    minted language=TeX,
+    minted style=vs,
+    minted options={
+        fontsize=\footnotesize,
+        firstline=\the\LTGbeginlineexample,
+        lastline=\the\LTGendlineexample,
+        firstnumber=\the\LTGbeginlineexample,
+        breaklines,
+        linenos,
+        numbersep=8pt
+      }
+  }
+}%
 
 %introduce \powerset - hint by http://matheplanet.com/matheplanet/nuke/html/viewtopic.php?topic=136492&post_id=997377
 \DeclareFontFamily{U}{MnSymbolC}{}
@@ -647,37 +675,6 @@ Weitere Hinweise gibt \href{https://doi.org/10.1007/978-1-4471-6639-9}{\emph{Wri
 
 \section{LaTeX Hinweise}
 \label{sec:latexhints}
-
-% textidote: ignore begin
-% Benötigt für eine korrekte Darstellung der Hinweise im erzeugten PDF
-\newcount\LTGbeginlineexample
-\newcount\LTGendlineexample
-\newenvironment{ltgexample}%
-{\LTGbeginlineexample=\numexpr\inputlineno+1\relax}%
-{\LTGendlineexample=\numexpr\inputlineno-1\relax%
-  \tcbinputlisting{%
-    listing only,
-    listing file=\currfilepath,
-    colback=green!5!white,
-    colframe=green!25,
-    coltitle=black!90,
-    coltext=black!90,
-    left=8mm,
-    title=Zugehöriger \LaTeX{}-Quelltext aus \texttt{\currfilepath},
-    minted language=TeX,
-    minted style=vs,
-    minted options={
-        fontsize=\footnotesize,
-        firstline=\the\LTGbeginlineexample,
-        lastline=\the\LTGendlineexample,
-        firstnumber=\the\LTGbeginlineexample,
-        breaklines,
-        linenos,
-        numbersep=8pt
-      }
-  }
-}%
-% textidote: ignore end
 
 Hier sollen allgemeine \LaTeX-Hinweise gegeben werden, damit man Minimalbeispiele vorliegen hat, um sofort loszulegen.
 

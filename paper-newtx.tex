@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  The content starts in line 570 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 609.
+% vvvvvvvv  The content starts in line 598 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 637.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -489,6 +489,34 @@
 \usepackage[realmainfile]{currfile}
 \usepackage{tcolorbox}
 \tcbuselibrary{minted}
+% Required for proper example rendering in the compiled PDF
+\newcount\LTGbeginlineexample
+\newcount\LTGendlineexample
+\newenvironment{ltgexample}%
+{\LTGbeginlineexample=\numexpr\inputlineno+1\relax}%
+{\LTGendlineexample=\numexpr\inputlineno-1\relax%
+  \tcbinputlisting{%
+    listing only,
+    listing file=\currfilepath,
+    colback=green!5!white,
+    colframe=green!25,
+    coltitle=black!90,
+    coltext=black!90,
+    left=8mm,
+    title=Corresponding \LaTeX{} code of \texttt{\currfilepath},
+    minted language=TeX,
+    minted style=vs,
+    minted options={
+        fontsize=\footnotesize,
+        firstline=\the\LTGbeginlineexample,
+        lastline=\the\LTGendlineexample,
+        firstnumber=\the\LTGbeginlineexample,
+        breaklines,
+        linenos,
+        numbersep=8pt
+      }
+  }
+}%
 
 %introduce \powerset - hint by http://matheplanet.com/matheplanet/nuke/html/viewtopic.php?topic=136492&post_id=997377
 \DeclareFontFamily{U}{MnSymbolC}{}
@@ -626,37 +654,6 @@ More hints are given in \href{https://doi.org/10.1007/978-1-4471-6639-9}{\emph{W
 
 \section{LaTeX Hints}
 \label{sec:latexhints}
-
-% textidote: ignore begin
-% Required for proper example rendering in the compiled PDF
-\newcount\LTGbeginlineexample
-\newcount\LTGendlineexample
-\newenvironment{ltgexample}%
-{\LTGbeginlineexample=\numexpr\inputlineno+1\relax}%
-{\LTGendlineexample=\numexpr\inputlineno-1\relax%
-  \tcbinputlisting{%
-    listing only,
-    listing file=\currfilepath,
-    colback=green!5!white,
-    colframe=green!25,
-    coltitle=black!90,
-    coltext=black!90,
-    left=8mm,
-    title=Corresponding \LaTeX{} code of \texttt{\currfilepath},
-    minted language=TeX,
-    minted style=vs,
-    minted options={
-        fontsize=\footnotesize,
-        firstline=\the\LTGbeginlineexample,
-        lastline=\the\LTGendlineexample,
-        firstnumber=\the\LTGbeginlineexample,
-        breaklines,
-        linenos,
-        numbersep=8pt
-      }
-  }
-}%
-% textidote: ignore end
 
 This section contains hints on writing LaTeX.
 It focuses on minimal examples, which can be directly adapted to the content
