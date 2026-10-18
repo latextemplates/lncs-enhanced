@@ -110,6 +110,10 @@ spellcheck-aspell:
 		[ -e "$$tex" ] || continue; \
 		aspell --mode=tex -l en_US --encoding=utf-8 --conf=./.aspell.conf -p ./.aspell.en.pws -c "$$tex" || exit 1; \
 	done
+	for md in content-markdown.md; do \
+		[ -e "$$md" ] || continue; \
+		aspell --mode=markdown -l en_US --encoding=utf-8 --conf=./.aspell.conf -p ./.aspell.en.pws -c "$$md" || exit 1; \
+	done
 
 ## Spelling, grammar, and style with TeXtidote (https://github.com/sylvainhalle/textidote): writes textidote.html
 ## Needs Java (contained in the Docker image); the options are in .textidote (its --check en is overridden here).
@@ -120,7 +124,11 @@ textidote.jar:
 spellcheck-textidote: textidote.jar
 	@# TeXtidote exits with the number of findings, which is no failure here
 	$(RUN) java -Djdk.xml.totalEntitySizeLimit=0 -jar textidote.jar --check en --output html $(MASTER_TEX) > textidote.html || test -s textidote.html
-	@echo "Report: textidote.html"
+	@# .textidote removes \markdownInput, so the Markdown file is checked on its own
+	if [ -e content-markdown.md ]; then \
+		$(RUN) java -Djdk.xml.totalEntitySizeLimit=0 -jar textidote.jar --check en --output html content-markdown.md > content-markdown.textidote.html || test -s content-markdown.textidote.html; \
+	fi
+	@echo "Reports: textidote.html and content-markdown.textidote.html"
 
 ## Show only the relevant messages of the last LaTeX run
 log:
