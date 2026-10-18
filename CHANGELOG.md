@@ -10,6 +10,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 ### Changed
 
 - README.md: "Disabled features" is a subsection of "Benefits".
+- Markdown example: "a whole section" instead of "a longer part".
 
 ## [2026-10-16]
 
