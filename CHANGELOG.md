@@ -7,10 +7,17 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 ## [Unreleased]
 
+### Added
+
+- A section written in plain Markdown (`content-markdown.md`, German: `content-markdown.de.md`; LuaLaTeX).
+- VS Code: [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint) recommended, configured by `.markdownlint.yml`.
+
 ### Changed
 
 - Markdown example: "a whole section" instead of "a longer part".
+- CI: aspell, textlint, and TeXtidote also check the Markdown files.
 - README.md: "Disabled features" is a subsection of "Benefits".
+- README.md: markdownlint findings fixed.
 
 ## [2026-10-16]
 
