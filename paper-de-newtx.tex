@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 614 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 658.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 612 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 656.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -202,9 +202,7 @@
 %\usemintedstyle{rrt}
 %\usemintedstyle{borland}
 
-% We need to load caption to have a bold font on the label
-% The other parameters mimic the layout of the LNCS class
-\usepackage[labelfont=bf,font=small,skip=4pt]{caption}
+% A paper keeps the caption style of its document class: the caption package would change it (e.g., "Figure 1:" instead of IEEE's "Fig. 1.")
 \SetupFloatingEnvironment{listing}{name=List.,within=none}
 
 % When using both minted and listings
