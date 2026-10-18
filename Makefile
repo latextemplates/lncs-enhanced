@@ -106,7 +106,7 @@ spellcheck: spellcheck-aspell spellcheck-textidote
 ##
 ## .aspell.en.pws - persönliches Wörterbuch
 spellcheck-aspell:
-	for tex in *.tex chapters/*.en.tex; do \
+	for tex in *.tex chapters-en/*.tex; do \
 		[ -e "$$tex" ] || continue; \
 		aspell --mode=tex -l en_US --encoding=utf-8 --conf=./.aspell.conf -p ./.aspell.en.pws -c "$$tex" || exit 1; \
 	done
@@ -141,7 +141,7 @@ showundef:
 ## Reformatierung
 
 format:
-	for f in $(MAIN_TEX_FILES) chapters/*.tex; do \
+	for f in $(MAIN_TEX_FILES) chapters-*/*.tex; do \
 		[ -e "$$f" ] || continue; \
 		$(RUN) latexindent -l -s -sl -w "$$f" || exit 1; \
 	done
