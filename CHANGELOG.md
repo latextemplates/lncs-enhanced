@@ -16,6 +16,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 - Markdown example: "a whole section" instead of "a longer part".
 - CI: aspell, textlint, and TeXtidote also check the Markdown files.
+- CI and `make spellcheck`: aspell and TeXtidote run in the [Docker image by DANTE e.V.](https://hub.docker.com/r/danteev/texlive).
 - README.md: "Disabled features" is a subsection of "Benefits".
 - README.md: markdownlint findings fixed.
 
