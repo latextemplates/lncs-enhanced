@@ -119,7 +119,7 @@ jobs:
     #
     runs-on: ubuntu-latest
     # The DANTE e.V. image contains aspell with English and German dictionaries
-    container: danteev/texlive:edge
+    container: danteev/texlive:2026-C
     # In a container, steps run with sh by default
     defaults:
       run:
@@ -207,7 +207,7 @@ jobs:
   textidote:
     runs-on: ubuntu-latest
     # The DANTE e.V. image contains TeXtidote
-    container: danteev/texlive:edge
+    container: danteev/texlive:2026-C
     # In a container, steps run with sh by default
     defaults:
       run:
