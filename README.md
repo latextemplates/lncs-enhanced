@@ -203,7 +203,7 @@ The `textlint` job of the `Check` workflow reports weakening words (e.g., "clear
 Run it locally with `npx` (needs Node.js; rules come from `.textlintrc.json`):
 
 ```bash
-npx --yes --package textlint --package textlint-plugin-latex2e --package textlint-filter-rule-allowlist --package textlint-rule-terminology --package textlint-rule-write-good textlint paper.tex
+npx --yes --package textlint --package textlint-plugin-latex2e --package textlint-filter-rule-allowlist --package textlint-rule-terminology --package textlint-rule-write-good textlint paper.tex content-markdown.md
 ```
 
 The `textidote` job of the `Check` workflow checks spelling, grammar, and style of English documents with [TeXtidote](https://github.com/sylvainhalle/textidote) and reports its findings as annotations.
