@@ -41,9 +41,9 @@ jobs:
           sudo apt-get install -y aspell-en aspell-de
       - name: aspell
         run: |
-          for tex in *.tex chapters/*.tex content-markdown*.md chapters/*.md; do
+          for tex in *.tex chapters-*/*.tex content-markdown*.md chapters-*/*.md; do
             [ -e "$tex" ] || continue
-            if [[ "en" == "de" && ( "$tex" == thesis-example* || "$tex" == chapters/*.de.tex || "$tex" == chapters/*.de.md ) ]]; then
+            if [[ "en" == "de" && ( "$tex" == thesis-example* || "$tex" == chapters-de/* ) ]]; then
               continue
             fi
 
@@ -138,9 +138,9 @@ jobs:
           echo "| file | status |" >> $GITHUB_STEP_SUMMARY
           echo "| -- | -- |" >> $GITHUB_STEP_SUMMARY
           failure=0
-          for tex in *.tex chapters/*.tex content-markdown*.md chapters/*.md; do
+          for tex in *.tex chapters-*/*.tex content-markdown*.md chapters-*/*.md; do
             [ -e "$tex" ] || continue
-            if [[ "en" == "de" && ( "$tex" == thesis-example* || "$tex" == chapters/*.de.tex || "$tex" == chapters/*.de.md ) ]]; then
+            if [[ "en" == "de" && ( "$tex" == thesis-example* || "$tex" == chapters-de/* ) ]]; then
               echo "$tex skipped"
               continue
             fi
@@ -149,8 +149,8 @@ jobs:
             # Pick the dictionary that matches the file's language: the "-de"
             # variants are German, everything else uses the document's language.
             case "$tex" in
-              *-de.tex|*-de-*.tex|*.de.tex|*.de.md) aspell_lang="-l de_DE --run-together"; aspell_pws=de ;;
-              *.en.tex|*.en.md) aspell_lang="-l en_US"; aspell_pws=en ;;
+              *-de.tex|*-de-*.tex|*.de.md|chapters-de/*) aspell_lang="-l de_DE --run-together"; aspell_pws=de ;;
+              chapters-en/*) aspell_lang="-l en_US"; aspell_pws=en ;;
               *) aspell_lang="-l en_US"; aspell_pws=en ;;
             esac
 
@@ -165,7 +165,7 @@ jobs:
               echo "| $tex | ✅ |" >> $GITHUB_STEP_SUMMARY
             else
               echo "| $tex | ❌ $words |" >> $GITHUB_STEP_SUMMARY
-              if [[ "$tex" == "paper.tex" || "$tex" == chapters/*.en.tex || "$tex" == chapters/*.en.md || "$tex" == content-markdown.md ]]; then
+              if [[ "$tex" == "paper.tex" || "$tex" == chapters-en/* || "$tex" == content-markdown.md ]]; then
                 failure=1
               fi
             fi
@@ -188,11 +188,11 @@ jobs:
           # Report-only: findings show up as annotations, the job does not fail.
           # Rules come from .textlintrc.json. Only English documents (marked by
           # "% !TeX spellcheck = en-US") are linted: write-good targets English.
-          # The English Markdown files (content-markdown.md, chapters/*.en.md) belong to them.
+          # The English Markdown files (content-markdown.md, chapters-en/*.md) belong to them.
           files=()
           for tex in *.tex content-markdown.md; do
             [ -e "$tex" ] || continue
-            if [[ "$tex" == chapters/* || "$tex" == *.md ]] || grep -q '^% !TeX spellcheck = en' "$tex"; then
+            if [[ "$tex" == chapters-en/* || "$tex" == *.md ]] || grep -q '^% !TeX spellcheck = en' "$tex"; then
               files+=("$tex")
             fi
           done
