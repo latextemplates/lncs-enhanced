@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 698 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 742.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 704 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 748.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -499,6 +499,12 @@
     relativeReferences, % <#id> to reference an id defined via {#id} (typeset by \zcref, see below)
     hashEnumerators,    % 1) 2) 3) style enumerators
   ]{markdown}
+  % The markdown package typesets "#" as \chapter if the class defines it (llncs does); in a paper, "#" is a section
+  % textidote: ignore begin
+  \renewcommand{\markdownRendererHeadingOne}[1]{\section{#1}}
+  \renewcommand{\markdownRendererHeadingTwo}[1]{\subsection{#1}}
+  \renewcommand{\markdownRendererHeadingThree}[1]{\subsubsection{#1}}
+  % textidote: ignore end
   % Markdown's own reference syntax <#id> typesets the bare number (\ref).
   % Typeset it with \zcref instead, so that "<#tbl:example> shows" reads "Table 1 shows".
   % Other links are rendered as before.
@@ -762,6 +768,10 @@ The whole idea of TOSCA is explained by \citet{Binz2009}.
 Für die Suche nach verwandten Arbeiten eignet sich \href{https://www.scienceos.ai/}{ScienceOS}\footnote{\url{https://www.scienceos.ai/}}; es speichert Daten in der EU und belegt seine Antworten mit Quellen, die man trotzdem selbst lesen und prüfen muss.
 Schreibhinweise für studentische Arbeiten gibt das Open-Access-Buch \href{https://vdf.ch/product/student-thesis-projects-en.html}{\emph{Student Thesis Projects}}\footnote{\url{https://vdf.ch/product/student-thesis-projects-en.html}}.
 Weitere Hinweise gibt \href{https://doi.org/10.1007/978-1-4471-6639-9}{\emph{Writing for Computer Science}}\footnote{\url{https://doi.org/10.1007/978-1-4471-6639-9}}.
+
+\ifluatex
+  \markdownInput{content-markdown.de.md}
+\fi
 
 \section{LaTeX Hinweise}
 \label{sec:latexhints}
@@ -1243,7 +1253,7 @@ With paralist, one can even have all items typeset after each other and have the
   \LaTeX{} then takes care of the typesetting.
   Markdown and \LaTeX{} can be mixed:
   \Zcref{tbl:markdown} is written in Markdown and referenced from \LaTeX{}.
-  A whole section can be written in a separate Markdown file included by \verb|\markdownInput|.
+  A whole section can be written in a separate Markdown file included by \verb|\markdownInput|, as \zcref{sec:markdown-file} shows.
   The \href{https://github.com/latextemplates/markdown-latex-quickstart}{markdown-latex-quickstart} shows a complete document written in Markdown.
 
   \begin{ltgexample}
