@@ -24,6 +24,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 - CI: aspell, textlint, and TeXtidote also check the Markdown files.
 - CI and `make spellcheck`: aspell and TeXtidote run in the [Docker image by DANTE e.V.](https://hub.docker.com/r/danteev/texlive).
 - README.md: FAQ on adding words (e.g., names of tools) to the spell checkers.
+- README.md: how to run the `make` targets in Docker without a local `make`.
 - README.md: "Disabled features" is a subsection of "Benefits".
 - README.md: markdownlint findings fixed.
 
