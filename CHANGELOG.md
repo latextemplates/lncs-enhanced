@@ -11,7 +11,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 - A section written in plain Markdown (`content-markdown.md`, German: `content-markdown.de.md`; LuaLaTeX).
 - VS Code: [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint) recommended, configured by `.markdownlint.yml`.
-- CI: [typos](https://github.com/crate-ci/typos) checks the spelling, also in comments (configured in `_typos.toml`).
+- CI: [typos](https://github.com/crate-ci/typos) checks the spelling, also in comments (configured in `.typos.toml`).
 
 ### Changed
 
