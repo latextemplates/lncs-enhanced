@@ -5,6 +5,39 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://calver.org/).
 
+## [Unreleased]
+
+### Added
+
+- A section written in plain Markdown (`content-markdown.md`, German: `content-markdown.de.md`; LuaLaTeX).
+- VS Code: [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint) recommended, configured by `.markdownlint.yml`.
+- VS Code: LTeX+ knows the words of the aspell word lists (`.vscode/ltex.dictionary.<language>.txt`).
+- `make dictionaries` merges the word lists of aspell, LTeX+, and TeXtidote.
+- CI: after a push that changes a word list, the workflow `Dictionaries` runs `make dictionaries` and commits the merged word lists.
+- CI: [typos](https://github.com/crate-ci/typos) checks the spelling, also in comments (configured in `.typos.toml`).
+
+### Changed
+
+- `paper.tex` keeps the caption style of the document class, as `paper-basic-listings.tex` does (the `caption` package is no longer loaded).
+- The caption of the cross-reference example table is above the table.
+- Lines in minted listings are labeled with `\label` and referenced with `\zcref` like everything else (`\labelline` and `\refline` removed).
+- Markdown example: "a whole section" instead of "a longer part".
+- CI: aspell, textlint, and TeXtidote also check the Markdown files.
+- CI and `make spellcheck`: aspell and TeXtidote run in the [Docker image by DANTE e.V.](https://hub.docker.com/r/danteev/texlive).
+- README.md: FAQ on adding words (e.g., names of tools) to the spell checkers.
+- README.md: how to run the `make` targets in Docker without a local `make`.
+- README.md: "Disabled features" is a subsection of "Benefits".
+- README.md: markdownlint findings fixed.
+
+### Removed
+
+- Outdated copy of the CI workflow `check.yml` in the root directory (CI uses `.github/workflows/check.yml`).
+- `paper.spell.good`: word list of a former spell check, no longer used.
+
+### Fixed
+
+- Typos fixed, mostly in comments; German comments in the English files translated.
+
 ## [2026-10-16]
 
 ### Added
@@ -228,7 +261,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 ### Changed
 
-- LNCS is now based on the offical CTAN package [llncs](https://ctan.org/pkg/llncs).
+- LNCS is now based on the official CTAN package [llncs](https://ctan.org/pkg/llncs).
 - Now generated using the [latex template generator](https://www.npmjs.com/package/generator-latex-template).
 - Replaced `\ifluatex` statements by separate `.tex` documents. This makes each `.tex` document smaller and simpler to understand.
 - Quoting is done with <code>``...''</code> instead of `\qq{...}`
@@ -270,7 +303,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 - Added [stfloats](https://ctan.org/pkg/stfloats) package to enable footnotes appearing after floats.
 - Added option `babel` to microtype package to ensure that documents written in a language other than English also work.
-- Added package [siunitx](https://ctan.org/pkg/siunitx) incluing an example.
+- Added package [siunitx](https://ctan.org/pkg/siunitx) including an example.
 
 ### Changed
 
@@ -380,7 +413,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 ### Changed
 
-- `download-llncs-files-from-springer.sh` now uses <ftp://ftp.springernature.com/cs-proceeding/llncs/llncs2e.zip> as `ftp.springer.de` seems to be an inofficial site.
+- `download-llncs-files-from-springer.sh` now uses <ftp://ftp.springernature.com/cs-proceeding/llncs/llncs2e.zip> as `ftp.springer.de` seems to be an unofficial site.
 - Removed download of required Springer files using gradle.
 - Updated `README.md`: Merged "Features" and "Benefits" into "Features".
 

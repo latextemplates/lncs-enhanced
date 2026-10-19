@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  The content starts in line 654 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 693.
+% vvvvvvvv  The content starts in line 694 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 733.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -17,7 +17,7 @@
 %  - easy print out on DIN A4 paper size
 %
 % One can configure default page size (a4 vs. letter) in the LaTeX installation.
-% Thus, it is configuration dependend, what the paper size will be.
+% Thus, it is configuration dependent, what the paper size will be.
 % Having "a4paper" option present, the page size is set to A4.
 % Note that the current word template offered by Springer is DIN A4.
 %
@@ -31,7 +31,7 @@
 % blindly opening the folder, one could hit not the title page, but an arbitrary page. Therefore,
 % it is good to have title printed on the pages, too.
 %
-% The optiion "runningheads" neesd to be removed upon request of the publisher.
+% The option "runningheads" needs to be removed upon request of the publisher.
 %
 % To disable outputting page headers and footers, remove "runningheads"
 \documentclass[runningheads,a4paper,english]{llncs}[2022/01/12]
@@ -120,7 +120,7 @@
   \usepackage[%
     rm={oldstyle=false,proportional=true},%
     sf={oldstyle=false,proportional=true},%
-    % By using 'variable=true' the monospaced font can be used as variable font (with differents widths per letter)
+    % By using 'variable=true' the monospaced font can be used as variable font (with different widths per letter)
     % However, this makes listings look ugly.
     tt={oldstyle=false,proportional=true,variable=false},%
     qt=false%
@@ -376,19 +376,19 @@
 % Even though the package is from 1998, it works well
 \usepackage[rflt]{floatflt}
 
-% Farbige Tabellen
-% ----------------
-% Das Paket colortbl wird inzwischen automatisch durch xcolor geladen
+% Colored tables
+% --------------
+% xcolor loads the package colortbl
 %
-% Erweiterte Funktionen innerhalb von Tabellen
-% --------------------------------------------
+% Extended functions within tables
+% --------------------------------
 %%% Doc: http://mirror.ctan.org/tex-archive/macros/latex/contrib/multirow/multirow.sty
-\usepackage{multirow} % Mehrfachspalten
+\usepackage{multirow} % cells spanning multiple rows
 %
 %%% Doc: Documentation inside dtx Package
-\usepackage{dcolumn}  % Ausrichtung an Komma oder Punkt
+\usepackage{dcolumn}  % alignment at the decimal separator
 
-% Etwas mehr Luft zwischen den Tabellenzeilen (\extrarowheight wird von array bereitgestellt, das dcolumn lädt)
+% A bit more space between the rows of a table (\extrarowheight is provided by array, which dcolumn loads)
 \setlength{\extrarowheight}{1pt}
 
 %%% Doc: http://mirror.ctan.org/tex-archive/macros/latex/contrib/supertabular/supertabular.pdf
@@ -442,7 +442,7 @@
 %
 % - \textmarker
 % - \modified
-% - \change      - adresses a review comment
+% - \change      - addresses a review comment
 
 % Enable nice comments
 \usepackage{pdfcomment}
@@ -500,6 +500,12 @@
     relativeReferences, % <#id> to reference an id defined via {#id} (typeset by \zcref, see below)
     hashEnumerators,    % 1) 2) 3) style enumerators
   ]{markdown}
+  % The markdown package typesets "#" as \chapter if the class defines it (llncs does); in a paper, "#" is a section
+  % textidote: ignore begin
+  \renewcommand{\markdownRendererHeadingOne}[1]{\section{#1}}
+  \renewcommand{\markdownRendererHeadingTwo}[1]{\subsection{#1}}
+  \renewcommand{\markdownRendererHeadingThree}[1]{\subsubsection{#1}}
+  % textidote: ignore end
   % Markdown's own reference syntax <#id> typesets the bare number (\ref).
   % Typeset it with \zcref instead, so that "<#tbl:example> shows" reads "Table 1 shows".
   % Other links are rendered as before.
@@ -573,6 +579,40 @@
 \usepackage[realmainfile]{currfile}
 \usepackage{tcolorbox}
 \tcbuselibrary{listings}
+% Required for proper example rendering in the compiled PDF
+\newcount\LTGbeginlineexample
+\newcount\LTGendlineexample
+\newenvironment{ltgexample}%
+{\LTGbeginlineexample=\numexpr\inputlineno+1\relax}%
+{\LTGendlineexample=\numexpr\inputlineno-1\relax%
+  \tcbinputlisting{%
+    listing only,
+    listing file=\currfilepath,
+    colback=green!5!white,
+    colframe=green!25,
+    coltitle=black!90,
+    coltext=black!90,
+    left=8mm,
+    title=Corresponding \LaTeX{} code of \texttt{\currfilepath},
+    listing options={
+        frame=none,
+        language={[LaTeX]TeX},
+        escapeinside={},
+        firstline=\the\LTGbeginlineexample,
+        lastline=\the\LTGendlineexample,
+        firstnumber=\the\LTGbeginlineexample,
+        basewidth=.5em,
+        % break long lines even without whitespace (e.g., \includegraphics[...]{...}); otherwise they run out of the box
+        breakatwhitespace=false,
+        aboveskip=0mm,
+        belowskip=0mm,
+        numbers=left,
+        xleftmargin=0mm,
+        numberstyle=\tiny,
+        numbersep=8pt%
+      }
+  }
+}%
 
 %introduce \powerset - hint by http://matheplanet.com/matheplanet/nuke/html/viewtopic.php?topic=136492&post_id=997377
 \DeclareFontFamily{U}{MnSymbolC}{}
@@ -599,7 +639,7 @@
 \newcommand{\ie}{i.e.,\ }
 
 % Enable hyphenation at other places as the dash.
-% Example: applicaiton\hydash specific
+% Example: application\hydash specific
 \makeatletter
 \newcommand{\hydash}{\penalty\@M-\hskip\z@skip}
 % Definition of "= taken from http://mirror.ctan.org/macros/latex/contrib/babel-contrib/german/ngermanb.dtx
@@ -657,7 +697,7 @@
 % If Title is too long, use \titlerunning
 %\titlerunning{Short Title}
 
-% Single insitute
+% Single institute
 \author{Firstname Lastname \and Firstname Lastname}
 
 % If there are too many authors, use \authorrunning
@@ -665,7 +705,7 @@
 
 \institute{Institute}
 
-%% Multiple insitutes - ALTERNATIVE to the above
+%% Multiple institutes - ALTERNATIVE to the above
 % \author{%
 %     Firstname Lastname\inst{1} \and
 %     Firstname Lastname\inst{2}
@@ -675,9 +715,9 @@
 %  \authorrunning{First Author et al.}
 %
 %  \institute{
-%      Insitute 1\\
+%      Institute 1\\
 %      \email{...}\and
-%      Insitute 2\\
+%      Institute 2\\
 %      \email{...}
 %}
 
@@ -708,45 +748,12 @@ To search for related work, \href{https://www.scienceos.ai/}{ScienceOS}\footnote
 Writing hints for student theses are given in the open-access book \href{https://vdf.ch/product/student-thesis-projects-en.html}{\emph{Student Thesis Projects}}\footnote{\url{https://vdf.ch/product/student-thesis-projects-en.html}}.
 More hints are given in \href{https://doi.org/10.1007/978-1-4471-6639-9}{\emph{Writing for Computer Science}}\footnote{\url{https://doi.org/10.1007/978-1-4471-6639-9}}.
 
+\ifluatex
+  \markdownInput{content-markdown.md}
+\fi
+
 \section{LaTeX Hints}
 \label{sec:latexhints}
-
-% textidote: ignore begin
-% Required for proper example rendering in the compiled PDF
-\newcount\LTGbeginlineexample
-\newcount\LTGendlineexample
-\newenvironment{ltgexample}%
-{\LTGbeginlineexample=\numexpr\inputlineno+1\relax}%
-{\LTGendlineexample=\numexpr\inputlineno-1\relax%
-  \tcbinputlisting{%
-    listing only,
-    listing file=\currfilepath,
-    colback=green!5!white,
-    colframe=green!25,
-    coltitle=black!90,
-    coltext=black!90,
-    left=8mm,
-    title=Corresponding \LaTeX{} code of \texttt{\currfilepath},
-    listing options={
-        frame=none,
-        language={[LaTeX]TeX},
-        escapeinside={},
-        firstline=\the\LTGbeginlineexample,
-        lastline=\the\LTGendlineexample,
-        firstnumber=\the\LTGbeginlineexample,
-        basewidth=.5em,
-        % break long lines even without whitespace (e.g., \includegraphics[...]{...}); otherwise they run out of the box
-        breakatwhitespace=false,
-        aboveskip=0mm,
-        belowskip=0mm,
-        numbers=left,
-        xleftmargin=0mm,
-        numberstyle=\tiny,
-        numbersep=8pt%
-      }
-  }
-}%
-% textidote: ignore end
 
 This section contains hints on writing LaTeX.
 It focuses on minimal examples, which can be directly adapted to the content
@@ -867,6 +874,8 @@ Demonstration of zref-clever: Zcref (short for zcref[S]) at the beginning of a s
 \end{figure}
 
 \begin{table}
+  \caption{Example table for zcref demo}
+  \label{tab:ex:cref}
   \centering
   \begin{tabular}{ll}
     \toprule
@@ -876,8 +885,6 @@ Demonstration of zref-clever: Zcref (short for zcref[S]) at the beginning of a s
     Three    & Four     \\
     \bottomrule
   \end{tabular}
-  \caption{Example table for zcref demo}
-  \label{tab:ex:cref}
 \end{table}
 
 \begin{ltgexample}
@@ -1229,7 +1236,7 @@ With paralist, one can even have all items typeset after each other and have the
   \LaTeX{} then takes care of the typesetting.
   Markdown and \LaTeX{} can be mixed:
   \Zcref{tbl:markdown} is written in Markdown and referenced from \LaTeX{}.
-  A longer part, such as a whole section, can be placed in a separate file included by \verb|\markdownInput{introduction.md}|.
+  A whole section can be written in a separate Markdown file included by \verb|\markdownInput|, as \zcref{sec:markdown-file} shows.
   The \href{https://github.com/latextemplates/markdown-latex-quickstart}{markdown-latex-quickstart} shows a complete document written in Markdown.
 
   \begin{ltgexample}
@@ -1298,8 +1305,8 @@ Identification of funding sources and other support, and thanks to individuals a
 %%% Bibliography
 %%% ===============================================================================
 
-\renewcommand{\bibsection}{\section*{References}} % requried for natbib to have "References" printed and as section*, not chapter*
-% Use natbib compatbile splncs04nat style.
+\renewcommand{\bibsection}{\section*{References}} % required for natbib to have "References" printed and as section*, not chapter*
+% Use natbib compatible splncs04nat style.
 % It does provide all features of splncs04.bst, but is developed in a clean way.
 % Source: https://github.com/tpavlic/splncs04nat
 \bibliographystyle{splncs04nat}
@@ -1309,7 +1316,7 @@ Identification of funding sources and other support, and thanks to individuals a
   \bibliography{paper}
 \endgroup
 
-% Enfore empty line after bibliography
+% Enforce empty line after bibliography
 \ \\
 %
 \noindent

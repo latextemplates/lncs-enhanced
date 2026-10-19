@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 580 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 624.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 625 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 669.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -17,7 +17,7 @@
 %  - easy print out on DIN A4 paper size
 %
 % One can configure default page size (a4 vs. letter) in the LaTeX installation.
-% Thus, it is configuration dependend, what the paper size will be.
+% Thus, it is configuration dependent, what the paper size will be.
 % Having "a4paper" option present, the page size is set to A4.
 % Note that the current word template offered by Springer is DIN A4.
 %
@@ -202,9 +202,7 @@
 %\usemintedstyle{rrt}
 %\usemintedstyle{borland}
 
-% We need to load caption to have a bold font on the label
-% The other parameters mimic the layout of the LNCS class
-\usepackage[labelfont=bf,font=small,skip=4pt]{caption}
+% A paper keeps the caption style of its document class: the caption package would change it (e.g., "Figure 1:" instead of IEEE's "Fig. 1.")
 \SetupFloatingEnvironment{listing}{name=List.,within=none}
 
 % When using both minted and listings
@@ -213,9 +211,20 @@
 % \AtBeginEnvironment{listing}{\setcounter{listing}{\value{lstlisting}}}
 % \AtEndEnvironment{listing}{\stepcounter{lstlisting}}
 
-% Intermediate solution for hyperlinked refs. See https://tex.stackexchange.com/q/132420/9075 for more information.
-\newcommand{\labelline}[1]{\label{#1}\hypertarget{#1}{}}
-\newcommand{\refline}[1]{\hyperlink{#1}{\FancyVerbLineautorefname~\ref*{#1}}}
+% Enable \label in listing lines (via escapeinside) and referencing them using \zcref, e.g., "Line 2".
+% fancyvrb steps the line counter without \refstepcounter: no counter for \zcref and no target for the hyperlink.
+% See https://github.com/gusbrs/zref-clever/issues/65 and https://tex.stackexchange.com/q/132420/9075.
+\makeatletter
+\def\FV@refstepcounter#1{%
+  \refstepcounter{#1}%
+  \protected@edef\@currentlabel{\csname p@#1\endcsname\arabic{#1}}%
+}
+% Unique hyperlink targets in each listing
+\newcounter{FancyVerbListing}
+\let\FV@StepLineNo@orig\FV@StepLineNo
+\def\FV@StepLineNo{\stepcounter{FancyVerbListing}\FV@StepLineNo@orig}
+\def\theHFancyVerbLine{\arabic{FancyVerbListing}.\arabic{FancyVerbLine}}
+\makeatother
 
 % For easy quotations: \enquote{text}
 % This package is very smart when nesting is applied, otherwise textcmds (see below) provides a shorter command
@@ -290,19 +299,19 @@
 % Even though the package is from 1998, it works well
 \usepackage[rflt]{floatflt}
 
-% Farbige Tabellen
-% ----------------
-% Das Paket colortbl wird inzwischen automatisch durch xcolor geladen
+% Colored tables
+% --------------
+% xcolor loads the package colortbl
 %
-% Erweiterte Funktionen innerhalb von Tabellen
-% --------------------------------------------
+% Extended functions within tables
+% --------------------------------
 %%% Doc: http://mirror.ctan.org/tex-archive/macros/latex/contrib/multirow/multirow.sty
-\usepackage{multirow} % Mehrfachspalten
+\usepackage{multirow} % cells spanning multiple rows
 %
 %%% Doc: Documentation inside dtx Package
-\usepackage{dcolumn}  % Ausrichtung an Komma oder Punkt
+\usepackage{dcolumn}  % alignment at the decimal separator
 
-% Etwas mehr Luft zwischen den Tabellenzeilen (\extrarowheight wird von array bereitgestellt, das dcolumn lädt)
+% A bit more space between the rows of a table (\extrarowheight is provided by array, which dcolumn loads)
 \setlength{\extrarowheight}{1pt}
 
 %%% Doc: http://mirror.ctan.org/tex-archive/macros/latex/contrib/supertabular/supertabular.pdf
@@ -356,7 +365,7 @@
 %
 % - \textmarker
 % - \modified
-% - \change      - adresses a review comment
+% - \change      - addresses a review comment
 
 % Enable nice comments
 \usepackage{pdfcomment}
@@ -415,6 +424,12 @@
     relativeReferences, % <#id> to reference an id defined via {#id} (typeset by \zcref, see below)
     hashEnumerators,    % 1) 2) 3) style enumerators
   ]{markdown}
+  % The markdown package typesets "#" as \chapter if the class defines it (llncs does); in a paper, "#" is a section
+  % textidote: ignore begin
+  \renewcommand{\markdownRendererHeadingOne}[1]{\section{#1}}
+  \renewcommand{\markdownRendererHeadingTwo}[1]{\subsection{#1}}
+  \renewcommand{\markdownRendererHeadingThree}[1]{\subsubsection{#1}}
+  % textidote: ignore end
   % Markdown's own reference syntax <#id> typesets the bare number (\ref).
   % Typeset it with \zcref instead, so that "<#tbl:example> shows" reads "Table 1 shows".
   % Other links are rendered as before.
@@ -480,6 +495,8 @@
 \zcsetup{cap, nameinlink=true, abbrev}
 % \Zcref{...} is short for \zcref[S]{...}: capitalized, unabbreviated name at the beginning of a sentence
 \NewDocumentCommand{\Zcref}{s O{} m}{\IfBooleanTF{#1}{\zcref*[S,#2]{#3}}{\zcref[S,#2]{#3}}}
+% Lines of minted listings are referenced as "Line 2"
+\zcsetup{countertype={FancyVerbLine=line}}
 \zcLanguageSetup{english}{
   type=section, Name-sg-ab=Sect., Name-pl-ab=Sect.,
   type=listing, Name-sg-ab=List., Name-pl-ab=List.,
@@ -495,6 +512,34 @@
 \usepackage[realmainfile]{currfile}
 \usepackage{tcolorbox}
 \tcbuselibrary{minted}
+% Benötigt für eine korrekte Darstellung der Hinweise im erzeugten PDF
+\newcount\LTGbeginlineexample
+\newcount\LTGendlineexample
+\newenvironment{ltgexample}%
+{\LTGbeginlineexample=\numexpr\inputlineno+1\relax}%
+{\LTGendlineexample=\numexpr\inputlineno-1\relax%
+  \tcbinputlisting{%
+    listing only,
+    listing file=\currfilepath,
+    colback=green!5!white,
+    colframe=green!25,
+    coltitle=black!90,
+    coltext=black!90,
+    left=8mm,
+    title=Zugehöriger \LaTeX{}-Quelltext aus \texttt{\currfilepath},
+    minted language=TeX,
+    minted style=vs,
+    minted options={
+        fontsize=\footnotesize,
+        firstline=\the\LTGbeginlineexample,
+        lastline=\the\LTGendlineexample,
+        firstnumber=\the\LTGbeginlineexample,
+        breaklines,
+        linenos,
+        numbersep=8pt
+      }
+  }
+}%
 
 %introduce \powerset - hint by http://matheplanet.com/matheplanet/nuke/html/viewtopic.php?topic=136492&post_id=997377
 \DeclareFontFamily{U}{MnSymbolC}{}
@@ -517,7 +562,7 @@
 \makeatother
 
 % Enable hyphenation at other places as the dash.
-% Example: applicaiton\hydash specific
+% Example: application\hydash specific
 \makeatletter
 \newcommand{\hydash}{\penalty\@M-\hskip\z@skip}
 % Definition of "= taken from http://mirror.ctan.org/macros/latex/contrib/babel-contrib/german/ngermanb.dtx
@@ -588,7 +633,7 @@
 % If Title is too long, use \titlerunning
 %\titlerunning{Short Title}
 
-% Single insitute
+% Single institute
 \author{Firstname Lastname \and Firstname Lastname}
 
 % If there are too many authors, use \authorrunning
@@ -596,7 +641,7 @@
 
 \institute{Institute}
 
-%% Multiple insitutes - ALTERNATIVE to the above
+%% Multiple institutes - ALTERNATIVE to the above
 % \author{%
 %     Firstname Lastname\inst{1} \and
 %     Firstname Lastname\inst{2}
@@ -606,9 +651,9 @@
 %  \authorrunning{First Author et al.}
 %
 %  \institute{
-%      Insitute 1\\
+%      Institute 1\\
 %      \email{...}\and
-%      Insitute 2\\
+%      Institute 2\\
 %      \email{...}
 %}
 
@@ -645,39 +690,12 @@ Für die Suche nach verwandten Arbeiten eignet sich \href{https://www.scienceos.
 Schreibhinweise für studentische Arbeiten gibt das Open-Access-Buch \href{https://vdf.ch/product/student-thesis-projects-en.html}{\emph{Student Thesis Projects}}\footnote{\url{https://vdf.ch/product/student-thesis-projects-en.html}}.
 Weitere Hinweise gibt \href{https://doi.org/10.1007/978-1-4471-6639-9}{\emph{Writing for Computer Science}}\footnote{\url{https://doi.org/10.1007/978-1-4471-6639-9}}.
 
+\ifluatex
+  \markdownInput{content-markdown.de.md}
+\fi
+
 \section{LaTeX Hinweise}
 \label{sec:latexhints}
-
-% textidote: ignore begin
-% Benötigt für eine korrekte Darstellung der Hinweise im erzeugten PDF
-\newcount\LTGbeginlineexample
-\newcount\LTGendlineexample
-\newenvironment{ltgexample}%
-{\LTGbeginlineexample=\numexpr\inputlineno+1\relax}%
-{\LTGendlineexample=\numexpr\inputlineno-1\relax%
-  \tcbinputlisting{%
-    listing only,
-    listing file=\currfilepath,
-    colback=green!5!white,
-    colframe=green!25,
-    coltitle=black!90,
-    coltext=black!90,
-    left=8mm,
-    title=Zugehöriger \LaTeX{}-Quelltext aus \texttt{\currfilepath},
-    minted language=TeX,
-    minted style=vs,
-    minted options={
-        fontsize=\footnotesize,
-        firstline=\the\LTGbeginlineexample,
-        lastline=\the\LTGendlineexample,
-        firstnumber=\the\LTGbeginlineexample,
-        breaklines,
-        linenos,
-        numbersep=8pt
-      }
-  }
-}%
-% textidote: ignore end
 
 Hier sollen allgemeine \LaTeX-Hinweise gegeben werden, damit man Minimalbeispiele vorliegen hat, um sofort loszulegen.
 
@@ -797,6 +815,8 @@ Demonstration of zref-clever: Zcref (short for zcref[S]) at the beginning of a s
 \end{figure}
 
 \begin{table}
+  \caption{Example table for zcref demo}
+  \label{tab:ex:cref}
   \centering
   \begin{tabular}{ll}
     \toprule
@@ -806,8 +826,6 @@ Demonstration of zref-clever: Zcref (short for zcref[S]) at the beginning of a s
     Three    & Four     \\
     \bottomrule
   \end{tabular}
-  \caption{Example table for zcref demo}
-  \label{tab:ex:cref}
 \end{table}
 
 \begin{ltgexample}
@@ -1059,12 +1077,12 @@ It uses the \href{http://pygments.org/}{pygments} library, which in turn require
 
 \begin{ltgexample}
 \Zcref{lst:XML} shows source code written in XML.
-\refline{line:comment} contains a comment.
+\Zcref{line:comment} contains a comment.
 
 \begin{listing}[htbp]
   \begin{minted}[linenos=true,escapeinside=||]{xml}
 <listing name="example">
-  <!-- comment --> |\labelline{line:comment}|
+  <!-- comment --> |\label{line:comment}|
   <content>not interesting</content>
 </listing>
 \end{minted}
@@ -1142,7 +1160,7 @@ With paralist, one can even have all items typeset after each other and have the
   \LaTeX{} then takes care of the typesetting.
   Markdown and \LaTeX{} can be mixed:
   \Zcref{tbl:markdown} is written in Markdown and referenced from \LaTeX{}.
-  A longer part, such as a whole section, can be placed in a separate file included by \verb|\markdownInput{introduction.md}|.
+  A whole section can be written in a separate Markdown file included by \verb|\markdownInput|, as \zcref{sec:markdown-file} shows.
   The \href{https://github.com/latextemplates/markdown-latex-quickstart}{markdown-latex-quickstart} shows a complete document written in Markdown.
 
   \begin{ltgexample}
@@ -1215,8 +1233,8 @@ Identification of funding sources and other support, and thanks to individuals a
 %%% Bibliography
 %%% ===============================================================================
 
-\renewcommand{\bibsection}{\section*{Literatur}} % requried for natbib to have "References" printed and as section*, not chapter*
-% Use natbib compatbile splncs04nat style.
+\renewcommand{\bibsection}{\section*{Literatur}} % required for natbib to have "References" printed and as section*, not chapter*
+% Use natbib compatible splncs04nat style.
 % It does provide all features of splncs03, but is developed in a clean way.
 % Source: https://github.com/tpavlic/splncs04nat
 \bibliographystyle{splncs04nat}
@@ -1226,7 +1244,7 @@ Identification of funding sources and other support, and thanks to individuals a
   \bibliography{paper}
 \endgroup
 
-% Enfore empty line after bibliography
+% Enforce empty line after bibliography
 \ \\
 %
 \noindent
