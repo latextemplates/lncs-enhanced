@@ -32,7 +32,7 @@ jobs:
           fi
       - run: latexmk paper
 
-      # Highlight mis-spelled words in the PDF
+      # Highlight misspelled words in the PDF
       - uses: awalsh128/cache-apt-pkgs-action@latest
         with:
           packages: aspell aspell-en aspell-de
