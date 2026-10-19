@@ -10,6 +10,7 @@ extend-exclude = [
   "*-de.md",
   "*.de.md",
   "chapters-de/",
+  "abbreviations.tex",
   # Bibliography, styles, and classes
   "*.bib",
   "*.bst",
@@ -17,7 +18,6 @@ extend-exclude = [
   "*.sty",
   # Word lists
   "*.pws",
-  "*.spell.good",
   "generator-latex-template/",
 ]
 
