@@ -17,7 +17,7 @@
 %  - easy print out on DIN A4 paper size
 %
 % One can configure default page size (a4 vs. letter) in the LaTeX installation.
-% Thus, it is configuration dependend, what the paper size will be.
+% Thus, it is configuration dependent, what the paper size will be.
 % Having "a4paper" option present, the page size is set to A4.
 % Note that the current word template offered by Springer is DIN A4.
 %
@@ -31,7 +31,7 @@
 % blindly opening the folder, one could hit not the title page, but an arbitrary page. Therefore,
 % it is good to have title printed on the pages, too.
 %
-% The optiion "runningheads" neesd to be removed upon request of the publisher.
+% The option "runningheads" needs to be removed upon request of the publisher.
 %
 % To disable outputting page headers and footers, remove "runningheads"
 \documentclass[runningheads,a4paper,english]{llncs}[2022/01/12]
@@ -301,19 +301,19 @@
 % Even though the package is from 1998, it works well
 \usepackage[rflt]{floatflt}
 
-% Farbige Tabellen
-% ----------------
-% Das Paket colortbl wird inzwischen automatisch durch xcolor geladen
+% Colored tables
+% --------------
+% xcolor loads the package colortbl
 %
-% Erweiterte Funktionen innerhalb von Tabellen
-% --------------------------------------------
+% Extended functions within tables
+% --------------------------------
 %%% Doc: http://mirror.ctan.org/tex-archive/macros/latex/contrib/multirow/multirow.sty
-\usepackage{multirow} % Mehrfachspalten
+\usepackage{multirow} % cells spanning multiple rows
 %
 %%% Doc: Documentation inside dtx Package
-\usepackage{dcolumn}  % Ausrichtung an Komma oder Punkt
+\usepackage{dcolumn}  % alignment at the decimal separator
 
-% Etwas mehr Luft zwischen den Tabellenzeilen (\extrarowheight wird von array bereitgestellt, das dcolumn lädt)
+% A bit more space between the rows of a table (\extrarowheight is provided by array, which dcolumn loads)
 \setlength{\extrarowheight}{1pt}
 
 %%% Doc: http://mirror.ctan.org/tex-archive/macros/latex/contrib/supertabular/supertabular.pdf
@@ -367,7 +367,7 @@
 %
 % - \textmarker
 % - \modified
-% - \change      - adresses a review comment
+% - \change      - addresses a review comment
 
 % Enable nice comments
 \usepackage{pdfcomment}
@@ -560,7 +560,7 @@
 \newcommand{\ie}{i.e.,\ }
 
 % Enable hyphenation at other places as the dash.
-% Example: applicaiton\hydash specific
+% Example: application\hydash specific
 \makeatletter
 \newcommand{\hydash}{\penalty\@M-\hskip\z@skip}
 % Definition of "= taken from http://mirror.ctan.org/macros/latex/contrib/babel-contrib/german/ngermanb.dtx
@@ -618,7 +618,7 @@
 % If Title is too long, use \titlerunning
 %\titlerunning{Short Title}
 
-% Single insitute
+% Single institute
 \author{Firstname Lastname \and Firstname Lastname}
 
 % If there are too many authors, use \authorrunning
@@ -626,7 +626,7 @@
 
 \institute{Institute}
 
-%% Multiple insitutes - ALTERNATIVE to the above
+%% Multiple institutes - ALTERNATIVE to the above
 % \author{%
 %     Firstname Lastname\inst{1} \and
 %     Firstname Lastname\inst{2}
@@ -636,9 +636,9 @@
 %  \authorrunning{First Author et al.}
 %
 %  \institute{
-%      Insitute 1\\
+%      Institute 1\\
 %      \email{...}\and
-%      Insitute 2\\
+%      Institute 2\\
 %      \email{...}
 %}
 
@@ -1212,8 +1212,8 @@ Identification of funding sources and other support, and thanks to individuals a
 %%% Bibliography
 %%% ===============================================================================
 
-\renewcommand{\bibsection}{\section*{References}} % requried for natbib to have "References" printed and as section*, not chapter*
-% Use natbib compatbile splncs04nat style.
+\renewcommand{\bibsection}{\section*{References}} % required for natbib to have "References" printed and as section*, not chapter*
+% Use natbib compatible splncs04nat style.
 % It does provide all features of splncs04.bst, but is developed in a clean way.
 % Source: https://github.com/tpavlic/splncs04nat
 \bibliographystyle{splncs04nat}
@@ -1223,7 +1223,7 @@ Identification of funding sources and other support, and thanks to individuals a
   \bibliography{paper}
 \endgroup
 
-% Enfore empty line after bibliography
+% Enforce empty line after bibliography
 \ \\
 %
 \noindent
