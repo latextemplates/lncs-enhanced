@@ -28,6 +28,11 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 - Typos fixed, mostly in comments; German comments in the English files translated.
 
+### Removed
+
+- Outdated copy of the CI workflow `check.yml` in the root directory (CI uses `.github/workflows/check.yml`).
+
+
 ## [2026-10-16]
 
 ### Added
