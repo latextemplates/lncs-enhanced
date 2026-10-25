@@ -387,6 +387,19 @@ The possible options are listed in `paper.tex`.
 
 Use the [`authorarchive` package](https://ctan.org/pkg/authorarchive); `paper.tex` contains a commented example.
 
+### Q: How do I prepare the sources for arXiv?
+
+arXiv publishes the uploaded sources, including all comments (such as TODOs and commented-out text).
+[arxiv-latex-cleaner](https://github.com/google-research/arxiv-latex-cleaner) removes comments and unused files and can shrink images:
+
+```bash
+pip install arxiv-latex-cleaner
+arxiv_latex_cleaner .
+```
+
+Upload the content of the created directory `../<name of this directory>_arXiv`.
+See also ["arXiv"](#arxiv) above.
+
 ### Q: Can I also write in German?
 
 Yes. You can regenerate the template and choose "German" as language.
