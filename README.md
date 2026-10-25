@@ -182,7 +182,7 @@ Independent of the chosen setup:
   Please download [LanguageTool] (Windows: `choco install languagetool`) and [configure TeXstudio to use it](http://wiki.languagetool.org/checking-la-tex-with-languagetool#toc4).
   Note that it is enough to point to `languagetool.jar`.
   **If TeXstudio doesn't fit your need, check [the list of all available LaTeX Editors](http://tex.stackexchange.com/questions/339/latex-editors-ides).**
-- Use [JabRef] to manage your bibliography (Windows: `choco install jabref`).
+- Use [JabRef] to manage your bibliography (in 2026, install the latest [beta version](https://github.com/JabRef/jabref/releases): the stable version 5.15 is too old).
 
 ### Advanced usage
 
