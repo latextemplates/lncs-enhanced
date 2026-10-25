@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  The content starts in line 702 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 741.
+% vvvvvvvv  The content starts in line 718 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 757.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -149,9 +149,16 @@
 % Deactiviated, because does not look good
 
 % Avoid orphans and widows (a single line of a paragraph left at the bottom or top
-% of a page). Using a package feels less hacky than tuning \clubpenalty and
-% \widowpenalty manually.
-\usepackage[all,defaultlines=3]{nowidow}
+% of a page).
+\ifdefined\directlua
+  % LuaLaTeX: lua-widow-control removes them by lengthening or shortening a paragraph
+  % by one line, instead of leaving an empty line at the bottom of the page.
+  \usepackage{lua-widow-control}
+\else
+  % pdfLaTeX: nowidow sets \clubpenalty and \widowpenalty; using a package feels less
+  % hacky than tuning them manually.
+  \usepackage[all,defaultlines=3]{nowidow}
+\fi
 
 % Avoid a widow line being split off a displayed equation.
 \displaywidowpenalty=10000
@@ -547,7 +554,8 @@
 % \showprogresstrue
 % \newcommand{\progress}[1]{%
 %   \ifshowprogress
-%     \par\vspace{-.5\baselineskip}\noindent\progressbar[width=\linewidth,heighta=4pt,borderwidth=0.4pt,subdivisions=4,filledcolor=black!50]{\fpeval{#1/100}}\par
+%     \par\vspace{-.5\baselineskip}%
+%     {\parfillskip=0pt\noindent\progressbar[width=\linewidth,heighta=4pt,borderwidth=0.4pt,subdivisions=4,filledcolor=black!50]{\fpeval{#1/100}}\par}%
 %   \fi
 % }
 
@@ -699,6 +707,14 @@
   \input{glyphtounicode}
   \pdfgentounicode=1
 \fi
+% LuaLaTeX: avoid lines running into the margin. linebreaker sets an overfull
+% paragraph again with increasing \tolerance and \emergencystretch until it fits.
+% Loaded at the end of the preamble, after all packages that change line breaking.
+% See https://ctan.org/pkg/linebreaker.
+\ifdefined\directlua
+  \usepackage{linebreaker}
+\fi
+
 \begin{document}
 
 \title{Paper Title}
