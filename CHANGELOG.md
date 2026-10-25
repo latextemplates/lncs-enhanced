@@ -11,6 +11,10 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 - "Further information" links the [LaTeX setup guide](https://github.com/latextemplates/scientific-thesis-template/blob/main/docs/latex-setup.md) for installing LaTeX and an editor.
 
+### Changed
+
+- The README recommends the [JabRef beta version](https://github.com/JabRef/jabref/releases), because the stable version 5.15 is too old.
+
 ## [2026-10-19]
 
 ### Added
