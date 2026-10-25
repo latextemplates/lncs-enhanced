@@ -9,6 +9,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 ### Added
 
+- README: "Further information" links common questions of LaTeX beginners (often referenced questions on TeX.SE, Barbara Beeton's "What every LaTeX newbie should know").
 - README FAQ: how to remove comments and unused files before uploading to arXiv ([arxiv-latex-cleaner](https://github.com/google-research/arxiv-latex-cleaner)).
 - Commented-out progress bars: uncomment the lines in the preamble and use `\progress{60}` below a heading to see how far a section is written.
 - `.devcontainer/devcontainer.json`: open the repository in VS Code ("Reopen in Container") or in GitHub Codespaces to work inside the TeX Live image, without a local LaTeX installation.
