@@ -9,6 +9,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 ### Added
 
+- LuaLaTeX: [linebreaker](https://ctan.org/pkg/linebreaker) sets a paragraph again with more tolerance when a line would run into the margin.
 - README: "Further information" links common questions of LaTeX beginners (often referenced questions on TeX.SE, Barbara Beeton's "What every LaTeX newbie should know").
 - README FAQ: how to remove comments and unused files before uploading to arXiv ([arxiv-latex-cleaner](https://github.com/google-research/arxiv-latex-cleaner)).
 - Commented-out progress bars: uncomment the lines in the preamble and use `\progress{60}` below a heading to see how far a section is written.
@@ -17,6 +18,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 ### Changed
 
+- LuaLaTeX: widows and orphans are removed by [lua-widow-control](https://ctan.org/pkg/lua-widow-control), which keeps pages full by lengthening or shortening a paragraph by one line; pdfLaTeX keeps [nowidow](https://ctan.org/pkg/nowidow).
 - Long URLs may break after any character ([xurl](https://ctan.org/pkg/xurl)), so they no longer run into the margin.
 - The README recommends the [JabRef beta version](https://github.com/JabRef/jabref/releases), because the stable version 5.15 is too old.
 
