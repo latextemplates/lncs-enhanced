@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  The content starts in line 682 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 721.
+% vvvvvvvv  The content starts in line 695 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 734.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -531,6 +531,19 @@
 % Enable correct jumping to figures when referencing
 \usepackage[all]{hypcap}
 
+% Show how far each chapter or section is written:
+% \progress{60} below a heading draws a bar filled to 60 %.
+% Set \showprogressfalse to hide all bars, e.g., for the submitted version.
+% To use it, uncomment the following lines.
+% \usepackage{progressbar}
+% \newif\ifshowprogress
+% \showprogresstrue
+% \newcommand{\progress}[1]{%
+%   \ifshowprogress
+%     \par\vspace{-.5\baselineskip}\noindent\progressbar[width=\linewidth,heighta=4pt,borderwidth=0.4pt,subdivisions=4,filledcolor=black!50]{\fpeval{#1/100}}\par
+%   \fi
+% }
+
 \usepackage[caption=false,font=footnotesize]{subfig}
 
 % Alternative for making subfigures:
@@ -719,6 +732,7 @@
 
 
 \section{Introduction}
+% \progress{50} % progress bar, see the preamble
 \label{sec:introduction}
 \lipsum[1-3]\todo{Refine me}
 
