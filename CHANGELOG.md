@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://calver.org/).
 
+## [Unreleased]
+
+### Added
+
+- LuaLaTeX: [linebreaker](https://ctan.org/pkg/linebreaker) sets a paragraph again with more tolerance when a line would run into the margin.
+- README: "Further information" links common questions of LaTeX beginners (often referenced questions on TeX.SE, Barbara Beeton's "What every LaTeX newbie should know").
+- README FAQ: how to remove comments and unused files before uploading to arXiv ([arxiv-latex-cleaner](https://github.com/google-research/arxiv-latex-cleaner)).
+- Commented-out progress bars: uncomment the lines in the preamble and use `\progress{60}` below a heading to see how far a section is written.
+- `.devcontainer/devcontainer.json`: open the repository in VS Code ("Reopen in Container") or in GitHub Codespaces to work inside the TeX Live image, without a local LaTeX installation.
+- "Further information" links the [LaTeX setup guide](https://github.com/latextemplates/scientific-thesis-template/blob/main/docs/latex-setup.md) for installing LaTeX and an editor.
+
+### Changed
+
+- LuaLaTeX: widows and orphans are removed by [lua-widow-control](https://ctan.org/pkg/lua-widow-control), which keeps pages full by lengthening or shortening a paragraph by one line; pdfLaTeX keeps [nowidow](https://ctan.org/pkg/nowidow).
+- Long URLs may break after any character ([xurl](https://ctan.org/pkg/xurl)), so they no longer run into the margin.
+- The README recommends the [JabRef beta version](https://github.com/JabRef/jabref/releases), because the stable version 5.15 is too old.
+
+### Removed
+
+- The switched-off [spelling](https://ctan.org/pkg/spelling) package is no longer loaded.
+
+### Fixed
+
+- latexmk no longer reruns LaTeX just because the recorder file (`.fls`) changed, which could end in exit code 12 without any error in the log (seen with LuaLaTeX in a fresh Docker container): `.latexmkrc` ignores the `.fls`, which currfile reads for the example listings.
+
 ## [2026-10-19]
 
 ### Added

@@ -133,6 +133,8 @@ Thus, `minted` works out of the box - also on Windows, without a separate Python
 
 1. Optional: Let VS Code compile in the container, see ["VS Code configuration"](#vs-code-configuration).
 
+No Docker at hand? Open the repository in [GitHub Codespaces](https://github.com/features/codespaces) and compile in the browser.
+
 If you need additional tools in the image, extend the generated `Dockerfile`, build it with `docker build -t ltg .`, and use `ltg` instead of the image name.
 
 ### Traditional
@@ -182,7 +184,7 @@ Independent of the chosen setup:
   Please download [LanguageTool] (Windows: `choco install languagetool`) and [configure TeXstudio to use it](http://wiki.languagetool.org/checking-la-tex-with-languagetool#toc4).
   Note that it is enough to point to `languagetool.jar`.
   **If TeXstudio doesn't fit your need, check [the list of all available LaTeX Editors](http://tex.stackexchange.com/questions/339/latex-editors-ides).**
-- Use [JabRef] to manage your bibliography (Windows: `choco install jabref`).
+- Use [JabRef] to manage your bibliography (in 2026, install the latest [beta version](https://github.com/JabRef/jabref/releases): the stable version 5.15 is too old).
 
 ### Advanced usage
 
@@ -385,6 +387,19 @@ The possible options are listed in `paper.tex`.
 
 Use the [`authorarchive` package](https://ctan.org/pkg/authorarchive); `paper.tex` contains a commented example.
 
+### Q: How do I prepare the sources for arXiv?
+
+arXiv publishes the uploaded sources, including all comments (such as TODOs and commented-out text).
+[arxiv-latex-cleaner](https://github.com/google-research/arxiv-latex-cleaner) removes comments and unused files and can shrink images:
+
+```bash
+pip install arxiv-latex-cleaner
+arxiv_latex_cleaner .
+```
+
+Upload the content of the created directory `../<name of this directory>_arXiv`.
+See also ["arXiv"](#arxiv) above.
+
 ### Q: Can I also write in German?
 
 Yes. You can regenerate the template and choose "German" as language.
@@ -454,15 +469,17 @@ Then, automatic installation should work again.
 
 ## Further information
 
+- New to LaTeX? See the [LaTeX setup guide](https://github.com/latextemplates/scientific-thesis-template/blob/main/docs/latex-setup.md) for installing LaTeX and an editor.
 - tex.stackexchange.com questions regarding LNCS: <https://tex.stackexchange.com/questions/tagged/lncs>
 - Original LNCS documentation (without the improvements): [llncsdoc.pdf](https://mirrors.ctan.org/macros/latex/contrib/llncs/llncsdoc.pdf) from the [llncs CTAN package](https://ctan.org/pkg/llncs). The old `llncs.dem` demonstration is no longer part of that package; the official sample paper (`samplepaper.tex`) is contained in Springer's [LaTeX2e Proceedings Templates (zip)](https://www.springer.com/gp/computer-science/lncs/conference-proceedings-guidelines).
 - Why the templates use which packages: [decision records of the template generator](https://github.com/latextemplates/generator-latex-template/tree/main/docs/decisions)
-- Other templates: <https://latextemplates.github.io/>
+- Common questions of LaTeX beginners: the list of [often referenced questions on TeX.SE](https://tex.meta.stackexchange.com/q/2419/9075) and Barbara Beeton: [What every LaTeX newbie should know](https://tug.org/tug2023/files/fr-04-beeton-newbie/beeton-newbie-preprint.pdf) (TUG 2023).
 - For German users, go to <https://texfragen.de/>.
 - Frank Mittelbach with Ulrike Fischer: [The LaTeX Companion](https://www.latex-project.org/news/2023/03/17/TLC3/) is the ultimate guide for LaTeX: The authors went through all packages offered by [CTAN](https://ctan.org/), selected the most promising ones, described them, and provide minimal working example for each of it.
 - Lutz Hering, Heike Hering: [How to Write Technical Reports](https://doi.org/10.1007/978-3-540-69929-3), Springer, 2010; also available in German [Technische Berichte - verständlich gliedern, gut gestalten, überzeugend vortragen](https://doi.org/10.1007/978-3-8348-8317-9). - Highly recommended, because it guides through all aspects of a report (such as a Master Thesis).
 - Marcus Deininger et al.: [Studienarbeiten - Ein Leitfaden zur Erstellung, Durchführung und Präsentation wissenschaftlicher Abschlussarbeiten am Beispiel Informatik](https://vdf.ch/studienarbeiten.html?author_id=2877), vdf. - Recommended as guideline for planning and working on the whole thesis.
 - Charles Lipson, [Cite Right, Second Edition: A Quick Guide to Citation Styles--MLA, APA, Chicago, the Sciences, Professions, and More](http://www.press.uchicago.edu/ucp/books/book/chicago/C/bo10702043.html), Chicago Guides to Writing, Editing, and Publishing, 2011. - Recommended in case you are unsure about how to correctly cite something.
+- Other templates: <https://latextemplates.github.io/>
 
 ## License
 

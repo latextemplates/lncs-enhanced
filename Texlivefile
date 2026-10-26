@@ -49,6 +49,7 @@ etexcmds
 etoolbox
 everyshi
 fgruler
+fewerfloatpages
 fifo-stack
 filehook
 fixmath
@@ -90,6 +91,7 @@ lccaps
 letltxmacro
 libertine
 libertinus-fonts
+linebreaker
 lineno
 lipsum
 listings
@@ -102,9 +104,9 @@ luacode
 lualatex-math
 luamplib
 metapost
+lua-widow-control
 luatex85
 luatexbase
-luaxml
 ly1
 marginnote
 markdown
@@ -145,6 +147,7 @@ pgf-umlsd
 pict2e
 placeins
 plantuml
+progressbar
 psnfss
 ragged2e
 refcount
@@ -159,7 +162,6 @@ siunitx
 snapshot
 soul
 soulpos
-spelling
 stringenc
 sttools
 subfig
@@ -192,6 +194,7 @@ xifthen
 xkeyval
 xpatch
 xstring
+xurl
 zref
 zref-clever
 zref-vario

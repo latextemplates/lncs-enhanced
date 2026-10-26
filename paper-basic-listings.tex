@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  The content starts in line 694 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 733.
+% vvvvvvvv  The content starts in line 718 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 757.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -63,10 +63,10 @@
 % For all options see https://tex.stackexchange.com/a/261435/9075.
 % \urlstyle{same}
 
-% Improve wrapping of URLs - hint by http://tex.stackexchange.com/a/10419/9075
-\makeatletter
-\g@addto@macro{\UrlBreaks}{\UrlOrds}
-\makeatother
+% Allow URL breaks after any character, so that long URLs do not run into the margin.
+% Loaded before biblatex, so that the biblatex settings of the URL penalties stay.
+% See https://ctan.org/pkg/xurl.
+\usepackage{xurl}
 
 % nicer // - solution by http://tex.stackexchange.com/a/98470/9075
 % DO NOT ACTIVATE -> prevents line breaks
@@ -149,9 +149,16 @@
 % Deactiviated, because does not look good
 
 % Avoid orphans and widows (a single line of a paragraph left at the bottom or top
-% of a page). Using a package feels less hacky than tuning \clubpenalty and
-% \widowpenalty manually.
-\usepackage[all,defaultlines=3]{nowidow}
+% of a page).
+\ifdefined\directlua
+  % LuaLaTeX: lua-widow-control removes them by lengthening or shortening a paragraph
+  % by one line, instead of leaving an empty line at the bottom of the page.
+  \usepackage{lua-widow-control}
+\else
+  % pdfLaTeX: nowidow sets \clubpenalty and \widowpenalty; using a package feels less
+  % hacky than tuning them manually.
+  \usepackage[all,defaultlines=3]{nowidow}
+\fi
 
 % Avoid a widow line being split off a displayed equation.
 \displaywidowpenalty=10000
@@ -186,11 +193,6 @@
 % Diagonal lines in a table - http://tex.stackexchange.com/questions/17745/diagonal-lines-in-table-cell
 % Slashbox is not available in texlive (due to licensing) and also gives bad results. Thus, we use diagbox
 \usepackage{diagbox}
-
-\ifluatex
-  \usepackage{spelling}
-  \spellingoutput{off}
-\fi
 
 \usepackage[dvipsnames, table]{xcolor}
 % Code Listings
@@ -543,6 +545,20 @@
 % Enable correct jumping to figures when referencing
 \usepackage[all]{hypcap}
 
+% Show how far each chapter or section is written:
+% \progress{60} below a heading draws a bar filled to 60 %.
+% Set \showprogressfalse to hide all bars, e.g., for the submitted version.
+% To use it, uncomment the following lines.
+% \usepackage{progressbar}
+% \newif\ifshowprogress
+% \showprogresstrue
+% \newcommand{\progress}[1]{%
+%   \ifshowprogress
+%     \par\vspace{-.5\baselineskip}%
+%     {\parfillskip=0pt\noindent\progressbar[width=\linewidth,heighta=4pt,borderwidth=0.4pt,subdivisions=4,filledcolor=black!50]{\fpeval{#1/100}}\par}%
+%   \fi
+% }
+
 \usepackage[caption=false,font=footnotesize]{subfig}
 
 % Alternative for making subfigures:
@@ -691,6 +707,14 @@
   \input{glyphtounicode}
   \pdfgentounicode=1
 \fi
+% LuaLaTeX: avoid lines running into the margin. linebreaker sets an overfull
+% paragraph again with increasing \tolerance and \emergencystretch until it fits.
+% Loaded at the end of the preamble, after all packages that change line breaking.
+% See https://ctan.org/pkg/linebreaker.
+\ifdefined\directlua
+  \usepackage{linebreaker}
+\fi
+
 \begin{document}
 
 \title{Paper Title}
@@ -731,6 +755,7 @@
 
 
 \section{Introduction}
+% \progress{50} % progress bar, see the preamble
 \label{sec:introduction}
 \lipsum[1-3]\todo{Refine me}
 
