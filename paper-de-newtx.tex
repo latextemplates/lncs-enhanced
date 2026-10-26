@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 650 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 694.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 656 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 700.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -329,6 +329,12 @@
 \usepackage{longtable}
 
 %%% Footnotes/Endnotes ===================================================
+
+% Save space: set all footnotes of a page side by side in one paragraph (LuaLaTeX only).
+% pdfLaTeX cannot break URLs inside such footnotes: footmisc collects each footnote in a box, and TeX adds no break points
+% to math (which \url uses) inside a box. LuaTeX's \mathpenaltiesmode does.
+%\usepackage[para]{footmisc}
+%\mathpenaltiesmode=1
 
 % Put footnotes below floats
 % Source: https://tex.stackexchange.com/a/32993/9075
