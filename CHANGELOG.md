@@ -15,6 +15,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 ### Fixed
 
 - German papers: `\citet` with two authors reads "A und B" instead of "A and B". [#18](https://github.com/latextemplates/lncs-enhanced/issues/18)
+- `\textcomment`: the highlighted text breaks across lines with LuaLaTeX; before, a longer passage ran into the margin. [#15](https://github.com/latextemplates/lncs-enhanced/issues/15)
 
 ## [2026-10-26]
 
