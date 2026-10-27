@@ -237,7 +237,7 @@ FUNCTION {space.word}
  % Each function has a name bbl.xxx where xxx is the English word.
  % The language selected here is ENGLISH
 FUNCTION {bbl.and}
-{ "and"}
+{ "\andname{}"}
 
 FUNCTION {bbl.etal}
 { "et~al." }
@@ -1521,6 +1521,8 @@ FUNCTION {begin.bib}
   "\begin{thebibliography}{" number.label int.to.str$ * "}" *
   write$ newline$
   "\providecommand{\natexlab}[1]{#1}"
+  write$ newline$
+  "\providecommand{\andname}{and}"
   write$ newline$
   "\providecommand{\url}[1]{\texttt{#1}}"
   write$ newline$
