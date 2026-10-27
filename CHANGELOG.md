@@ -10,6 +10,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 ### Added
 
 - A commented-out block in the preamble sets all footnotes of a page side by side in one paragraph to save space ([footmisc](https://ctan.org/pkg/footmisc) option `para`, LuaLaTeX only). [#20](https://github.com/latextemplates/lncs-enhanced/issues/20)
+- LaTeX hints: how to polish a single paragraph with `\looseness` once the text is final. [#14](https://github.com/latextemplates/lncs-enhanced/issues/14)
 
 ## [2026-10-26]
 
