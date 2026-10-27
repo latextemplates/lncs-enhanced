@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  The content starts in line 645 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 684.
+% vvvvvvvv  The content starts in line 650 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 689.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -263,6 +263,11 @@
 
 % In the bibliography, references have to be formatted as 1., 2., ... not [1], [2], ...
 \renewcommand{\bibnumfmt}[1]{#1.}
+
+% "A and B" (two authors, \citet) follows the document language: splncs04nat.bst writes \andname{} instead of "and".
+% babel has no caption for "and", so register one; \andname then switches with the language like \figurename.
+\setlocalecaption{english}{and}{and}
+\setlocalecaption{ngerman}{and}{und}
 
 % Enable hyperlinked author names in the case of \citet
 % Source: https://tex.stackexchange.com/a/76075/9075
