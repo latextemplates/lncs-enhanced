@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 767 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 811.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 769 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 813.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -181,10 +181,12 @@
 \sys_if_shell_unrestricted:T { \RequirePackage [ compress = flat ] { graphicscache } }
 \ExplSyntaxOff
 \makeatletter
-% graphicscache spells the Ghostscript filter "FlatEncode"; Ghostscript knows it as FlateEncode and rejects the typo
+% graphicscache spells the Ghostscript filter "FlatEncode"; Ghostscript knows it as FlateEncode and rejects the typo.
+% Remove when https://github.com/xqms/graphicscache/issues/30 is fixed.
 \@ifpackageloaded{graphicscache}{%
   \def\graphicscache@compress@mode{FlateEncode}%
-  % graphicscache parses the \includegraphics options itself and does not know graphicx's alt text (the markdown package sets it)
+  % graphicscache parses the \includegraphics options itself and does not know graphicx's alt text (the markdown package sets it).
+  % Remove when https://github.com/xqms/graphicscache/issues/29 is fixed.
   \pgfkeys{/graphicscache/alt/.code={\graphicscache@addarg{alt={\unexpanded{#1}}}}}%
 }{}
 \makeatother
