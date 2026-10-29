@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 667 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 711.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 670 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 714.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -318,6 +318,9 @@
 %
 %%% Doc: Documentation inside dtx Package
 \usepackage{dcolumn}  % alignment at the decimal separator
+%
+%%% Doc: https://texdoc.org/serve/tablefootnote/0
+\usepackage{tablefootnote} % \tablefootnote: a footnote inside a floating table (plain \footnote is lost there)
 
 % A bit more space between the rows of a table (\extrarowheight is provided by array, which dcolumn loads)
 \setlength{\extrarowheight}{1pt}
@@ -1059,6 +1062,24 @@ Rows and cells can be colored with \verb|\rowcolor| and \verb|\cellcolor| from t
     \midrule
     A    & \cellcolor{green!20}pass \\
     B    & \cellcolor{red!20}fail   \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\end{ltgexample}
+
+A \verb|\footnote| inside a floating table is lost.
+Use \verb|\tablefootnote| from the \href{https://ctan.org/pkg/tablefootnote}{tablefootnote} package instead: it is set as a normal footnote at the bottom of the page.
+
+\begin{ltgexample}
+\begin{table}
+  \caption{Table with a footnote}
+  \label{tab:footnote}
+  \centering
+  \begin{tabular}{ll}
+    \toprule
+    Heading1 & Heading2\tablefootnote{A footnote inside a table.} \\
+    \midrule
+    One      & Two      \\
     \bottomrule
   \end{tabular}
 \end{table}
