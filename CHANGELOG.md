@@ -11,6 +11,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 - Tables: `\tablefootnote` sets a footnote inside a floating table, where a plain `\footnote` is lost. [scientific-thesis-template#91](https://github.com/latextemplates/scientific-thesis-template/issues/91)
 - Smaller PDFs: when compiling with `--shell-escape`, [graphicscache](https://ctan.org/pkg/graphicscache) re-encodes every included image once (lossless, at most 300 dpi) and caches it in `graphicscache/`; without shell escape nothing changes.
+- Edits and comments by several authors: `\FA{added}`, `\FA*{removed}`, `\FA[comment]` ([phfcc](https://ctan.org/pkg/phfcc)), with the initials in the margin; one command per author, `\phfDisableCommentingCommands` for the final version.
 - README: an "Advanced quick start" sets up the document as a git repository with the template as remote, so template updates can be merged later; the FAQ on synchronizing updates points to it.
 - A commented-out block in the preamble sets all footnotes of a page side by side in one paragraph to save space ([footmisc](https://ctan.org/pkg/footmisc) option `para`, LuaLaTeX only). [#20](https://github.com/latextemplates/lncs-enhanced/issues/20)
 - LaTeX hints: how to polish a single paragraph with `\looseness` once the text is final. [#14](https://github.com/latextemplates/lncs-enhanced/issues/14)
