@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 766 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 810.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 767 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 811.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -507,8 +507,7 @@
 % Modified (Text blau)
 \newcommand{\modified}[1]{{\color{blue!60!black} #1}\xspace}
 
-% Edits and comments by several authors (phfcc): \FA{added text}, \FA*{text to remove}, \FA[a comment],
-% \FA!{important}; the initials appear once per page in the margin. Define one command per author.
+% Edits and comments by several authors, each with their own color and initials (phfcc)
 % Doc: https://ctan.org/pkg/phfcc
 \usepackage{phfcc}
 \ifdefined\directlua
@@ -516,7 +515,9 @@
 \fi
 % Comments as footnotes keep the layout intact, e.g., to check page limits
 %\phfSetDefaultCommentingStyle{style=footcomments}
-\phfMakeCommentingCommand[initials={FA}]{FA} % first author -> \FA{...}; add one line per author with their initials
+% One command per author: \FA{added text}, \FA*{text to remove}, \FA[a comment], \FA!{important};
+% the initials appear once per page in the margin. Add one line per further author with their initials.
+\phfMakeCommentingCommand[initials={FA}]{FA} % first author
 % Final version: hide all edits and comments (there is no class option for it: "final" is the default of every class)
 %\phfDisableCommentingCommands
 
