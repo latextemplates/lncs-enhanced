@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 753 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 797.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 766 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 810.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -507,6 +507,19 @@
 % Modified (Text blau)
 \newcommand{\modified}[1]{{\color{blue!60!black} #1}\xspace}
 
+% Edits and comments by several authors (phfcc): \FA{added text}, \FA*{text to remove}, \FA[a comment],
+% \FA!{important}; the initials appear once per page in the margin. Define one command per author.
+% Doc: https://ctan.org/pkg/phfcc
+\usepackage{phfcc}
+\ifdefined\directlua
+  \phfSetDefaultCommentingStyle{style=rmstrikethrough} % strike through removed text across lines (LuaLaTeX only)
+\fi
+% Comments as footnotes keep the layout intact, e.g., to check page limits
+%\phfSetDefaultCommentingStyle{style=footcomments}
+\phfMakeCommentingCommand[initials={FA}]{FA} % first author
+% Final version: hide all edits and comments
+%\phfDisableCommentingCommands
+
 \usepackage[group-minimum-digits=4,per-mode=fraction]{siunitx}
 \addto\extrasgerman{\sisetup{locale = DE}}
 
@@ -893,6 +906,15 @@ Hier nur ein Kommentar\sidecomment{Kommentar}.
 
 \begin{ltgexample}
 \todo{Hier muss noch kräftig Text produziert werden}
+\end{ltgexample}
+
+Mehrere Autoren können ihre Änderungen und Kommentare mit dem Paket \href{https://ctan.org/pkg/phfcc}{phfcc} markieren; die Initialen erscheinen einmal pro Seite am Rand.
+Pro Autor wird in der Präambel ein Befehl definiert (\verb|\phfMakeCommentingCommand|); \verb|\phfDisableCommentingCommands| blendet für die finale Version alles aus.
+
+\begin{ltgexample}
+Die Quantenmechanik entwickelte sich dank der Arbeiten von Schrödinger, Heisenberg und Dirac rasch,
+die sich von früheren Ideen von Planck \FA{und Einstein} \FA[Einstein darf hier nicht fehlen.] inspirieren ließen.
+\FA*{Dieser Satz soll entfernt werden.} \FA!{Das ist wichtig.}
 \end{ltgexample}
 
 \subsection{Hyphenation}
