@@ -29,6 +29,20 @@ There is no need to adjust the packages or to remove some of them.
 This might lead to undesired results such as hyperlinks not working any more or no good microtypographic features.
 In case you think, a package needs to be altered or added, feel free to open an issue.
 
+### Advanced quick start
+
+Instead of downloading the ZIP, let git fetch the template; later template updates then merge into your text (see the [FAQ](#q-how-can-i-synchronize-updates-from-the-template-to-my-repository)).
+In an empty folder:
+
+```shell
+git init -b main
+git remote add template https://github.com/latextemplates/lncs-enhanced.git
+git fetch template
+git merge template/main
+```
+
+Then edit and compile as above.
+
 ## Benefits
 
 Following features are enabled in this template:
@@ -345,11 +359,15 @@ Please remove the file and update your LaTeX distribution.
 
 ### Q: How can I synchronize updates from the template to my repository?
 
-1. Initialize your git repository as usual
-2. Add this repository as git remote: `git remote add template https://github.com/latextemplates/{template}.git`
-3. Merge the branch `template/main` into your `main` branch: `git merge template/main`.
+Set up the repository as described in the [advanced quick start](#advanced-quick-start): this template is the git remote `template`.
+To get the latest template version, fetch and merge it:
 
-After that you can use and push the `main` branch as usual.
+```shell
+git fetch template
+git merge template/main
+```
+
+If you already have a repository, add the remote first: `git remote add template https://github.com/latextemplates/lncs-enhanced.git`.
 Notes on syncing with the upstream repository [are available from GitHub](https://help.github.com/articles/syncing-a-fork/).
 
 ### Q: I get the error `! pdfTeX error (font expansion): auto expansion is only possible with scalable fonts.`

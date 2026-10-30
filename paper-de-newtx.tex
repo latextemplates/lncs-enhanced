@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 650 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 694.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 703 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 747.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -173,6 +173,24 @@
 
 \usepackage{graphicx}
 
+% Smaller PDF: graphicscache re-encodes every included image once with Ghostscript (lossless, at most 300 dpi) and
+% caches the result in graphicscache/. It needs shell escape and an external pdflatex, so it is loaded only when the
+% document is compiled with --shell-escape; without, images are embedded as they are.
+% Doc: https://ctan.org/pkg/graphicscache
+\ExplSyntaxOn
+\sys_if_shell_unrestricted:T { \RequirePackage [ compress = flat ] { graphicscache } }
+\ExplSyntaxOff
+\makeatletter
+% graphicscache spells the Ghostscript filter "FlatEncode"; Ghostscript knows it as FlateEncode and rejects the typo.
+% Remove when https://github.com/xqms/graphicscache/issues/30 is fixed.
+\@ifpackageloaded{graphicscache}{%
+  \def\graphicscache@compress@mode{FlateEncode}%
+  % graphicscache parses the \includegraphics options itself and does not know graphicx's alt text (the markdown package sets it).
+  % Remove when https://github.com/xqms/graphicscache/issues/29 is fixed.
+  \pgfkeys{/graphicscache/alt/.code={\graphicscache@addarg{alt={\unexpanded{#1}}}}}%
+}{}
+\makeatother
+
 % Diagonal lines in a table - http://tex.stackexchange.com/questions/17745/diagonal-lines-in-table-cell
 % Slashbox is not available in texlive (due to licensing) and also gives bad results. Thus, we use diagbox
 \usepackage{diagbox}
@@ -263,6 +281,11 @@
 % In the bibliography, references have to be formatted as 1., 2., ... not [1], [2], ...
 \renewcommand{\bibnumfmt}[1]{#1.}
 
+% "A and B" (two authors, \citet) follows the document language: splncs04nat.bst writes \andname{} instead of "and".
+% babel has no caption for "and", so register one; \andname then switches with the language like \figurename.
+\setlocalecaption{english}{and}{and}
+\setlocalecaption{ngerman}{and}{und}
+
 % Enable hyperlinked author names in the case of \citet
 % Source: https://tex.stackexchange.com/a/76075/9075
 \usepackage{etoolbox}
@@ -313,6 +336,9 @@
 %
 %%% Doc: Documentation inside dtx Package
 \usepackage{dcolumn}  % alignment at the decimal separator
+%
+%%% Doc: https://texdoc.org/serve/tablefootnote/0
+\usepackage{tablefootnote} % \tablefootnote: a footnote inside a floating table (plain \footnote is lost there)
 
 % A bit more space between the rows of a table (\extrarowheight is provided by array, which dcolumn loads)
 \setlength{\extrarowheight}{1pt}
@@ -329,6 +355,12 @@
 \usepackage{longtable}
 
 %%% Footnotes/Endnotes ===================================================
+
+% Save space: set all footnotes of a page side by side in one paragraph (LuaLaTeX only).
+% pdfLaTeX cannot break URLs inside such footnotes: footmisc collects each footnote in a box, and TeX adds no break points
+% to math (which \url uses) inside a box. LuaTeX's \mathpenaltiesmode does.
+%\usepackage[para]{footmisc}
+%\mathpenaltiesmode=1
 
 % Put footnotes below floats
 % Source: https://tex.stackexchange.com/a/32993/9075
@@ -373,7 +405,13 @@
 % Enable nice comments
 \usepackage{pdfcomment}
 
-\newcommand{\textcomment}[2]{\colorbox{yellow!60}{#1}\pdfcomment[color={0.234 0.867 0.211},hoffset=-6pt,voffset=10pt,opacity=0.5]{#2}}
+\ifdefined\directlua
+  % Highlighting that breaks across lines (\colorbox does not): lua-ul's \highLight; the color needs luacolor
+  \usepackage{luacolor,lua-ul}
+  \newcommand{\textcomment}[2]{\highLight[yellow!60]{#1}\pdfcomment[color={0.234 0.867 0.211},hoffset=-6pt,voffset=10pt,opacity=0.5]{#2}}
+\else
+  \newcommand{\textcomment}[2]{\colorbox{yellow!60}{#1}\pdfcomment[color={0.234 0.867 0.211},hoffset=-6pt,voffset=10pt,opacity=0.5]{#2}}
+\fi
 
 % Small PDF comment
 % 1st parameter: comment
@@ -407,6 +445,21 @@
 
 % Modified (Text blau)
 \newcommand{\modified}[1]{{\color{blue!60!black} #1}\xspace}
+
+% Edits and comments by several authors, each with their own color and initials (phfcc)
+% Doc: https://ctan.org/pkg/phfcc
+\usepackage{phfcc}
+\ifdefined\directlua
+  \phfSetDefaultCommentingStyle{style=rmstrikethrough} % strike through removed text across lines (LuaLaTeX only)
+\fi
+% Comments as footnotes keep the layout intact, e.g., to check page limits
+%\phfSetDefaultCommentingStyle{style=footcomments}
+% One command per author: \FA{added text}, \FA*{text to remove}, \FA[a comment], \FA!{important};
+% the initials appear once per page in the margin; the forms do not combine (\FA*[...]{...} is only a comment), so
+% write \FA*{removed}\FA[comment]. Add one line per further author with their initials.
+\phfMakeCommentingCommand[initials={FA}]{FA} % first author
+% Final version: hide all edits and comments (there is no class option for it: "final" is the default of every class)
+%\phfDisableCommentingCommands
 
 \usepackage[group-minimum-digits=4,per-mode=fraction]{siunitx}
 \addto\extrasgerman{\sisetup{locale = DE}}
@@ -747,6 +800,11 @@ Beispielsweise begann der letzte Satz in einem neuen Absatz.
 Andrew Stacey begründet dies ausführlich im Abschnitt \enquote{Line Wrapping} seines \href{https://loopspace.mathforge.org/HowDidIDoThat/TeX/VCS/#section.3}{\emph{Document Revision System}}\footnote{\url{https://loopspace.mathforge.org/HowDidIDoThat/TeX/VCS/}}.
 \end{ltgexample}
 
+Ist der Text fertig, können einzelne Absätze nachgebessert werden.
+Besteht die letzte Zeile eines Absatzes nur aus ein oder zwei Wörtern oder ist sie fast voll, lässt man TeX den Absatz eine Zeile kürzer oder länger setzen: \texttt{\textbackslash looseness=-1} (bzw. \texttt{=1}) als Erstes in diesen Absatz schreiben.
+TeX setzt \texttt{\textbackslash looseness} am Ende jedes Absatzes zurück, sodass nur dieser eine Absatz betroffen ist.
+Mit LuaLaTeX wird ein einzelnes kurzes Wort als letzte Zeile bereits automatisch vermieden (Paket impnattypo).
+
 
 \subsection{Notes separated from the text}
 
@@ -785,6 +843,15 @@ Hier nur ein Kommentar\sidecomment{Kommentar}.
 
 \begin{ltgexample}
 \todo{Hier muss noch kräftig Text produziert werden}
+\end{ltgexample}
+
+Mehrere Autoren können ihre Änderungen und Kommentare mit dem Paket \href{https://ctan.org/pkg/phfcc}{phfcc} markieren; die Initialen erscheinen einmal pro Seite am Rand.
+Pro Autor wird in der Präambel ein Befehl definiert (\verb|\phfMakeCommentingCommand|); \verb|\phfDisableCommentingCommands| blendet für die finale Version alles aus.
+
+\begin{ltgexample}
+Die Quantenmechanik entwickelte sich dank der Arbeiten von Schrödinger, Heisenberg und Dirac rasch,
+die sich von früheren Ideen von Planck \FA{und Einstein} \FA[Einstein darf hier nicht fehlen.] inspirieren ließen.
+\FA*{Dieser Satz soll entfernt werden.} \FA!{Das ist wichtig.}
 \end{ltgexample}
 
 \subsection{Hyphenation}
@@ -1021,6 +1088,8 @@ Coordinates can also be given explicitly instead of as a function:
 \end{table}
 \end{ltgexample}
 
+A table caption goes above the table (\verb|\caption| before the \verb|tabular|), a figure caption below the figure.
+
 Rows and cells can be colored with \verb|\rowcolor| and \verb|\cellcolor| from the \href{https://ctan.org/pkg/colortbl}{colortbl} package, which \href{https://ctan.org/pkg/xcolor}{xcolor} loads with its option \verb|table|.
 
 \begin{ltgexample}
@@ -1035,6 +1104,25 @@ Rows and cells can be colored with \verb|\rowcolor| and \verb|\cellcolor| from t
     \midrule
     A    & \cellcolor{green!20}pass \\
     B    & \cellcolor{red!20}fail   \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\end{ltgexample}
+
+A \verb|\footnote| inside a floating table is lost.
+Use \verb|\tablefootnote| from the \href{https://ctan.org/pkg/tablefootnote}{tablefootnote} package instead: it is set as a normal footnote at the bottom of the page.
+If the notes should appear directly below the table instead (common in journals), use the \href{https://ctan.org/pkg/threeparttable}{threeparttable} package.
+
+\begin{ltgexample}
+\begin{table}
+  \caption{Table with a footnote}
+  \label{tab:footnote}
+  \centering
+  \begin{tabular}{ll}
+    \toprule
+    Heading1 & Heading2\tablefootnote{A footnote inside a table.} \\
+    \midrule
+    One      & Two                                                \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -1193,6 +1281,9 @@ With paralist, one can even have all items typeset after each other and have the
   \begin{markdown}
 Text can be *emphasized* or **bold**, and `code` is set in a monospaced font.
 A citation looks like this [@mwe], and here is a footnote.^[This is an inline footnote.]
+Referenced footnotes work as well[^detail].
+
+[^detail]: This is a footnote defined at a different place in the text.
 
 - first point
 - second point
