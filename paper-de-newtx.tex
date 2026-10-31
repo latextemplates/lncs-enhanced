@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 703 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 747.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 714 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 758.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -529,6 +529,17 @@
 \makeatletter
 \patchcmd{\@decl@short}{\bbl@info}{\@gobble}{}{}
 \makeatother
+
+% Document version from git: \gitVer is the commit (with "-dirty" when there are uncommitted changes) and
+% \versionBox a framed "Manuscript version: #<commit> - <build time>", e.g. for the footer or the title page.
+% gitver needs git and --shell-escape (add it to $pdflatex in .latexmkrc), so it is loaded only when the
+% document is compiled with --shell-escape; without, both commands are empty.
+% Doc: https://ctan.org/pkg/gitver
+%\ExplSyntaxOn
+%\sys_if_shell_unrestricted:T { \RequirePackage [ noheader , nopdfinfo ] { gitver } }
+%\ExplSyntaxOff
+%\providecommand{\gitVer}{}
+%\providecommand{\versionBox}{}
 
 % Show how far each chapter or section is written:
 % \progress{60} below a heading draws a bar filled to 60 %.
