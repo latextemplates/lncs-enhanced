@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 727 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 771.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 728 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 772.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -614,13 +614,14 @@
 {\LTGendlineexample=\numexpr\inputlineno-1\relax%
   \tcbinputlisting{%
     listing only,
-    listing file=\currfilepath,
+% \currfilename statt \currfilepath: ein Kapitel wird über den Import-Pfad von subfiles gelesen, den minted sonst noch einmal voranstellt
+    listing file=\currfilename,
     colback=green!5!white,
     colframe=green!25,
     coltitle=black!90,
     coltext=black!90,
     left=8mm,
-    title=Zugehöriger \LaTeX{}-Quelltext aus \texttt{\currfilepath},
+    title=Zugehöriger \LaTeX{}-Quelltext aus \texttt{\currfilename},
     minted language=TeX,
     minted style=vs,
     minted options={
