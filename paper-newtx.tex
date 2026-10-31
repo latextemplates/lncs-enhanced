@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  The content starts in line 704 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 743.
+% vvvvvvvv  The content starts in line 705 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 744.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -595,13 +595,14 @@
 {\LTGendlineexample=\numexpr\inputlineno-1\relax%
   \tcbinputlisting{%
     listing only,
-    listing file=\currfilepath,
+    % \currfilename, not \currfilepath: a chapter is read through the import path of subfiles, which minted would prepend once more
+    listing file=\currfilename,
     colback=green!5!white,
     colframe=green!25,
     coltitle=black!90,
     coltext=black!90,
     left=8mm,
-    title=Corresponding \LaTeX{} code of \texttt{\currfilepath},
+    title=Corresponding \LaTeX{} code of \texttt{\currfilename},
     minted language=TeX,
     minted style=vs,
     minted options={
