@@ -8,8 +8,8 @@
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 770 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 814.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 783 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 827.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -593,6 +593,18 @@
 \patchcmd{\@decl@short}{\bbl@info}{\@gobble}{}{}
 \makeatother
 
+% Document version from git: \gitVer is the commit (with "-dirty" when there are uncommitted changes) and
+% \versionBox a framed "Manuscript version: #<commit> - <build time>", e.g. for the footer or the title page.
+% gitver needs git and --shell-escape (add it to $pdflatex in .latexmkrc), so it is loaded only when the
+% document is compiled with --shell-escape; without, both commands are empty.
+% Without a git repository (e.g. a downloaded zip), gitver reports an error and the version reads "unknown".
+% Doc: https://ctan.org/pkg/gitver
+%\ExplSyntaxOn
+%\sys_if_shell_unrestricted:T { \RequirePackage [ noheader , nopdfinfo ] { gitver } }
+%\ExplSyntaxOff
+%\providecommand{\gitVer}{}
+%\providecommand{\versionBox}{}
+
 % Show how far each chapter or section is written:
 % \progress{60} below a heading draws a bar filled to 60 %.
 % Set \showprogressfalse to hide all bars, e.g., for the submitted version.
@@ -651,13 +663,14 @@
 {\LTGendlineexample=\numexpr\inputlineno-1\relax%
   \tcbinputlisting{%
     listing only,
-    listing file=\currfilepath,
+    % \currfilename statt \currfilepath: ein Kapitel wird über den Import-Pfad von subfiles gelesen, den minted sonst noch einmal voranstellt
+    listing file=\currfilename,
     colback=green!5!white,
     colframe=green!25,
     coltitle=black!90,
     coltext=black!90,
     left=8mm,
-    title=Zugehöriger \LaTeX{}-Quelltext aus \texttt{\currfilepath},
+    title=Zugehöriger \LaTeX{}-Quelltext aus \texttt{\currfilename},
     listing options={
         frame=none,
         language={[LaTeX]TeX},
