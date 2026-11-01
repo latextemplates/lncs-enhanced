@@ -22,6 +22,8 @@ if [ "$step" = pdf ] || [ "$step" = all ]; then
 fi
 
 if [ "$step" = png ] || [ "$step" = all ]; then
+  # ImageMagick 6 ("convert"; the alternative may be missing when the package came from a cache) or 7 ("magick")
+  convert=$(command -v convert || command -v convert-im6.q16 || command -v magick)
   for variant in plain ours; do
     pdftoppm -r 70 -png "comparison-$variant.pdf" "comparison/$variant"
   done
@@ -30,7 +32,7 @@ if [ "$step" = png ] || [ "$step" = all ]; then
   mapfile -t ours < <(ls comparison/ours-*.png | sort -V)
   n=${#plain[@]}
   pick() { # $1: index into the page lists, $2: output name
-    convert "${plain[$1]}" "${ours[$1]}" +append -bordercolor gray -border 1 "comparison-$2.png"
+    "$convert" "${plain[$1]}" "${ours[$1]}" +append -bordercolor gray -border 1 "comparison-$2.png"
   }
   pick 0 first
   pick $(( (n - 1) / 2 )) middle
