@@ -13,6 +13,11 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 - `Check` workflow: the weekly run compares the built PDF with the published one and uploads the highlighted differences as artifact `pdf-diff`, so a changed output after a TeX Live update is visible without an error.
 - README: side-by-side comparison of the same text rendered with the publisher's class as distributed and with this template (first, middle and last page; sources in `comparison/`).
 
+### Fixed
+
+- `rotating` is loaded before `tablefootnote`, so packages added later that need it (`ctable`, `sidewaystable`) no longer fail with "Package rotating loaded after tablefootnote". [scientific-thesis-template#101](https://github.com/latextemplates/scientific-thesis-template/issues/101)
+
+
 ## [2026-11-01]
 
 ### Added
