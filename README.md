@@ -480,6 +480,21 @@ lualatex -shell-escape --extra-mem-top=10000000 --synctex=1 paper.tex
 
 See <https://tex.stackexchange.com/a/124206/9075> for details.
 
+### Q: How do I speed up compilation with a precompiled preamble?
+
+With pdfLaTeX, the preamble of `paper.tex` can be dumped into a format file once ([mylatexformat](https://ctan.org/pkg/mylatexformat), part of TeX Live); later runs load the format instead of reading all packages, which saved 26 % per run for the example thesis.
+
+```bash
+pdflatex -ini -jobname=paper "&pdflatex" mylatexformat.ltx """paper.tex"""
+pdflatex -fmt=paper paper.tex
+```
+
+Caveats: a run with the format skips the preamble of the `.tex` file, so after every change to the preamble, and after a TeX Live update, the first command has to be repeated; otherwise the change is silently ignored.
+`latexmk` does not rebuild the format, so this is for runs by hand while writing; `latexmk` builds the final version as usual.
+The file `paper.fmt` (about 14 MB) is a build product and in `.gitignore`.
+LuaLaTeX (the default of this template) cannot dump its preamble: Lua states and the loaded fonts are not part of a format.
+The other ways to shorten the edit-compile loop, with measurements, are in the decision record [How to speed up compilation](https://github.com/latextemplates/gadr-latex-packages/blob/main/compilation-speed.md).
+
 ### Q: There is an output that biber/biblatex too old
 
 See installation hints of how to update them at different systems.
