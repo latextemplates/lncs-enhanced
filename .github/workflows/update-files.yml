@@ -164,6 +164,7 @@ jobs:
         with:
           packages: poppler-utils imagemagick
           version: 1.0
+          execute_install_scripts: true # creates the "convert" alternative
       - name: Comparison with the publisher's class (see the README)
         run: ./comparison/build.sh
       - run: |
