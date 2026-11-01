@@ -9,6 +9,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 ### Added
 
+- The main file header and the PDF properties (custom entry `Template`) name the template and the generator version the document is based on. [scientific-thesis-template#93](https://github.com/latextemplates/scientific-thesis-template/issues/93)
 - `Check` workflow: the weekly run compares the built PDF with the published one and uploads the highlighted differences as artifact `pdf-diff`, so a changed output after a TeX Live update is visible without an error.
 - README: side-by-side comparison of the same text rendered with the publisher's class as distributed and with this template (first, middle and last page; sources in `comparison/`).
 
