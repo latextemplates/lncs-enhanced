@@ -81,6 +81,32 @@ jobs:
             paper.pdf
             paper.log
             paper.fls
+  comparison:
+    # The publisher's class as distributed next to this template, same content (see comparison/build.sh and the README)
+    name: comparison (comparison/build.sh)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install TeX Live
+        uses: zauguin/install-texlive@c9f3ea3d51b2e04d092c4f9d208a19542d5dabcf # v4.5.0
+        with:
+          package_file: '${{ github.workspace }}/Texlivefile'
+          texlive_version: 2026
+      - name: Prepare latexmk
+        run: |
+          updmap -sys
+          texhash
+          tlmgr generate language --rebuild-sys
+      - name: Install pdftoppm and ImageMagick
+        run: sudo apt-get install -y poppler-utils imagemagick
+      - run: ./comparison/build.sh
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: comparison
+          path: |
+            comparison-*.png
+            comparison-*.pdf
   word-count:
     runs-on: ubuntu-latest
     steps:
