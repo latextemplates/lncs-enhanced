@@ -17,6 +17,18 @@ The LaTeX snippets this template is assembled from can be inspected at <https://
 The source code examples use the [minted] package, which highlights code best; it needs Python and [latexminted] (contained in the Docker image and on Overleaf).
 The `-basic-listings` variants use the [listings] package instead and need no extra setup.
 
+## Comparison with the publisher's template
+
+The same text rendered with the llncs class as distributed (left) and with this template (right).
+The layout, the fonts, and the title block are the publisher's; this template adds microtype, hyperlinks, and DOIs in the references.
+The sources are in [comparison/](comparison/); `comparison/build.sh` renders the images.
+
+![First page: as distributed (left) and this template (right)](https://latextemplates.github.io/lncs-enhanced/comparison-first.png)
+
+![Middle page: as distributed (left) and this template (right)](https://latextemplates.github.io/lncs-enhanced/comparison-middle.png)
+
+![Last page: as distributed (left) and this template (right)](https://latextemplates.github.io/lncs-enhanced/comparison-last.png)
+
 ## Quick start
 
 - Click on `Download ZIP` or download [lncs-enhanced-main.zip](https://github.com/latextemplates/lncs-enhanced/archive/main.zip).
