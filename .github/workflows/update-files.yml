@@ -159,9 +159,14 @@ jobs:
             echo '```' >> "$GITHUB_STEP_SUMMARY"
           done
 
+      - name: Comparison with the publisher's class (see the README)
+        run: |
+          sudo apt-get install -y poppler-utils imagemagick
+          ./comparison/build.sh
       - run: |
           mkdir publish
           cp *.pdf publish/
+          cp comparison-*.png publish/
           cp paper.tex publish/
           cp README.md publish/
           cp .github/_config.yml publish/
