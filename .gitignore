@@ -1,5 +1,7 @@
 paper.pdf
 paper-*.pdf
+# single chapters compiled on their own (see chapters-*/README.md)
+chapters-*/*.pdf
 figures/*.pdf_tex
 
 # glossaries
