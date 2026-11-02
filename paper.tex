@@ -9,8 +9,8 @@
 % -*- coding:utf-8 mod:LaTeX -*-
 % Generated with generator-latex-template 2026.11.1 for latextemplates/lncs-enhanced
 %
-% vvvvvvvv  The content starts in line 735 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 774.
+% vvvvvvvv  The content starts in line 738 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 777.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -358,6 +358,9 @@
 %
 %%% Doc: https://texdoc.org/serve/tablefootnote/0
 \usepackage{tablefootnote} % \tablefootnote: a footnote inside a floating table (plain \footnote is lost there)
+%
+%%% Doc: https://ctan.org/pkg/adjustbox
+\usepackage{adjustbox} % \begin{adjustbox}{max width=\textwidth}: scales a table down only if it is wider than the text
 
 % A bit more space between the rows of a table (\extrarowheight is provided by array, which dcolumn loads)
 \setlength{\extrarowheight}{1pt}
@@ -1150,6 +1153,28 @@ If the notes should appear directly below the table instead (common in journals)
     One      & Two                                                \\
     \bottomrule
   \end{tabular}
+\end{table}
+\end{ltgexample}
+
+A table wider than the text runs into the margin.
+\verb|\begin{adjustbox}{max width=\textwidth}| from the \href{https://ctan.org/pkg/adjustbox}{adjustbox} package scales it down to the text width, and only if it is too wide.
+Scaling shrinks the font, so for a table with long text in its cells, prefer wrapping the text with the column type \verb|X| of the \href{https://ctan.org/pkg/tabularx}{tabularx} package, and for a very wide table, a landscape page (see \texttt{pdflscape}).
+
+\begin{ltgexample}
+\begin{table}
+  \caption{Wide table scaled to the text width}
+  \label{tab:wide}
+  \centering
+  \begin{adjustbox}{max width=\textwidth}
+    \begin{tabular}{llllllllllll}
+      \toprule
+      Jan & Feb & Mar & Apr & May & Jun & Jul & Aug & Sep & Oct & Nov & Dec \\
+      \midrule
+      1.11 & 2.22 & 3.33 & 4.44 & 5.55 & 6.66 & 7.77 & 8.88 & 9.99 & 10.10 & 11.11 & 12.12 \\
+      Rain & Snow & Wind & Sun & Fog & Hail & Heat & Storm & Mist & Frost & Sleet & Calm \\
+      \bottomrule
+    \end{tabular}
+  \end{adjustbox}
 \end{table}
 \end{ltgexample}
 
