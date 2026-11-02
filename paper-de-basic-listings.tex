@@ -9,8 +9,8 @@
 % -*- coding:utf-8 mod:LaTeX -*-
 % Generated with generator-latex-template 2026.11.1 for latextemplates/lncs-enhanced
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 806 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 850.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 813 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 857.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -803,6 +803,13 @@
   \usepackage{linebreaker}
 \fi
 
+% LuaLaTeX: no line break after a one-letter word such as "a" or "I".
+% chickenize inserts a penalty after each one-character word of a paragraph.
+% See https://ctan.org/pkg/chickenize. LuaLaTeX only, so pdfLaTeX skips it.
+\ifdefined\directlua
+  \usepackage{chickenize}
+  \suppressonecharbreak
+\fi
 \begin{document}
 \ifluatex
   % Enable correct rendering of ligatures - provided by https://ctan.org/pkg/autotype
