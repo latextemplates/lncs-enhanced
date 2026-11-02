@@ -20,7 +20,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 ### Changed
 
-- README FAQ "How do I find the cause of a LaTeX error?": `-halt-on-error`, how to read the `!` line, `make log`, and what to look for when there is no PDF although the log shows only warnings (missing font or encoding file). [scientific-thesis-template#134](https://github.com/latextemplates/scientific-thesis-template/issues/134)
+- README FAQ "How do I find the cause of a LaTeX error?": `-halt-on-error`, how to read the `!` line, `make log` and `texfot`, and what to look for when there is no PDF although the log shows only warnings (missing font or encoding file). [scientific-thesis-template#134](https://github.com/latextemplates/scientific-thesis-template/issues/134)
 
 ### Fixed
 
