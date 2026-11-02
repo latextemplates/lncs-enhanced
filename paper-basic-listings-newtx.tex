@@ -9,8 +9,8 @@
 % -*- coding:utf-8 mod:LaTeX -*-
 % Generated with generator-latex-template 2026.11.1 for latextemplates/lncs-enhanced
 %
-% vvvvvvvv  The content starts in line 801 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 840.
+% vvvvvvvv  The content starts in line 805 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 844.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -38,6 +38,10 @@
 \documentclass[runningheads,a4paper,english]{llncs}[2022/01/12]
 
 \usepackage{iftex}
+
+% lineno is loaded by mindflow (used in the examples). It checks \@parboxrestore when it is loaded and warns
+% "Command \@parboxrestore has changed" if another package has patched the command before; loaded here first.
+\usepackage{lineno}
 
 % backticks (`) are rendered as such in verbatim environments.
 % See the following links for details:
@@ -1246,15 +1250,14 @@ Scaling shrinks the font, so for a table with long text in its cells, prefer wra
 \begin{table}
   \caption{Table with diagonal line}
   \label{tab:diag}
-  \begin{center}
-    \begin{tabular}{|l|c|c|} % chktex 44
-      \hline % chktex 44
-      \diagbox{Row}{Column} & A & B \\
-      \hline % chktex 44
-      1                     & x & y \\
-      \hline % chktex 44
-    \end{tabular}
-  \end{center}
+  \centering
+  \begin{tabular}{|l|c|c|} % chktex 44
+    \hline % chktex 44
+    \diagbox{Row}{Column} & A & B \\
+    \hline % chktex 44
+    1                     & x & y \\
+    \hline % chktex 44
+  \end{tabular}
 \end{table}
 \end{ltgexample}
 
