@@ -9,8 +9,8 @@
 % -*- coding:utf-8 mod:LaTeX -*-
 % Generated with generator-latex-template 2026.11.1 for latextemplates/lncs-enhanced
 %
-% vvvvvvvv  The content starts in line 783 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 822.
+% vvvvvvvv  The content starts in line 790 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 829.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -780,6 +780,13 @@
   \usepackage{linebreaker}
 \fi
 
+% LuaLaTeX: no line break after a one-letter word such as "a" or "I".
+% chickenize inserts a penalty after each one-character word of a paragraph.
+% See https://ctan.org/pkg/chickenize. LuaLaTeX only, so pdfLaTeX skips it.
+\ifdefined\directlua
+  \usepackage{chickenize}
+  \suppressonecharbreak
+\fi
 \begin{document}
 
 \title{Paper Title}
