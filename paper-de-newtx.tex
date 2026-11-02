@@ -1210,21 +1210,24 @@ The \href{https://ctan.org/pkg/longtable}{longtable} package typesets tables tha
 The header (\verb+\endhead+) and footer (\verb+\endfoot+) rows are repeated on every page; once enough rows are added, the table spans more than one page on its own.
 
 \begin{ltgexample}
-\begin{longtable}{|l|l|l|}
+\begin{longtable}{lll}
   \caption{A sample long table.}\label{tab:long} \\
-  \hline % chktex 44
-  \multicolumn{1}{|c|}{\textbf{First column}} & \multicolumn{1}{c|}{\textbf{Second column}} & \multicolumn{1}{c|}{\textbf{Third column}} \\ \hline % chktex 44
+  \toprule
+  \textbf{First column} & \textbf{Second column} & \textbf{Third column} \\
+  \midrule
   \endfirsthead
 
   \multicolumn{3}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
-  \hline % chktex 44
-  \multicolumn{1}{|c|}{\textbf{First column}} & \multicolumn{1}{c|}{\textbf{Second column}} & \multicolumn{1}{c|}{\textbf{Third column}} \\ \hline % chktex 44
+  \toprule
+  \textbf{First column} & \textbf{Second column} & \textbf{Third column} \\
+  \midrule
   \endhead
 
-  \hline \multicolumn{3}{|r|}{{Continued on next page}} \\ \hline % chktex 44
+  \midrule
+  \multicolumn{3}{r}{{Continued on next page}} \\
   \endfoot
 
-  \hline\hline % chktex 44
+  \bottomrule
   \endlastfoot
 
   A & BC & D \\
@@ -1248,6 +1251,8 @@ The \href{https://github.com/gpoore/minted}{minted} package highlights listings 
 It uses the \href{http://pygments.org/}{pygments} library, which in turn requires Python.
 
 \begin{ltgexample}
+% \@ before the period: LaTeX takes a period after a capital letter for an abbreviation (as in "e.g.") and sets
+% the narrow inter-word space; \@ tells it that the sentence ends here, so it sets the wider sentence space.
 \Zcref{lst:XML} shows source code written in XML\@.
 \Zcref{line:comment} contains a comment.
 
