@@ -26,6 +26,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 ### Fixed
 
+- Warnings in the log of a clean build are gone: "Command `\@parboxrestore` has changed", "Token not allowed in a PDF string" (the todo on abbreviations), `ifplatform` under pdfLaTeX, and the undefined italic shape of Inconsolata under LuaLaTeX; the diagonal-cell table uses `\centering`. [scientific-thesis-template#135](https://github.com/latextemplates/scientific-thesis-template/issues/135)
 - `rotating` is loaded before `tablefootnote`, so packages added later that need it (`ctable`, `sidewaystable`) no longer fail with "Package rotating loaded after tablefootnote". [scientific-thesis-template#101](https://github.com/latextemplates/scientific-thesis-template/issues/101)
 
 
