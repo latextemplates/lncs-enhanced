@@ -3,6 +3,10 @@ paper-*.pdf
 # single chapters compiled on their own (see chapters-*/README.md)
 chapters-*/*.pdf
 figures/*.pdf_tex
+# comparison with the publisher's class (comparison/build.sh)
+comparison-*.pdf
+comparison-*.png
+comparison/ours.tex
 
 # glossaries
 *.glg-abr

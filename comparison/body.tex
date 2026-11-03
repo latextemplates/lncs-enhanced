@@ -1,0 +1,85 @@
+% Content shared by comparison/plain.tex (the llncs class as distributed) and
+% comparison/ours.tex (the preamble of paper.tex): only commands both understand.
+\title{Locality-Aware Scheduling of Scientific Workflows}
+\author{First Author\inst{1} \and Second Author\inst{2}}
+\authorrunning{F. Author and S. Author}
+\institute{University of Examples, Stuttgart, Germany\\
+  \email{first.author@example.org}
+  \and
+  Georgia Institute of Examples, Atlanta, GA, USA\\
+  \email{second.author@example.org}}
+\maketitle
+
+\begin{abstract}
+Scientific workflows are increasingly executed on heterogeneous infrastructures, which makes their efficient scheduling a challenging task.
+This paper presents a lightweight scheduling approach that balances data locality against resource utilization.
+We evaluate the approach with three benchmark workflows and show that it reduces the makespan by up to 23\,\% compared to a first-come-first-served strategy, while keeping the implementation effort low.
+
+\keywords{Scientific workflows \and Scheduling \and Data locality \and Cloud computing}
+\end{abstract}
+
+\section{Introduction}\label{sec:introduction}
+Scientific workflows describe the data flow between computational tasks~\cite{Winery}.
+With the shift to cloud infrastructures, the question where each task runs determines both the runtime and the cost of a workflow~\cite{Binz2009}.
+\lipsum[1]
+
+The contribution of this paper is threefold: (i)~a scheduling heuristic that takes data locality into account, (ii)~an implementation on top of a standard workflow engine, and (iii)~an evaluation with three benchmark workflows (Section~\ref{sec:evaluation}).
+\lipsum[2-3]
+
+\section{Background}\label{sec:background}
+\lipsum[4]
+Figure~\ref{fig:architecture} shows the overall architecture: the scheduler sits between the workflow engine and the resource manager.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.6\columnwidth]{example-image-a}
+  \caption{Architecture of the scheduling component.}
+  \label{fig:architecture}
+\end{figure}
+
+The expected transfer time $t$ for a data set of size $s$ over a link with bandwidth $b$ and latency $l$ is
+\begin{equation}
+  t = l + \frac{s}{b},
+  \label{eq:transfer}
+\end{equation}
+which the heuristic uses to rank candidate hosts (see Equation~\ref{eq:transfer}).
+\lipsum[5-6]
+
+\section{Approach}\label{sec:approach}
+\lipsum[7]
+The core of the heuristic fits into a few lines of pseudo code:
+\begin{verbatim}
+for task in ready_tasks:
+    hosts = rank_by_transfer_time(task)
+    host  = first_free(hosts)
+    schedule(task, host)
+\end{verbatim}
+\lipsum[8-9]
+
+\section{Evaluation}\label{sec:evaluation}
+Table~\ref{tab:results} lists the makespan of the three benchmark workflows for both strategies.
+\begin{table}
+  \caption{Makespan in seconds (mean of ten runs).}
+  \label{tab:results}
+  \centering
+  \begin{tabular}{lrrr}
+    \hline
+    Workflow & FCFS & Locality & Improvement \\
+    \hline
+    Montage & 412 & 318 & 23\,\% \\
+    CyberShake & 1\,205 & 1\,014 & 16\,\% \\
+    Epigenomics & 2\,870 & 2\,544 & 11\,\% \\
+    \hline
+  \end{tabular}
+\end{table}
+\lipsum[10-12]
+
+\section{Related Work}\label{sec:related}
+\lipsum[13-14]
+Further material is available at \url{https://github.com/latextemplates/lncs-enhanced}.
+
+\section{Conclusion}\label{sec:conclusion}
+\lipsum[15]
+
+\section*{Acknowledgment}
+The authors thank the anonymous reviewers for their helpful comments.

@@ -17,6 +17,18 @@ The LaTeX snippets this template is assembled from can be inspected at <https://
 The source code examples use the [minted] package, which highlights code best; it needs Python and [latexminted] (contained in the Docker image and on Overleaf).
 The `-basic-listings` variants use the [listings] package instead and need no extra setup.
 
+## Comparison with the publisher's template
+
+The same text rendered with the llncs class as distributed (left) and with this template (right).
+The layout, the fonts, and the title block are the publisher's; this template adds microtype, hyperlinks, and DOIs in the references.
+The sources are in [comparison/](comparison/); `comparison/build.sh` renders the images.
+
+![First page: as distributed (left) and this template (right)](https://latextemplates.github.io/lncs-enhanced/comparison-first.png)
+
+![Middle page: as distributed (left) and this template (right)](https://latextemplates.github.io/lncs-enhanced/comparison-middle.png)
+
+![Last page: as distributed (left) and this template (right)](https://latextemplates.github.io/lncs-enhanced/comparison-last.png)
+
 ## Quick start
 
 - Click on `Download ZIP` or download [lncs-enhanced-main.zip](https://github.com/latextemplates/lncs-enhanced/archive/main.zip).
@@ -208,6 +220,7 @@ On the command line, there are additional features:
 - `latexmk -C` or `make clean` for cleaning up
 - `make log` shows only the relevant messages of the last LaTeX run (using [texlogsieve](https://ctan.org/pkg/texlogsieve))
 - `make format` to reformat the `.tex` files (one sentence per line and indent)
+- `make chktex` checks the LaTeX sources for typographic and syntax issues with [ChkTeX](https://ctan.org/pkg/chktex); the `Check` workflow runs it as job `chktex`. Warnings to ignore are configured in `.chktexrc` (`chktex -l` lists all), a single line with `% chktex <number>` at its end.
 - `make spellcheck` runs all spell checkers (in the [Docker image by DANTE e.V.](https://hub.docker.com/r/danteev/texlive), which contains them; `make LOCAL=1 spellcheck` uses local installations):
   - `make spellcheck-aspell` for interactive spell checking with aspell
   - `make spellcheck-textidote` checks spelling, grammar, and style with [TeXtidote](https://github.com/sylvainhalle/textidote) (report in `textidote.html`)
@@ -289,15 +302,48 @@ See [this question on TeX.SE](https://tex.stackexchange.com/q/584702/9075) for d
 
 ## FAQs
 
-### Q: How do I find the cause of a LaTeX error?
+### Q: pdfLaTeX stops with "Invalid UTF-8 byte sequence (\lst@EC)" in a listing, or an umlaut is missing in it.
 
-In case something goes wrong, you can instruct the LaTeX compiler to stop at the first error:
+Under pdfLaTeX, the `listings` package reads a listing byte by byte, so a character outside ASCII has to be mapped to its LaTeX command.
+The template does this for accented Latin letters and common punctuation with `literate=` in `\lstset` (search for `extendedchars` in `paper.tex`).
+A character that is not in the table triggers the error and is dropped.
+Add it with the same pattern, e.g., `{ő}{{\H{o}}}1` (the `1` is its width in characters).
+LuaLaTeX reads UTF-8 directly and needs no table, which is why the table is inside `\ifpdftex`.
+[listingsutf8](https://ctan.org/pkg/listingsutf8) helps with `\lstinputlisting` only, not with the `lstlisting` environment.
+
+### Q: How do I include an SVG file?
+
+Convert it once to PDF with Inkscape (1.0 or later) and include the PDF with `\includegraphics`:
 
 ```bash
-lualatex --synctex=1 paper
+inkscape figure.svg --export-type=pdf --export-filename=figure.pdf
 ```
 
+The [svg](https://ctan.org/pkg/svg) package automates this (`\includesvg{figure}` converts at every build), but it needs Inkscape on the machine that compiles and `--shell-escape`, so the conversion fails on Overleaf and in CI; the one-time conversion has neither constraint.
+Text in the SVG stays as it is; the `--export-latex` option of Inkscape writes the text to a `.pdf_tex` file set by LaTeX in the document font instead (see the svg package manual for the `\includeinkscape` workflow).
+
+### Q: How do I find the cause of a LaTeX error?
+
+Run the compiler so that it stops at the first error instead of continuing with a damaged document:
+
+```bash
+lualatex -halt-on-error --synctex=1 paper
+```
+
+The line starting with `!` in the output (and in `paper.log`) names the error, the following `l.<number>` line the line of the source.
+`make log` shows only the relevant messages of the last run (using [texlogsieve](https://ctan.org/pkg/texlogsieve)).
+For an interactive run, [texfot](https://ctan.org/pkg/texfot) wraps the compiler and prints only the lines that probably need a change in the source:
+
+```bash
+texfot lualatex paper
+```
+
+Which tool fits which situation is compared in the [decision record on log filtering](https://github.com/latextemplates/gadr-latex-packages/blob/main/log-filtering.md).
 Run `bibtex paper` to get the bibliography rendered (execute `lualatex` afterwards).
+
+If there is no PDF although the log shows only warnings, the compiler stopped on a missing file without an `!` line: search the end of the log for `not found`, `cannot find`, or `Fatal error`.
+A missing font or encoding file is the usual cause (see the questions on `.enc` files and `LatinModernMath` below); warnings such as "THIS IS AN ALPHA VERSION" of a package are harmless.
+The `Check` workflow builds this template on every change, so a build that fails locally comes from the local TeX installation; compare with the PDF at <https://latextemplates.github.io/lncs-enhanced/> or build in the Docker image (see the Makefile).
 
 ### Q: I get `! Package minted Error: minted v3+ executable is not installed`
 
@@ -467,6 +513,22 @@ lualatex -shell-escape --extra-mem-top=10000000 --synctex=1 paper.tex
 ```
 
 See <https://tex.stackexchange.com/a/124206/9075> for details.
+
+### Q: How do I speed up compilation with a precompiled preamble?
+
+With pdfLaTeX, the preamble of `paper.tex` can be dumped into a format file once ([mylatex](https://ctan.org/pkg/mylatex), part of TeX Live); later runs load the format instead of reading all packages, which saved 26 % per run for the example thesis.
+
+```bash
+pdflatex -ini "&pdflatex" mylatex.ltx paper
+pdflatex "&mylatex" paper
+```
+
+Caveats: a run with the format skips the preamble of the `.tex` file, so after every change to the preamble, and after a TeX Live update, the first command has to be repeated; otherwise the change is silently ignored.
+Additions placed after a line containing only `% mylatex` (put it right before `\begin{document}`) are read anyway, so new packages and macros can go there while writing.
+`latexmk` does not rebuild the format, so this is for runs by hand while writing; `latexmk` builds the final version as usual.
+The file `mylatex.fmt` (about 14 MB) is a build product and in `.gitignore`.
+LuaLaTeX (the default of this template) cannot dump its preamble: Lua states and the loaded fonts are not part of a format.
+The other ways to shorten the edit-compile loop, with measurements, are in the decision record [How to speed up compilation](https://github.com/latextemplates/gadr-latex-packages/blob/main/compilation-speed.md).
 
 ### Q: There is an output that biber/biblatex too old
 

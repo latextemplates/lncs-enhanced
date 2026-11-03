@@ -5,6 +5,7 @@ BPMN
 Bei
 Cleveref
 Crossmark
+DOI
 Das
 Database
 Diag
@@ -34,6 +35,7 @@ OMG
 ORCID
 OldStyle
 Organization
+PDFs
 PNG
 Practitioner
 RDBMS
@@ -50,14 +52,17 @@ Ulm
 VV
 Wikimedia
 Worten
+Xplore
 Zcref
 Zref
 Zref-clever
 Zref-vario
 abbreviationdot
 aboveskip
+acm
 acmnumeric
 addarg
+adjustbox
 angepasst
 applica
 args
@@ -78,6 +83,7 @@ cref
 da
 dante
 dazu
+dblp
 der
 dwarflike
 eclipseKeywords
@@ -105,6 +111,7 @@ gp
 graphicscache
 html
 hypertext
+ieee
 impnattypo
 inparaenum
 ist
@@ -114,8 +121,10 @@ kräftig
 language
 lastline
 lastname
+latextemplates
 letzten
 linenos
+lncs
 longplural
 longtable
 lst
@@ -162,11 +171,13 @@ soulpos
 stepnumber
 str
 stringstyle
+stuttgart
 subcaption
 subfig
 subfigure
 subfigures
 tablefootnote
+tabularx
 tbl
 threeparttable
 tikz
@@ -174,6 +185,7 @@ tion
 tl
 tmpa
 tt
+ustutt
 werden
 wird
 wkrauth

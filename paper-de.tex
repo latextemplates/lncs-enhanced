@@ -7,9 +7,10 @@
 % !TeX program = lualatex
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
+% Generated with generator-latex-template 2026.11.3 for latextemplates/lncs-enhanced
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 728 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 772.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 753 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 797.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -38,6 +39,10 @@
 
 \usepackage{iftex}
 
+% lineno is loaded by mindflow (used in the examples). It checks \@parboxrestore when it is loaded and warns
+% "Command \@parboxrestore has changed" if another package has patched the command before; loaded here first.
+\usepackage{lineno}
+
 % backticks (`) werden als solches in verbatim-Umgebungen dargestellt
 % Details unter:
 %   - https://tex.stackexchange.com/a/341057/9075
@@ -52,7 +57,7 @@
 %
 % Hinweis von http://tex.stackexchange.com/a/321066/9075
 % Ermögliche die Benutzung von "= als Trennstriche
-\addto\extrasenglish{\languageshorthands{ngerman}\useshorthands{"}}
+\addto\extrasenglish{\languageshorthands{ngerman}\useshorthands{"}} % chktex 18
 
 % Links verhalten sich so, wie sie sollen
 % Zeilenumbrüche bei URLs auch bei Bindestrichen erlauben, auch wenn es verwirrend sein könnte: Gehört der Bindestrich zur URL oder ist es ein Trennstrich?
@@ -264,8 +269,8 @@
 \usepackage[autostyle=true]{csquotes}
 
 % Enable using "`quote"' - see https://tex.stackexchange.com/a/150954/9075
-\defineshorthand{"`}{\openautoquote}
-\defineshorthand{"'}{\closeautoquote}
+\defineshorthand{"`}{\openautoquote} % chktex 18
+\defineshorthand{"'}{\closeautoquote} % chktex 18
 
 % bessere Abstaende innerhalb der Tabelle (Layout))
 % -------------------------------------------------
@@ -349,8 +354,16 @@
 %%% Doc: Documentation inside dtx Package
 \usepackage{dcolumn}  % alignment at the decimal separator
 %
+% rotating has to be loaded before tablefootnote. The template rotates pages with pdflscape (see below), but
+% packages that users add later (ctable, sidewaystable) load rotating and would then fail with
+% "Package rotating loaded after tablefootnote", so it is loaded here.
+\usepackage{rotating}
+%
 %%% Doc: https://texdoc.org/serve/tablefootnote/0
 \usepackage{tablefootnote} % \tablefootnote: a footnote inside a floating table (plain \footnote is lost there)
+%
+%%% Doc: https://ctan.org/pkg/adjustbox
+\usepackage{adjustbox} % \begin{adjustbox}{max width=\textwidth}: scales a table down only if it is wider than the text
 
 % A bit more space between the rows of a table (\extrarowheight is provided by array, which dcolumn loads)
 \setlength{\extrarowheight}{1pt}
@@ -443,7 +456,7 @@
 
 % Define default commands
 \makeatletter
-\@ifundefined{missingfigure}{\newcommand{\missingfigure}{... missing figure ...}}{}
+\@ifundefined{missingfigure}{\newcommand{\missingfigure}{\ldots\ missing figure \ldots}}{}
 \@ifundefined{textcomment}{\newcommand{\textcomment}[2]{#1 \todo{#2}}}{}
 \@ifundefined{sidecomment}{\newcommand{\sidecomment}[1]{\marginpar{#1}}}{}
 \@ifundefined{todo}{\newcommand{\todo}[1]{\sidecomment{#1}}}{}
@@ -535,6 +548,11 @@
 % Enable correct jumping to figures when referencing
 \usepackage[all]{hypcap}
 
+% Which template this document is based on, in the PDF properties (custom entry "Template"; shown by
+% "pdfinfo -custom" and in the document properties of most viewers). Keep it: it tells which version
+% of the template a document was built on, which helps when comparing or updating adapted files.
+\hypersetup{pdfinfo={Template={latextemplates/lncs-enhanced, generated with generator-latex-template 2026.11.3}}}
+
 % Hint by https://tex.stackexchange.com/a/193370/9075 to suppress strange outputs of the babel package
 % Example strange output: Package babel Info: Redefining ngerman shorthand "|
 \usepackage{etoolbox}
@@ -549,7 +567,7 @@
 % Without a git repository (e.g. a downloaded zip), gitver reports an error and the version reads "unknown".
 % Doc: https://ctan.org/pkg/gitver
 %\ExplSyntaxOn
-%\sys_if_shell_unrestricted:T { \RequirePackage [ noheader , nopdfinfo ] { gitver } }
+%\sys_if_shell_unrestricted:T { \RequirePackage [ noheader , nopdfinfo ] { gitver } } % chktex 26
 %\ExplSyntaxOff
 %\providecommand{\gitVer}{}
 %\providecommand{\versionBox}{}
@@ -641,11 +659,11 @@
 \DeclareSymbolFont{MnSyC}{U}{MnSymbolC}{m}{n}
 \DeclareFontShape{U}{MnSymbolC}{m}{n}{
   <-6>    MnSymbolC5
-  <6-7>   MnSymbolC6
-  <7-8>   MnSymbolC7
-  <8-9>   MnSymbolC8
-  <9-10>  MnSymbolC9
-  <10-12> MnSymbolC10
+  <6-7>   MnSymbolC6 % chktex 8
+  <7-8>   MnSymbolC7 % chktex 8
+  <8-9>   MnSymbolC8 % chktex 8
+  <9-10>  MnSymbolC9 % chktex 8
+  <10-12> MnSymbolC10 % chktex 8
   <12->   MnSymbolC12%
 }{}
 \DeclareMathSymbol{\powerset}{\mathord}{MnSyC}{180}
@@ -725,6 +743,13 @@
   \usepackage{linebreaker}
 \fi
 
+% LuaLaTeX: no line break after a one-letter word such as "a" or "I".
+% chickenize inserts a penalty after each one-character word of a paragraph.
+% See https://ctan.org/pkg/chickenize. LuaLaTeX only, so pdfLaTeX skips it.
+\ifdefined\directlua
+  \usepackage{chickenize}
+  \suppressonecharbreak
+\fi
 \begin{document}
 \ifluatex
   % Enable correct rendering of ligatures - provided by https://ctan.org/pkg/autotype
@@ -790,7 +815,8 @@ Der Abschnitt kann je nach Kontext auch an anderer Stelle stehen.
 Winery~\citep{Winery} is a graphical \textcomment{modeling}{modeling with one ``l'', because of American English} tool.
 The whole idea of TOSCA is explained by \citet{Binz2009}.
 
-Für die Suche nach verwandten Arbeiten eignet sich \href{https://www.scienceos.ai/}{ScienceOS}\footnote{\url{https://www.scienceos.ai/}}; es speichert Daten in der EU und belegt seine Antworten mit Quellen, die man trotzdem selbst lesen und prüfen muss.
+Werkzeuge für die Literatursuche sind unter anderem \href{https://www.scienceos.ai/}{ScienceOS}, \href{https://dblp.org/}{dblp}, \href{https://scholar.google.com/}{Google Scholar}, \href{https://ieeexplore.ieee.org/}{IEEE Xplore} und die \href{https://dl.acm.org/}{ACM Digital Library}; \href{https://www.jabref.org/}{JabRef} verwaltet die gefundenen Arbeiten, holt die bibliografischen Daten per DOI und verwaltet die PDFs.
+Ist die Suche systematisch (wie bei einem Literatur-Review), gehören die Suchbegriffe, der Zeitraum und die Aufnahmekriterien in die Arbeit, damit die Suche nachvollziehbar ist.
 Schreibhinweise für studentische Arbeiten gibt das Open-Access-Buch \href{https://vdf.ch/product/student-thesis-projects-en.html}{\emph{Student Thesis Projects}}\footnote{\url{https://vdf.ch/product/student-thesis-projects-en.html}}.
 Weitere Hinweise gibt \href{https://doi.org/10.1007/978-1-4471-6639-9}{\emph{Writing for Computer Science}}\footnote{\url{https://doi.org/10.1007/978-1-4471-6639-9}}.
 
@@ -891,7 +917,7 @@ In case you write \enquote{application-specific}, then the word will only be hyp
 You can also insert \verb1\allowbreak{}1 into the word, as in applica\allowbreak{}tion-specific, but this is much more effort.
 
 You can now write words containing hyphens which are hyphenated at other places in the word.
-For that, write \verb1"=1 instead of \verb1-1, as in application"=specific.
+For that, write \verb1"=1 instead of \verb1-1, as in application"=specific. % chktex 18
 This is enabled by an additional configuration of the babel package.
 \end{ltgexample}
 
@@ -916,7 +942,7 @@ Numbers are automatically grouped: \num{123456}.
 
 \begin{ltgexample}
 Please use the \enquote{enquote command} to quote something.
-Quoting with "`quote"' or ``quote'' also works.
+Quoting with "`quote"' or ``quote'' also works. % chktex 18
 
 \end{ltgexample}
 
@@ -1153,20 +1179,41 @@ If the notes should appear directly below the table instead (common in journals)
 \end{table}
 \end{ltgexample}
 
+A table wider than the text runs into the margin.
+\verb|\begin{adjustbox}{max width=\textwidth}| from the \href{https://ctan.org/pkg/adjustbox}{adjustbox} package scales it down to the text width, and only if it is too wide.
+Scaling shrinks the font, so for a table with long text in its cells, prefer wrapping the text with the column type \verb|X| of the \href{https://ctan.org/pkg/tabularx}{tabularx} package, and for a very wide table, a landscape page (see \texttt{pdflscape}).
+
+\begin{ltgexample}
+\begin{table}
+  \caption{Wide table scaled to the text width}
+  \label{tab:wide}
+  \centering
+  \begin{adjustbox}{max width=\textwidth}
+    \begin{tabular}{llllllllllll}
+      \toprule
+      Jan  & Feb  & Mar  & Apr  & May  & Jun  & Jul  & Aug   & Sep  & Oct   & Nov   & Dec   \\
+      \midrule
+      1.11 & 2.22 & 3.33 & 4.44 & 5.55 & 6.66 & 7.77 & 8.88  & 9.99 & 10.10 & 11.11 & 12.12 \\
+      Rain & Snow & Wind & Sun  & Fog  & Hail & Heat & Storm & Mist & Frost & Sleet & Calm  \\
+      \bottomrule
+    \end{tabular}
+  \end{adjustbox}
+\end{table}
+\end{ltgexample}
+
 \begin{ltgexample}
 % Adapted from https://tex.stackexchange.com/a/468994/9075
 \begin{table}
   \caption{Table with diagonal line}
   \label{tab:diag}
-  \begin{center}
-    \begin{tabular}{|l|c|c|}
-      \hline
-      \diagbox{Row}{Column} & A & B \\
-      \hline
-      1                     & x & y \\
-      \hline
-    \end{tabular}
-  \end{center}
+  \centering
+  \begin{tabular}{|l|c|c|} % chktex 44
+    \hline % chktex 44
+    \diagbox{Row}{Column} & A & B \\
+    \hline % chktex 44
+    1                     & x & y \\
+    \hline % chktex 44
+  \end{tabular}
 \end{table}
 \end{ltgexample}
 
@@ -1177,21 +1224,24 @@ The \href{https://ctan.org/pkg/longtable}{longtable} package typesets tables tha
 The header (\verb+\endhead+) and footer (\verb+\endfoot+) rows are repeated on every page; once enough rows are added, the table spans more than one page on its own.
 
 \begin{ltgexample}
-\begin{longtable}{|l|l|l|}
+\begin{longtable}{lll}
   \caption{A sample long table.}\label{tab:long} \\
-  \hline
-  \multicolumn{1}{|c|}{\textbf{First column}} & \multicolumn{1}{c|}{\textbf{Second column}} & \multicolumn{1}{c|}{\textbf{Third column}} \\ \hline
+  \toprule
+  \textbf{First column} & \textbf{Second column} & \textbf{Third column} \\
+  \midrule
   \endfirsthead
 
   \multicolumn{3}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
-  \hline
-  \multicolumn{1}{|c|}{\textbf{First column}} & \multicolumn{1}{c|}{\textbf{Second column}} & \multicolumn{1}{c|}{\textbf{Third column}} \\ \hline
+  \toprule
+  \textbf{First column} & \textbf{Second column} & \textbf{Third column} \\
+  \midrule
   \endhead
 
-  \hline \multicolumn{3}{|r|}{{Continued on next page}} \\ \hline
+  \midrule
+  \multicolumn{3}{r}{{Continued on next page}} \\
   \endfoot
 
-  \hline\hline
+  \bottomrule
   \endlastfoot
 
   A & BC & D \\
@@ -1215,7 +1265,14 @@ The \href{https://github.com/gpoore/minted}{minted} package highlights listings 
 It uses the \href{http://pygments.org/}{pygments} library, which in turn requires Python.
 
 \begin{ltgexample}
-\Zcref{lst:XML} shows source code written in XML.
+% After a period, LaTeX sets the wider sentence space by default. The exception: a period after a capital letter
+% is taken for an abbreviation or initial ("T. Scientist", "NASA") and gets the narrow inter-word space.
+% "XML." ends a sentence, so \@ before the period restores the sentence space.
+% (The other way round, "e.g.\ details" forces the narrow space after a lowercase abbreviation; ~ is a
+% non-breaking inter-word space, as in "Prof.~Dr.~Eike Kraft".)
+% An abbreviation set with \gls{xml} needs no \@: glossaries ends it with a non-letter, so the period after it
+% gets the sentence space. The plain "XML" here is for documents without the glossaries package.
+\Zcref{lst:XML} shows source code written in XML\@.
 \Zcref{line:comment} contains a comment.
 
 \begin{listing}[htbp]
@@ -1365,11 +1422,11 @@ Hier bitte einen kurzen Durchgang durch die Arbeit.
 
 \lipsum[1-2]
 
-...und anschließend einen Ausblick.
+\ldots und anschließend einen Ausblick.
 
 \subsubsection*{Danksagungen}
 
-Identification of funding sources and other support, and thanks to individuals and groups that assisted in the research and the preparation of the work should be included in an acknowledgment section, which comes right before the reference section in your document \cite{acmart}.
+Identification of funding sources and other support, and thanks to individuals and groups that assisted in the research and the preparation of the work should be included in an acknowledgment section, which comes right before the reference section in your document~\cite{acmart}.
 
 %%% ===============================================================================
 %%% Bibliography
