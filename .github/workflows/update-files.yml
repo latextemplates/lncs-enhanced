@@ -11,15 +11,6 @@ concurrency:
 jobs:
   generatetex:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        language: [en, de]
-        font: [default, times]
-        listings: [listings, minted]
-        enquotes: [csquotes]
-        tweak_outerquote: [babel]
-        todo: [pdfcomment]
-        examples: [true]
     steps:
       - name: Set up Git repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -39,84 +30,91 @@ jobs:
           npm install
           npm link
           npm install -g yo
-      - run: mkdir /tmp/ltg
-      - name: Generate template
+      - name: Generate all variants
         shell: bash
-        working-directory: /tmp/ltg
         run: |
-          yo $GITHUB_WORKSPACE/generator-latex-template/generators/app/index.js \
-           --githubpublish\
-           --docker=iot\
-           --documentclass=lncs\
-           --papersize=a4\
-           --latexcompiler=both\
-           --bibtextool=bibtex\
-           --overleaf=true\
-           --texlive=2026\
-           --lang=${{ matrix.language }}\
-           --font=${{ matrix.font }}\
-           --listings=${{ matrix.listings }}\
-           --enquotes=${{ matrix.enquotes }}\
-           --tweakouterquote=${{ matrix.tweak_outerquote }}\
-           --todo=${{ matrix.todo }}\
-           --examples=${{ matrix.examples }}\
-           --howtotext=false
-        env:
-          yeoman_test: false
-      - name: Prepare files
-        working-directory: /tmp/ltg
-        run: |
-          ls -la
+          # All variants in one job and one commit; the variant that owns the shared files (README, Makefile, ...) comes last.
+          enquotes=csquotes
+          tweak_outerquote=babel
+          todo=pdfcomment
+          examples=true
+          for language in de en; do
+            for font in times default; do
+              for listings in listings minted; do
+                rm -rf /tmp/ltg && mkdir /tmp/ltg && cd /tmp/ltg
+                yo $GITHUB_WORKSPACE/generator-latex-template/generators/app/index.js \
+                 --githubpublish\
+                 --docker=iot\
+                 --documentclass=lncs\
+                 --papersize=a4\
+                 --latexcompiler=both\
+                 --bibtextool=bibtex\
+                 --overleaf=true\
+                 --texlive=2026\
+                 --lang=${language}\
+                 --font=${font}\
+                 --listings=${listings}\
+                 --enquotes=${enquotes}\
+                 --tweakouterquote=${tweak_outerquote}\
+                 --todo=${todo}\
+                 --examples=${examples}\
+                 --howtotext=false
 
-          if [ "${{ matrix.language }}-${{ matrix.font }}-${{ matrix.listings }}" = "en-default-minted" ]; then
-            # paper.tex + Makefile should be English, default font, minted
-            echo "Keeping default paper.tex"
-          else
-            if [ "${{ matrix.language }}" = "en" ]; then
-              LANG_PART=""
-            else
-              LANG_PART="-${{ matrix.language }}"
-            fi
+                ls -la
 
-            if [ "${{ matrix.font }}" = "default" ]; then
-              FONT_PART=""
-            else
-              FONT_PART="-newtx"
-            fi
+                if [ "${language}-${font}-${listings}" = "en-default-minted" ]; then
+                  # paper.tex + Makefile should be English, default font, minted
+                  echo "Keeping default paper.tex"
+                else
+                  if [ "${language}" = "en" ]; then
+                    LANG_PART=""
+                  else
+                    LANG_PART="-${language}"
+                  fi
 
-            if [ "${{ matrix.listings }}" = "listings" ]; then
-              LISTINGS_PART="-basic-listings"
-            else
-              LISTINGS_PART=""
-            fi
+                  if [ "${font}" = "default" ]; then
+                    FONT_PART=""
+                  else
+                    FONT_PART="-newtx"
+                  fi
 
-            mv paper.tex "paper${LANG_PART}${LISTINGS_PART}${FONT_PART}.tex"
-            rm Makefile
-          fi
+                  if [ "${listings}" = "listings" ]; then
+                    LISTINGS_PART="-basic-listings"
+                  else
+                    LISTINGS_PART=""
+                  fi
 
-          ls -la
+                  mv paper.tex "paper${LANG_PART}${LISTINGS_PART}${FONT_PART}.tex"
+                  rm Makefile
+                fi
 
-          # remove files which should not be overwritten
+                ls -la
 
-          # .latexmkrc alternates between including and excluding "--shell-escape"; we just want to keep the minted + en version of it
-          if [ "${{ matrix.listings }}" != "minted" ] || [ "${{ matrix.language }}" != "en" ]; then
-            rm .latexmkrc
-            rm -r .github/workflows
-            rm commands.tex
-          fi
+                # remove files which should not be overwritten
 
-          # the LICENSE of the repository should be kept
-          rm LICENSE
+                # .latexmkrc alternates between including and excluding "--shell-escape"; we just want to keep the minted + en version of it
+                if [ "${listings}" != "minted" ] || [ "${language}" != "en" ]; then
+                  rm .latexmkrc
+                  rm -r .github/workflows
+                  rm commands.tex
+                fi
 
-          # Files are ready
-          # Overwrite old versions in $GITHUB_WORKSPACE
-          cp -r * $GITHUB_WORKSPACE
-          cp -r .* $GITHUB_WORKSPACE
+                # the LICENSE of the repository should be kept
+                rm LICENSE
 
-          # output current status
+                # Files are ready
+                # Overwrite old versions in $GITHUB_WORKSPACE
+                cp -r * $GITHUB_WORKSPACE
+                cp -r .* $GITHUB_WORKSPACE
+
+              done
+            done
+          done
           cd ${{ github.workspace }}
           git status
           git diff
+        env:
+          yeoman_test: false
       - name: Commit changes
         uses: EndBug/add-and-commit@cc9c08ba6c8df3b93a8f2db63e89b98368ae2ae8 # v11.1.1
         with:

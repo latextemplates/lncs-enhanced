@@ -7,10 +7,10 @@
 % !TeX program = lualatex
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
-% Generated with generator-latex-template 2026.11.3 for latextemplates/lncs-enhanced
+% Generated with generator-latex-template 2026.11.4 for latextemplates/lncs-enhanced
 %
-% vvvvvvvv  The content starts in line 805 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 844.
+% vvvvvvvv  The content starts in line 808 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 847.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -91,6 +91,10 @@
 \ifluatex
   \usepackage[no-math]{fontspec}
   \usepackage{unicode-math}
+  % newtxtext is for pdflatex. Under LuaLaTeX, it replaces the fonts set below by TeX Gyre Termes X without TeX ligatures: `` and '' appear as two single quotes (e.g., in the bibliography)
+  \newcommand{\ltgNewtxtextError}{\GenericError{}{newtxtext loaded under LuaLaTeX}{}{Remove \string\usepackage{newtxtext}: the fonts are set with fontspec in paper.tex (search for \string\setmainfont).}}
+  \IfPackageLoadedTF{newtxtext}{\ltgNewtxtextError}{}
+  \AddToHook{package/newtxtext/before}{\ltgNewtxtextError}
 
   % See https://tug.org/FontCatalogue/texgyretermes/ for more information
   \setmainfont{texgyretermes}[
@@ -115,7 +119,6 @@
   % Enable proper ligatures for English documents (German documents use autotype, see ADR-0008)
   % For more information see https://ctan.org/pkg/selnolig
   \usepackage{selnolig}
-
 \else
   \RequirePackage{newtxtext}
   \RequirePackage{newtxmath}
@@ -610,7 +613,7 @@
 % Which template this document is based on, in the PDF properties (custom entry "Template"; shown by
 % "pdfinfo -custom" and in the document properties of most viewers). Keep it: it tells which version
 % of the template a document was built on, which helps when comparing or updating adapted files.
-\hypersetup{pdfinfo={Template={latextemplates/lncs-enhanced, generated with generator-latex-template 2026.11.3}}}
+\hypersetup{pdfinfo={Template={latextemplates/lncs-enhanced, generated with generator-latex-template 2026.11.4}}}
 
 % Document version from git: \gitVer is the commit (with "-dirty" when there are uncommitted changes) and
 % \versionBox a framed "Manuscript version: #<commit> - <build time>", e.g. for the footer or the title page.
@@ -1225,15 +1228,15 @@ If the notes should appear directly below the table instead (common in journals)
 \end{ltgexample}
 
 A table wider than the text runs into the margin.
-\verb|\begin{adjustbox}{max width=\textwidth}| from the \href{https://ctan.org/pkg/adjustbox}{adjustbox} package scales it down to the text width, and only if it is too wide.
+\verb|\begin{adjustbox}{max width=\linewidth}| from the \href{https://ctan.org/pkg/adjustbox}{adjustbox} package scales it down to the line width (the column width in a two-column layout), and only if it is too wide.
 Scaling shrinks the font, so for a table with long text in its cells, prefer wrapping the text with the column type \verb|X| of the \href{https://ctan.org/pkg/tabularx}{tabularx} package, and for a very wide table, a landscape page (see \texttt{pdflscape}).
 
 \begin{ltgexample}
 \begin{table}
-  \caption{Wide table scaled to the text width}
+  \caption{Wide table scaled to the line width}
   \label{tab:wide}
   \centering
-  \begin{adjustbox}{max width=\textwidth}
+  \begin{adjustbox}{max width=\linewidth}
     \begin{tabular}{llllllllllll}
       \toprule
       Jan  & Feb  & Mar  & Apr  & May  & Jun  & Jul  & Aug   & Sep  & Oct   & Nov   & Dec   \\
