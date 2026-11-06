@@ -9,8 +9,8 @@
 % -*- coding:utf-8 mod:LaTeX -*-
 % Generated with generator-latex-template 2026.11.4 for latextemplates/lncs-enhanced
 %
-% vvvvvvvv  The content starts in line 810 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 849.
+% vvvvvvvv  The content starts in line 811 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 850.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -120,7 +120,8 @@
 
   % Enable proper ligatures for English documents (German documents use autotype, see ADR-0008)
   % For more information see https://ctan.org/pkg/selnolig
-  \usepackage{selnolig}
+  % The language has to be named: without it, selnolig loads no rules (acmart and scrbook do not pass "english" as a class option)
+  \usepackage[english]{selnolig}
 \else
   \RequirePackage{newtxtext}
   \RequirePackage{newtxmath}
