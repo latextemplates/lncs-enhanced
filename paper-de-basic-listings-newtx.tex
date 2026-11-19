@@ -9,8 +9,8 @@
 % -*- coding:utf-8 mod:LaTeX -*-
 % Generated with generator-latex-template 2026.11.12 for latextemplates/lncs-enhanced
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 852 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 896.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 854 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 898.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -551,11 +551,13 @@
 % Final version: hide all edits and comments (there is no class option for it: "final" is the default of every class)
 %\phfDisableCommentingCommands
 % Anonymous version for a double-blind review: compile paper-anon.tex (it inputs this file).
-% \anon{...} prints its text here and a gray bar in paper-anon.pdf; \anon[6cm]{...} sets the length of the bar.
+% \anon{...} prints its text here and a gray bar in paper-anon.pdf, as acmart's \anon (class option anonymous).
+% \anon[replacement]{...} prints the replacement instead, e.g., \anon[\anonbar{6cm}]{...} or \anon[an anonymous university]{...}.
 % The bar is the one of the skeldoc package (https://ctan.org/pkg/skeldoc), drawn without loading it.
 \newif\ifanonymous
 \ifdefined\ltganonymous\anonymoustrue\fi
-\newcommand{\anon}[2][3cm]{\ifanonymous\textcolor{black!7}{\rule[-.3ex]{#1}{2.1ex}}\else #2\fi}
+\newcommand{\anonbar}[1]{\textcolor{black!7}{\rule[-.3ex]{#1}{2.1ex}}}
+\newcommand{\anon}[2][\anonbar{4cm}]{\ifanonymous#1\else#2\fi}
 
 
 \usepackage[group-minimum-digits=4,per-mode=fraction]{siunitx}
@@ -913,6 +915,9 @@ Der Abschnitt kann je nach Kontext auch an anderer Stelle stehen.
 
 Winery~\citep{Winery} is a graphical \textcomment{modeling}{modeling with one ``l'', because of American English} tool.
 The whole idea of TOSCA is explained by \citet{Binz2009}.
+
+In einer anonymen Einreichung (siehe \texttt{paper-anon.tex}) wird die eigene Arbeit in der dritten Person zitiert, wie jede andere: „Binz et al.~\cite{Binz2009} zeigten“, nicht „in unserer früheren Arbeit~\cite{Binz2009}“.
+Alles andere, was die Autoren erkennen lässt, kommt in \verb+\anon+: Diese Arbeit entstand \anon[an einer anonymen Universität]{an der Universität Stuttgart}.
 
 Werkzeuge für die Literatursuche sind unter anderem \href{https://www.scienceos.ai/}{ScienceOS}, \href{https://dblp.org/}{dblp}, \href{https://scholar.google.com/}{Google Scholar}, \href{https://ieeexplore.ieee.org/}{IEEE Xplore} und die \href{https://dl.acm.org/}{ACM Digital Library}; \href{https://www.jabref.org/}{JabRef} verwaltet die gefundenen Arbeiten, holt die bibliografischen Daten per DOI und verwaltet die PDFs.
 Ist die Suche systematisch (wie bei einem Literatur-Review), gehören die Suchbegriffe, der Zeitraum und die Aufnahmekriterien in die Arbeit, damit die Suche nachvollziehbar ist.
@@ -1556,7 +1561,7 @@ Hier bitte einen kurzen Durchgang durch die Arbeit.
 
 \subsubsection*{Danksagungen}
 
-\anon[\linewidth]{Identification of funding sources and other support, and thanks to individuals and groups that assisted in the research and the preparation of the work should be included in an acknowledgment section, which comes right before the reference section in your document~\cite{acmart}.}
+\anon[\anonbar{\linewidth}]{Identification of funding sources and other support, and thanks to individuals and groups that assisted in the research and the preparation of the work should be included in an acknowledgment section, which comes right before the reference section in your document~\cite{acmart}.}
 
 %%% ===============================================================================
 %%% Bibliography
