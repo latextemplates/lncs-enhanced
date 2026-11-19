@@ -18,7 +18,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 ### Fixed
 
-- The boxes with the LaTeX code of the examples in `paper-basic-listings.pdf` no longer start with a line of special characters (`œŒűŰőŐł…`).
+- The boxes with the LaTeX code of the examples in the `paper*-basic-listings*.pdf` variants no longer start with a line of special characters (`œŒűŰőŐł…`).
 
 ## [2026-11-04]
 
