@@ -9,8 +9,8 @@
 % -*- coding:utf-8 mod:LaTeX -*-
 % Generated with generator-latex-template 2026.11.12 for latextemplates/lncs-enhanced
 %
-% vvvvvvvv  The content starts in line 741 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 780.
+% vvvvvvvv  The content starts in line 763 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 802.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -497,7 +497,7 @@
     notes,              % [^label] referenced footnotes
     inlineNotes,        % ^[inline footnote text]
     pipeTables,         % | a | b | style tables
-    tableCaptions,      % : Caption text below a table
+    tableCaptions,      % : Caption text below a table (typeset above it, see below)
     tableAttributes,    % {#id} identifier on a table caption
     headerAttributes,   % {#id} identifier on a heading
     relativeReferences, % <#id> to reference an id defined via {#id} (typeset by \zcref, see below)
@@ -509,6 +509,28 @@
   \renewcommand{\markdownRendererHeadingTwo}[1]{\subsection{#1}}
   \renewcommand{\markdownRendererHeadingThree}[1]{\subsubsection{#1}}
   % textidote: ignore end
+  % Table captions above the table, as for all other tables (the markdown package puts them below)
+  \makeatletter
+  \ExplSyntaxOn
+  \markdownSetup{rendererPrototypes={
+        table = {
+            \markdownLaTeXTable={}
+            \markdownLaTeXTableAlignment={}
+            \markdownLaTeXTableEnd={\markdownLaTeXBottomRule\end{tabular}}
+            \tl_if_empty:nF {#1} {
+              \addto@hook\markdownLaTeXTable{\begin{table}\centering\caption{#1}}
+              \seq_map_inline:Nn \l__markdown_table_identifiers_seq { \addto@hook\markdownLaTeXTable{\label{##1}} }
+              \addto@hook\markdownLaTeXTableEnd{\end{table}}
+            }
+            \addto@hook\markdownLaTeXTable{\begin{tabular}}
+            \markdownLaTeXRowCounter=0
+            \markdownLaTeXRowTotal=#2
+            \markdownLaTeXColumnTotal=#3
+            \markdownLaTeXRenderTableRow
+          }
+      }}
+  \ExplSyntaxOff
+  \makeatother
   % Markdown's own reference syntax <#id> typesets the bare number (\ref).
   % Typeset it with \zcref instead, so that "<#tbl:example> shows" reads "Table 1 shows".
   % Other links are rendered as before.

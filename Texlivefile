@@ -64,6 +64,7 @@ float
 floatbytocbasic
 floatflt
 fontaxes
+framed
 fontspec
 footmisc
 gettitlestring
@@ -143,6 +144,7 @@ newfloat
 newtx
 newtxtt
 nfssext-cfr
+ninecolors
 nowidow
 ntheorem
 paralist
@@ -182,6 +184,7 @@ subfiles
 svn-prov
 tabto-ltx
 tablefootnote
+tabularray
 tcolorbox
 tex-gyre
 tex-gyre-math
