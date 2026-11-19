@@ -77,6 +77,8 @@ Following features are enabled in this template:
 - Support of hyperlinked references without extra color thanx to [hyperref].
 - Better breaking of long URLs.
 - Support for `\powerset` command.
+- TODOs (`\todo{...}`) as short notes in the text with a numbered symbol in the margin, and a list of all open notes at the end of the document.
+  This is enabled by the [zebra](https://ctan.org/pkg/zebra) package.
 - (Optional) Support todos as pdf annotations. This is enabled by the [pdfcomment] package.
 - [microtypographic extensions](https://www.ctan.org/pkg/microtype) for a better look of the paper.
 - Modern packages such as [microtype], [zref-clever], [csquotes], [hyperref], [hypcap], [upquote], [natbib], [booktabs].

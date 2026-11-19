@@ -9,8 +9,8 @@
 % -*- coding:utf-8 mod:LaTeX -*-
 % Generated with generator-latex-template 2026.11.12 for latextemplates/lncs-enhanced
 %
-% vvvvvvvv  The content starts in line 773 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 812.
+% vvvvvvvv  The content starts in line 770 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 809.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -424,11 +424,11 @@
 
 % TODO (and comment) configuration
 %
-% - \todo (from todo, easy-todo, todonotes) / \TODO (from fixmetodonotes) - for "normal" TODOs
+% - \todo (from zebra, todonotes, luatodonotes) / \TODO (from fixmetodonotes) - for "normal" TODOs
 % - \todofix - "important" TODOs
 %
 % - \textcomment - highlights text and has a hover comment
-% - \sidecomment - just puts a comment to the side. Note: \comment MUST NOT be used as command name, it is already defined by much packages (mathdesign, mindflow, verbatim, and others)
+% - \sidecomment - just puts a comment to the side. Note: \comment is the comment environment of several packages (mathdesign, mindflow, verbatim, and others); only zebra adds \comment[name]{...} as command
 %
 % - \missingfigure
 %
@@ -436,32 +436,29 @@
 % - \modified
 % - \change      - addresses a review comment
 
-% Enable nice comments
-\usepackage{pdfcomment}
-
-\ifdefined\directlua
-  % Highlighting that breaks across lines (\colorbox does not): lua-ul's \highLight; the color needs luacolor
-  \usepackage{luacolor,lua-ul}
-  \newcommand{\textcomment}[2]{\highLight[yellow!60]{#1}\pdfcomment[color={0.234 0.867 0.211},hoffset=-6pt,voffset=10pt,opacity=0.5]{#2}}
-\else
-  \newcommand{\textcomment}[2]{\colorbox{yellow!60}{#1}\pdfcomment[color={0.234 0.867 0.211},hoffset=-6pt,voffset=10pt,opacity=0.5]{#2}}
-\fi
-
-% Small PDF comment
-% 1st parameter: comment
-\newcommand{\sidecomment}[1]{\pdfcomment[color={0.045 0.278 0.643},voffset=4pt,icon=Note]{#1}}
-% Disabled variant - for the final PDF
-%\newcommand{\sidecomment}[1]{}
-
-\newcommand{\todo}[1]{TODO!\sidecomment{#1}}
-
-% Changes
-%
-% 1st parameter: review comment
-% 2nd parameter: new text
-\newcommand{\change}[2]{{\color{red}#2}\pdfcomment[color={0.234 0.867 0.211},voffset=8pt,opacity=0.5]{#1}}
-% Disabled variant - for the final PDF
-%\newcommand{\change}[2]{#2}
+% TODOs as short inline notes with a small numbered symbol in the margin; a summary and a list of all notes follow at the end
+% Doc: https://ctan.org/pkg/zebra
+% Commands: \todo[name]{...}, \note, \fixed, \placeholder, and \comment
+\usepackage[draft]{zebra} % explicit: the class option draft=false would hide all notes
+% Final version: hide all notes and the lists at the end
+% \usepackage[final]{zebra}
+\newcommand{\todofix}[1]{\zebratodo{#1}}
+\newcommand{\sidecomment}[1]{\zebracomment{#1}}
+% \comment is also the comment environment (verbatim, comment; used by mindflow and acmart), which zebra does not redefine:
+% \comment[name]{...} is a zebra note, \begin{comment} ... \end{comment} still comments out
+\makeatletter
+\AddToHook{begindocument/before}{%
+  \@ifundefined{comment}{\let\comment\zebracomment}{%
+    \let\ltg@commentenvironment\comment
+    \def\ltg@commentname{comment}%
+    \renewcommand*{\comment}{%
+      \ifx\@currenvir\ltg@commentname
+        \expandafter\ltg@commentenvironment
+      \else
+        \expandafter\zebracomment
+      \fi}}}
+\makeatother
+\newcommand{\missingfigure}[1][]{\zebraplaceholder{missing figure}}
 
 % Define default commands
 \makeatletter
@@ -905,6 +902,22 @@ Here is a comment\sidecomment{Comment}.
 \begin{ltgexample}
 \todo{A lot of text still needs to be produced here}
 \end{ltgexample}
+
+With zebra, \verb|\todo| takes the responsible person as optional argument; further note types are \verb|\note|, \verb|\comment|, \verb|\fixed|, and \verb|\placeholder|.
+All notes are listed at the end of the document.
+
+\begin{ltgexample}
+\todo[FA]{Add a citation}
+
+\note{Shorten this paragraph?}
+
+\comment[FA]{Is this claim backed by the evaluation?}
+
+\fixed{Typo corrected}
+
+\placeholder{Table with the results}
+\end{ltgexample}
+
 
 Several authors can mark their edits and comments with the \href{https://ctan.org/pkg/phfcc}{phfcc} package; the initials of the author appear once per page in the margin.
 Define one command per author in the preamble (\verb|\phfMakeCommentingCommand|); \verb|\phfDisableCommentingCommands| hides everything for the final version.
