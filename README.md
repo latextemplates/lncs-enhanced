@@ -13,6 +13,7 @@ The LaTeX snippets this template is assembled from can be inspected at <https://
 - [paper-newtx.pdf](https://latextemplates.github.io/lncs-enhanced/paper-newtx.pdf) - paper typeset in Times Roman to save some space.
 - [paper-basic-listings.pdf](https://latextemplates.github.io/lncs-enhanced/paper-basic-listings.pdf) - paper using the listings package (instead of minted) for source code.
 - [paper-basic-listings-newtx.pdf](https://latextemplates.github.io/lncs-enhanced/paper-basic-listings-newtx.pdf) - paper using the listings package (instead of minted) for source code, typeset in Times Roman.
+- [paper-anon.pdf](https://latextemplates.github.io/lncs-enhanced/paper-anon.pdf) - the same paper anonymized for a double-blind review (see [Anonymous submission](#anonymous-submission-double-blind-review)).
 
 The source code examples use the [minted] package, which highlights code best; it needs Python and [latexminted] (contained in the Docker image and on Overleaf).
 The `-basic-listings` variants use the [listings] package instead and need no extra setup.
