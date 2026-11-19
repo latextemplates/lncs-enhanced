@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://calver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- TODOs are set with [zebra](https://ctan.org/pkg/zebra): `\todo{...}` is a short note in the text with a numbered symbol in the margin, and all open notes are listed at the end of the document. `\usepackage[final]{zebra}` hides them for the final version.
+
 ## [2026-11-04]
 
 ### Changed
