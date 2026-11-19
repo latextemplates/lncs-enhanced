@@ -9,8 +9,8 @@
 % -*- coding:utf-8 mod:LaTeX -*-
 % Generated with generator-latex-template 2026.11.12 for latextemplates/lncs-enhanced
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 864 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 908.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 865 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 909.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -505,6 +505,7 @@
 % TODOs as short inline notes with a small numbered symbol in the margin; a summary and a list of all notes follow at the end
 % Doc: https://ctan.org/pkg/zebra
 % Commands: \todo[name]{...}, \note, \fixed, \placeholder, and \comment
+% llncs already defines \note (an environment like \begin{note}), so the zebra note is \zebranote
 \usepackage[draft]{zebra} % explicit: the class option draft=false would hide all notes
 % Final version: hide all notes and the lists at the end
 % \usepackage[final]{zebra}
@@ -1018,13 +1019,13 @@ Hier nur ein Kommentar\sidecomment{Kommentar}.
 \FIXME{Die Zahlen sind veraltet}
 \end{ltgexample}
 
-Bei zebra nimmt \verb|\todo| die verantwortliche Person als optionales Argument; weitere Notizarten sind \verb|\note|, \verb|\comment|, \verb|\fixed|, \verb|\placeholder| und \verb|\fixme| (von der Vorlage definiert, genutzt von \verb|\FIXME|).
+Bei zebra nimmt \verb|\todo| die verantwortliche Person als optionales Argument; weitere Notizarten sind \verb|\zebranote|, \verb|\comment|, \verb|\fixed|, \verb|\placeholder| und \verb|\fixme| (von der Vorlage definiert, genutzt von \verb|\FIXME|).
 Alle Notizen werden am Ende des Dokuments aufgelistet.
 
 \begin{ltgexample}
 \todo[FA]{Add a citation}
 
-\note{Shorten this paragraph?}
+\zebranote{Shorten this paragraph?}
 
 \comment[FA]{Is this claim backed by the evaluation?}
 
