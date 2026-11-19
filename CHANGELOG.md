@@ -7,6 +7,10 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 
 ## [Unreleased]
 
+### Added
+
+- `\TODO{...}` marks a TODO and `\FIXME{...}` an important one.
+
 ### Changed
 
 - TODOs are set with [zebra](https://ctan.org/pkg/zebra): `\todo{...}` is a short note in the text with a numbered symbol in the margin, and all open notes are listed at the end of the document. `\usepackage[final]{zebra}` hides them for the final version.
