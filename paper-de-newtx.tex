@@ -9,8 +9,8 @@
 % -*- coding:utf-8 mod:LaTeX -*-
 % Generated with generator-latex-template 2026.11.12 for latextemplates/lncs-enhanced
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 770 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 814.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 773 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 817.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -412,8 +412,8 @@
 
 % TODO (and comment) configuration
 %
-% - \todo (from zebra, todonotes, luatodonotes) / \TODO (from fixmetodonotes) - for "normal" TODOs
-% - \todofix - "important" TODOs
+% - \todo (from zebra, todonotes, luatodonotes), or \TODO - for "normal" TODOs
+% - \todofix, or \FIXME - "important" TODOs
 %
 % - \textcomment - highlights text and has a hover comment
 % - \sidecomment - just puts a comment to the side. Note: \comment is the comment environment of several packages (mathdesign, mindflow, verbatim, and others); only zebra adds \comment[name]{...} as command
@@ -430,7 +430,9 @@
 \usepackage[draft]{zebra} % explicit: the class option draft=false would hide all notes
 % Final version: hide all notes and the lists at the end
 % \usepackage[final]{zebra}
-\newcommand{\todofix}[1]{\zebratodo{#1}}
+% Important TODOs as own note type: \fixme{...}
+\zebranewnote{fixme}{red!80!black}
+\newcommand{\todofix}[1]{\zebrafixme{#1}}
 \newcommand{\sidecomment}[1]{\zebracomment{#1}}
 % \comment is also the comment environment (verbatim, comment; used by mindflow and acmart), which zebra does not redefine:
 % \comment[name]{...} is a zebra note, \begin{comment} ... \end{comment} still comments out
@@ -456,6 +458,7 @@
 \@ifundefined{todo}{\newcommand{\todo}[1]{\sidecomment{#1}}}{}
 \@ifundefined{TODO}{\newcommand{\TODO}[1]{\todo{#1}}}{}
 \@ifundefined{todofix}{\newcommand{\todofix}[1]{\todo{#1}}}{}
+\@ifundefined{FIXME}{\newcommand{\FIXME}[1]{\todofix{#1}}}{}
 \@ifundefined{change}{\newcommand{\change}[2]{#1 $\rightarrow$ #2}}{}
 \makeatother
 
@@ -913,7 +916,15 @@ Hier nur ein Kommentar\sidecomment{Kommentar}.
 \todo{Hier muss noch kräftig Text produziert werden}
 \end{ltgexample}
 
-Bei zebra nimmt \verb|\todo| die verantwortliche Person als optionales Argument; weitere Notizarten sind \verb|\note|, \verb|\comment|, \verb|\fixed| und \verb|\placeholder|.
+\verb|\TODO| und \verb|\FIXME| funktionieren mit jedem TODO-Paket der Vorlage: \verb|\TODO| ist ein normales TODO, \verb|\FIXME| ein wichtiges.
+
+\begin{ltgexample}
+\TODO{Evaluation ergänzen}
+
+\FIXME{Die Zahlen sind veraltet}
+\end{ltgexample}
+
+Bei zebra nimmt \verb|\todo| die verantwortliche Person als optionales Argument; weitere Notizarten sind \verb|\note|, \verb|\comment|, \verb|\fixed|, \verb|\placeholder| und \verb|\fixme| (von der Vorlage definiert, genutzt von \verb|\FIXME|).
 Alle Notizen werden am Ende des Dokuments aufgelistet.
 
 \begin{ltgexample}
