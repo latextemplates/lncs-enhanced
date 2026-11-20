@@ -9,8 +9,8 @@
 % -*- coding:utf-8 mod:LaTeX -*-
 % Generated with generator-latex-template 2026.11.12 for latextemplates/lncs-enhanced
 %
-% vvvvvvvv  The content starts in line 871 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 910.
+% vvvvvvvv  The content starts in line 873 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 912.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -227,8 +227,10 @@
 % Code Listings
 \usepackage{listings}
 
-% accsupp keeps the soft-wrap arrow (see postbreak below) out of the copied text
+% accsupp keeps the soft-wrap arrow (see postbreak below) and the line numbers out of the copied text
 \usepackage{accsupp}
+% The line number is the argument of the last command of numberstyle
+\newcommand{\lstnocopy}[1]{\BeginAccSupp{ActualText={}}#1\EndAccSupp{}}
 
 \definecolor{eclipseStrings}{RGB}{42,0.0,255}
 \definecolor{eclipseKeywords}{RGB}{127,0,85}
@@ -242,7 +244,7 @@
   commentstyle=\color{eclipseStrings}, % style of comment
   stringstyle=\color{eclipseKeywords}, % style of strings
   numbers=left,
-  numberstyle=\scriptsize,
+  numberstyle=\scriptsize\lstnocopy,
   stepnumber=1,
   numbersep=8pt,
   showstringspaces=false,
@@ -295,7 +297,7 @@
   %
   numbers=left,
   %
-  numberstyle=\tiny,
+  numberstyle=\tiny\lstnocopy,
   %
   basewidth=.5em,
   %
@@ -769,7 +771,7 @@
         belowskip=0mm,
         numbers=left,
         xleftmargin=0mm,
-        numberstyle=\tiny,
+        numberstyle=\tiny\lstnocopy,
         numbersep=8pt%
       }
   }%

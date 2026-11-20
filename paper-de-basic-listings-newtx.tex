@@ -9,8 +9,8 @@
 % -*- coding:utf-8 mod:LaTeX -*-
 % Generated with generator-latex-template 2026.11.12 for latextemplates/lncs-enhanced
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 872 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 916.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 874 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 918.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -212,8 +212,10 @@
 % Code Listings
 \usepackage{listings}
 
-% accsupp hält den Pfeil (siehe postbreak unten) aus dem kopierten Text heraus
+% accsupp hält den Pfeil (siehe postbreak unten) und die Zeilennummern aus dem kopierten Text heraus
 \usepackage{accsupp}
+% Die Zeilennummer ist das Argument des letzten Befehls von numberstyle
+\newcommand{\lstnocopy}[1]{\BeginAccSupp{ActualText={}}#1\EndAccSupp{}}
 
 \definecolor{eclipseStrings}{RGB}{42,0.0,255}
 \definecolor{eclipseKeywords}{RGB}{127,0,85}
@@ -227,7 +229,7 @@
   commentstyle=\color{eclipseStrings}, % style of comment
   stringstyle=\color{eclipseKeywords}, % style of strings
   numbers=left,
-  numberstyle=\scriptsize,
+  numberstyle=\scriptsize\lstnocopy,
   stepnumber=1,
   numbersep=8pt,
   showstringspaces=false,
@@ -280,7 +282,7 @@
   %
   numbers=left,
   %
-  numberstyle=\tiny,
+  numberstyle=\tiny\lstnocopy,
   %
   basewidth=.5em,
   %
@@ -766,7 +768,7 @@
         belowskip=0mm,
         numbers=left,
         xleftmargin=0mm,
-        numberstyle=\tiny,
+        numberstyle=\tiny\lstnocopy,
         numbersep=8pt%
       }
   }%
