@@ -10,7 +10,7 @@ From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://
 ### Added
 
 - `paper-anon.tex` typesets the paper for a double-blind review: the authors, affiliations, and acknowledgments wrapped in `\anon{...}` become gray bars. Compile it with `latexmk paper-anon`.
-- `\TODO{...}` marks a TODO and `\FIXME{...}` an important one.
+- `\TODO{...}` marks a TODO, `\FIXME{...}` an important one, and `\CITE{...}` a claim that still needs a citation.
 
 ### Changed
 
