@@ -9,8 +9,8 @@
 % -*- coding:utf-8 mod:LaTeX -*-
 % Generated with generator-latex-template 2026.11.12 for latextemplates/lncs-enhanced
 %
-% vvvvvvvv  The content starts in line 789 (\begin{document}); the first
-%           heading (\section{Introduction}) is in line 828.
+% vvvvvvvv  The content starts in line 794 (\begin{document}); the first
+%           heading (\section{Introduction}) is in line 833.
 %           Everything above is the preamble: document class, packages, and settings.
 
 % "a4paper" enables:
@@ -432,8 +432,9 @@
 %
 % - \todo (from zebra, todonotes, luatodonotes), or \TODO - for "normal" TODOs
 % - \todofix, or \FIXME - "important" TODOs
+% - \CITE - a claim that still needs a citation
 %
-% - \textcomment - highlights text and has a hover comment
+% - \textcomment{text}{comment} - comments on a text passage (pdfcomment: highlights the text and shows the comment on hover; otherwise: the text followed by \todo{comment})
 % - \sidecomment - just puts a comment to the side. Note: \comment is the comment environment of several packages (mathdesign, mindflow, verbatim, and others); only zebra adds \comment[name]{...} as command
 %
 % - \missingfigure
@@ -452,6 +453,9 @@
 % Important TODOs as own note type: \fixme{...}
 \zebranewnote{fixme}{red!80!black}
 \newcommand{\todofix}[1]{\zebrafixme{#1}}
+% Missing citations as own note type: \zebrasource{...} (a note type "cite" would clash with \cite)
+\zebranewnote{source}{blue!70!black}
+\newcommand{\CITE}[1]{\zebrasource{#1}}
 \newcommand{\sidecomment}[1]{\zebracomment{#1}}
 % \comment is also the comment environment (verbatim, comment; used by mindflow and acmart), which zebra does not redefine:
 % \comment[name]{...} is a zebra note, \begin{comment} ... \end{comment} still comments out
@@ -478,6 +482,7 @@
 \@ifundefined{TODO}{\newcommand{\TODO}[1]{\todo{#1}}}{}
 \@ifundefined{todofix}{\newcommand{\todofix}[1]{\todo{#1}}}{}
 \@ifundefined{FIXME}{\newcommand{\FIXME}[1]{\todofix{#1}}}{}
+\@ifundefined{CITE}{\newcommand{\CITE}[1]{\todo{CITE: #1}}}{}
 \@ifundefined{change}{\newcommand{\change}[2]{#1 $\rightarrow$ #2}}{}
 \makeatother
 
@@ -925,15 +930,17 @@ Here is a comment\sidecomment{Comment}.
 \todo{A lot of text still needs to be produced here}
 \end{ltgexample}
 
-\verb|\TODO| and \verb|\FIXME| work with every TODO package the template offers: \verb|\TODO| is a normal TODO, \verb|\FIXME| an important one.
+\verb|\TODO|, \verb|\FIXME|, and \verb|\CITE| work with every TODO package the template offers: \verb|\TODO| is a normal TODO, \verb|\FIXME| an important one, and \verb|\CITE| marks a claim that still needs a citation.
 
 \begin{ltgexample}
 \TODO{Add the evaluation}
 
 \FIXME{The numbers are outdated}
+
+Most scientific texts in computer science are written with \LaTeX{}.\CITE{Survey on the tools used for writing}
 \end{ltgexample}
 
-With zebra, \verb|\todo| takes the responsible person as optional argument; further note types are \verb|\zebranote|, \verb|\comment|, \verb|\fixed|, \verb|\placeholder|, and \verb|\fixme| (defined by the template, used by \verb|\FIXME|).
+With zebra, \verb|\todo| takes the responsible person as optional argument; further note types are \verb|\zebranote|, \verb|\comment|, \verb|\fixed|, \verb|\placeholder|, \verb|\fixme|, and \verb|\source| (defined by the template, used by \verb|\FIXME| and \verb|\CITE|).
 All notes are listed at the end of the document.
 
 \begin{ltgexample}
