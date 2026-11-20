@@ -1,0 +1,7 @@
+% Anonymous version of paper.tex for a double-blind review: latexmk paper-anon
+% Every \anon{...} in paper.tex (authors, affiliations, funding) becomes a gray bar.
+% Write self-citations in the third person ("Doe et al. [3] showed"), as the text itself is not changed.
+\def\ltganonymous{}
+% The boxes with the LaTeX code of the examples read their lines from paper.tex
+\def\ltgexamplefile{paper.tex}
+\input{paper}

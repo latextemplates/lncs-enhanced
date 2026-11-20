@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 From 2022-03-01 onwards, versioning is done using [Calendar Versioning](https://calver.org/).
 
+## [Unreleased]
+
+### Added
+
+- `paper-anon.tex` typesets the paper for a double-blind review: the authors, affiliations, and acknowledgments wrapped in `\anon{...}` become gray bars. Compile it with `latexmk paper-anon`.
+- `\TODO{...}` marks a TODO, `\FIXME{...}` an important one, and `\CITE{...}` a claim that still needs a citation.
+
+### Changed
+
+- The line numbers of code listings are not copied along with the code (in PDF viewers that support it, such as Acrobat, Evince, and Okular).
+- TODOs are set with [zebra](https://ctan.org/pkg/zebra): `\todo{...}` is a short note in the text with a numbered symbol in the margin, and all open notes are listed at the end of the document. `\usepackage[final]{zebra}` hides them for the final version.
+
+### Fixed
+
+- The boxes with the LaTeX code of the examples in the `paper*-basic-listings*.pdf` variants no longer start with a line of special characters (`œŒűŰőŐł…`).
+
 ## [2026-11-04]
 
 ### Changed

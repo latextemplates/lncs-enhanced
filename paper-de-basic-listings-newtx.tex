@@ -7,10 +7,10 @@
 % !TeX program = lualatex
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
-% Generated with generator-latex-template 2026.11.9 for latextemplates/lncs-enhanced
+% Generated with generator-latex-template 2026.11.20 for latextemplates/lncs-enhanced
 %
-% vvvvvvvv  Der Inhalt beginnt in Zeile 822 (\begin{document}); die erste
-%           Überschrift (\section{Einleitung}) steht in Zeile 866.
+% vvvvvvvv  Der Inhalt beginnt in Zeile 886 (\begin{document}); die erste
+%           Überschrift (\section{Einleitung}) steht in Zeile 930.
 %           Alles darüber ist die Präambel: Dokumentklasse, Pakete und Einstellungen.
 
 % "a4paper" enables:
@@ -212,8 +212,10 @@
 % Code Listings
 \usepackage{listings}
 
-% accsupp hält den Pfeil (siehe postbreak unten) aus dem kopierten Text heraus
+% accsupp hält den Pfeil (siehe postbreak unten) und die Zeilennummern aus dem kopierten Text heraus
 \usepackage{accsupp}
+% Die Zeilennummer ist das Argument des letzten Befehls von numberstyle
+\newcommand{\lstnocopy}[1]{\BeginAccSupp{ActualText={}}#1\EndAccSupp{}}
 
 \definecolor{eclipseStrings}{RGB}{42,0.0,255}
 \definecolor{eclipseKeywords}{RGB}{127,0,85}
@@ -227,7 +229,7 @@
   commentstyle=\color{eclipseStrings}, % style of comment
   stringstyle=\color{eclipseKeywords}, % style of strings
   numbers=left,
-  numberstyle=\scriptsize,
+  numberstyle=\scriptsize\lstnocopy,
   stepnumber=1,
   numbersep=8pt,
   showstringspaces=false,
@@ -280,7 +282,7 @@
   %
   numbers=left,
   %
-  numberstyle=\tiny,
+  numberstyle=\tiny\lstnocopy,
   %
   basewidth=.5em,
   %
@@ -480,11 +482,12 @@
 
 % TODO (and comment) configuration
 %
-% - \todo (from todo, easy-todo, todonotes) / \TODO (from fixmetodonotes) - for "normal" TODOs
-% - \todofix - "important" TODOs
+% - \todo (from zebra, todonotes, luatodonotes), or \TODO - for "normal" TODOs
+% - \todofix, or \FIXME - "important" TODOs
+% - \CITE - a claim that still needs a citation
 %
-% - \textcomment - highlights text and has a hover comment
-% - \sidecomment - just puts a comment to the side. Note: \comment MUST NOT be used as command name, it is already defined by much packages (mathdesign, mindflow, verbatim, and others)
+% - \textcomment{text}{comment} - comments on a text passage (pdfcomment: highlights the text and shows the comment on hover; otherwise: the text followed by \todo{comment})
+% - \sidecomment - just puts a comment to the side. Note: \comment is the comment environment of several packages (mathdesign, mindflow, verbatim, and others); only zebra adds \comment[name]{...} as command
 %
 % - \missingfigure
 %
@@ -492,32 +495,35 @@
 % - \modified
 % - \change      - addresses a review comment
 
-% Enable nice comments
-\usepackage{pdfcomment}
-
-\ifdefined\directlua
-  % Highlighting that breaks across lines (\colorbox does not): lua-ul's \highLight; the color needs luacolor
-  \usepackage{luacolor,lua-ul}
-  \newcommand{\textcomment}[2]{\highLight[yellow!60]{#1}\pdfcomment[color={0.234 0.867 0.211},hoffset=-6pt,voffset=10pt,opacity=0.5]{#2}}
-\else
-  \newcommand{\textcomment}[2]{\colorbox{yellow!60}{#1}\pdfcomment[color={0.234 0.867 0.211},hoffset=-6pt,voffset=10pt,opacity=0.5]{#2}}
-\fi
-
-% Small PDF comment
-% 1st parameter: comment
-\newcommand{\sidecomment}[1]{\pdfcomment[color={0.045 0.278 0.643},voffset=4pt,icon=Note]{#1}}
-% Disabled variant - for the final PDF
-%\newcommand{\sidecomment}[1]{}
-
-\newcommand{\todo}[1]{TODO!\sidecomment{#1}}
-
-% Changes
-%
-% 1st parameter: review comment
-% 2nd parameter: new text
-\newcommand{\change}[2]{{\color{red}#2}\pdfcomment[color={0.234 0.867 0.211},voffset=8pt,opacity=0.5]{#1}}
-% Disabled variant - for the final PDF
-%\newcommand{\change}[2]{#2}
+% TODOs as short inline notes with a small numbered symbol in the margin; a summary and a list of all notes follow at the end
+% Doc: https://ctan.org/pkg/zebra
+% Commands: \todo[name]{...}, \note, \fixed, \placeholder, and \comment
+% llncs already defines \note (an environment like \begin{note}), so the zebra note is \zebranote
+\usepackage[draft]{zebra} % explicit: the class option draft=false would hide all notes
+% Final version: hide all notes and the lists at the end
+% \usepackage[final]{zebra}
+% Important TODOs as own note type: \fixme{...}
+\zebranewnote{fixme}{red!80!black}
+\newcommand{\todofix}[1]{\zebrafixme{#1}}
+% Missing citations as own note type: \zebrasource{...} (a note type "cite" would clash with \cite)
+\zebranewnote{source}{blue!70!black}
+\newcommand{\CITE}[1]{\zebrasource{#1}}
+\newcommand{\sidecomment}[1]{\zebracomment{#1}}
+% \comment is also the comment environment (verbatim, comment; used by mindflow and acmart), which zebra does not redefine:
+% \comment[name]{...} is a zebra note, \begin{comment} ... \end{comment} still comments out
+\makeatletter
+\AddToHook{begindocument/before}{%
+  \@ifundefined{comment}{\let\comment\zebracomment}{%
+    \let\ltg@commentenvironment\comment
+    \def\ltg@commentname{comment}%
+    \renewcommand*{\comment}{%
+      \ifx\@currenvir\ltg@commentname
+        \expandafter\ltg@commentenvironment
+      \else
+        \expandafter\zebracomment
+      \fi}}}
+\makeatother
+\newcommand{\missingfigure}[1][]{\zebraplaceholder{missing figure}}
 
 % Define default commands
 \makeatletter
@@ -527,6 +533,8 @@
 \@ifundefined{todo}{\newcommand{\todo}[1]{\sidecomment{#1}}}{}
 \@ifundefined{TODO}{\newcommand{\TODO}[1]{\todo{#1}}}{}
 \@ifundefined{todofix}{\newcommand{\todofix}[1]{\todo{#1}}}{}
+\@ifundefined{FIXME}{\newcommand{\FIXME}[1]{\todofix{#1}}}{}
+\@ifundefined{CITE}{\newcommand{\CITE}[1]{\todo{Citation needed: #1}}}{}
 \@ifundefined{change}{\newcommand{\change}[2]{#1 $\rightarrow$ #2}}{}
 \makeatother
 
@@ -550,6 +558,15 @@
 \phfMakeCommentingCommand[initials={FA}]{FA} % first author
 % Final version: hide all edits and comments (there is no class option for it: "final" is the default of every class)
 %\phfDisableCommentingCommands
+% Anonymous version for a double-blind review: compile paper-anon.tex (it inputs this file).
+% \anon{...} prints its text here and a gray bar in paper-anon.pdf, as acmart's \anon (class option anonymous).
+% \anon[replacement]{...} prints the replacement instead, e.g., \anon[\anonbar{6cm}]{...} or \anon[an anonymous university]{...}.
+% The bar is the one of the skeldoc package (https://ctan.org/pkg/skeldoc), drawn without loading it.
+\newif\ifanonymous
+\ifdefined\ltganonymous\anonymoustrue\fi
+\newcommand{\anonbar}[1]{\textcolor{black!7}{\rule[-.3ex]{#1}{2.1ex}}}
+\newcommand{\anon}[2][\anonbar{4cm}]{\ifanonymous#1\else#2\fi}
+
 
 \usepackage[group-minimum-digits=4,per-mode=fraction]{siunitx}
 \addto\extrasgerman{\sisetup{locale = DE}}
@@ -564,7 +581,7 @@
     notes,              % [^label] referenced footnotes
     inlineNotes,        % ^[inline footnote text]
     pipeTables,         % | a | b | style tables
-    tableCaptions,      % : Caption text below a table
+    tableCaptions,      % : Caption text below a table (typeset above it, see below)
     tableAttributes,    % {#id} identifier on a table caption
     headerAttributes,   % {#id} identifier on a heading
     relativeReferences, % <#id> to reference an id defined via {#id} (typeset by \zcref, see below)
@@ -576,6 +593,29 @@
   \renewcommand{\markdownRendererHeadingTwo}[1]{\subsection{#1}}
   \renewcommand{\markdownRendererHeadingThree}[1]{\subsubsection{#1}}
   % textidote: ignore end
+  % Table captions above the table, as for all other tables (the markdown package puts them below)
+  \makeatletter
+  \ExplSyntaxOn
+  \markdownSetup{rendererPrototypes={
+        table = {
+            \markdownLaTeXTable={}
+            \markdownLaTeXTableAlignment={}
+            % begin and end in nested order, so ChkTeX finds the pairs
+            \IfBlankF {#1} {
+              \addto@hook\markdownLaTeXTable{\begin{table}\centering\caption{#1}}
+              \seq_map_inline:Nn \l__markdown_table_identifiers_seq { \addto@hook\markdownLaTeXTable{\label{##1}} }
+            }
+            \addto@hook\markdownLaTeXTable{\begin{tabular}}
+            \markdownLaTeXTableEnd={\markdownLaTeXBottomRule\end{tabular}}
+            \IfBlankF {#1} { \addto@hook\markdownLaTeXTableEnd{\end{table}} }
+            \markdownLaTeXRowCounter=0
+            \markdownLaTeXRowTotal=#2
+            \markdownLaTeXColumnTotal=#3
+            \markdownLaTeXRenderTableRow
+          }
+      }}
+  \ExplSyntaxOff
+  \makeatother
   % Markdown's own reference syntax <#id> typesets the bare number (\ref).
   % Typeset it with \zcref instead, so that "<#tbl:example> shows" reads "Table 1 shows".
   % Other links are rendered as before.
@@ -616,7 +656,7 @@
 % Which template this document is based on, in the PDF properties (custom entry "Template"; shown by
 % "pdfinfo -custom" and in the document properties of most viewers). Keep it: it tells which version
 % of the template a document was built on, which helps when comparing or updating adapted files.
-\hypersetup{pdfinfo={Template={latextemplates/lncs-enhanced, generated with generator-latex-template 2026.11.9}}}
+\hypersetup{pdfinfo={Template={latextemplates/lncs-enhanced, generated with generator-latex-template 2026.11.20}}}
 
 % Hint by https://tex.stackexchange.com/a/193370/9075 to suppress strange outputs of the babel package
 % Example strange output: Package babel Info: Redefining ngerman shorthand "|
@@ -639,11 +679,12 @@
 
 % Show how far each chapter or section is written:
 % \progress{60} below a heading draws a bar filled to 60 %.
-% Set \showprogressfalse to hide all bars, e.g., for the submitted version.
+% The bars are hidden by default; uncomment \showprogresstrue below to show them while writing.
 % To use it, uncomment the following lines.
 % \usepackage{progressbar}
 % \newif\ifshowprogress
-% \showprogresstrue
+% \showprogressfalse
+% % \showprogresstrue % uncomment to show the bars while writing
 % \newcommand{\progress}[1]{%
 %   \ifshowprogress
 %     \par\vspace{-.5\baselineskip}%
@@ -685,6 +726,9 @@
 \usepackage{mwe}
 \usepackage{hologo} % logos such as \hologo{LuaLaTeX} (used in the Markdown example)
 \usepackage[realmainfile]{currfile}
+% paper-anon.tex inputs this file before currfile is loaded, so currfile takes paper-anon.tex as the current file;
+% \ltgexamplefile (set there) names the file the examples are in
+\providecommand{\ltgexamplefile}{\currfilename}
 \usepackage{tcolorbox}
 \tcbuselibrary{listings}
 % Benötigt für eine korrekte Darstellung der Hinweise im erzeugten PDF
@@ -693,16 +737,35 @@
 \newenvironment{ltgexample}%
 {\LTGbeginlineexample=\numexpr\inputlineno+1\relax}%
 {\LTGendlineexample=\numexpr\inputlineno-1\relax%
+  % LuaLaTeX: listings überspringt die Zeilen außerhalb von firstline/lastline, setzt aber trotzdem ihre Zeichen
+  % oberhalb von U+00FF (z.B. erscheint die Tabelle der pdfLaTeX-listings-Einstellungen in der Präambel als Zeile œŒűŰ...).
+  % Daher wird jede Zeile dieser Datei außerhalb des Beispiels als leere Zeile gelesen, solange die Box die Datei liest.
+  \ifdefined\directlua
+    \directlua{
+      % Lua strings in [[...]] and a space before each parenthesis keep ChkTeX quiet; noindent keeps latexindent from flattening the Lua code
+      % \begin{noindent}
+      local file = [[\ltgexamplefile]]
+      local first, last, line = \the\LTGbeginlineexample, \the\LTGendlineexample, 0
+      luatexbase.add_to_callback ([[process_input_buffer]], function (text)
+        if status.filename:sub (-string.len (file)) == file then
+          line = line + 1
+          if line < first or line > last then return [[]] end
+        end
+        return text
+      end, [[ltgexample]])
+      % \end{noindent}
+    }%
+  \fi
   \tcbinputlisting{%
     listing only,
     % \currfilename statt \currfilepath: ein Kapitel wird über den Import-Pfad von subfiles gelesen, den minted sonst noch einmal voranstellt
-    listing file=\currfilename,
+    listing file=\ltgexamplefile,
     colback=green!5!white,
     colframe=green!25,
     coltitle=black!90,
     coltext=black!90,
     left=8mm,
-    title=Zugehöriger \LaTeX{}-Quelltext aus \texttt{\currfilename},
+    title=Zugehöriger \LaTeX{}-Quelltext aus \texttt{\ltgexamplefile},
     listing options={
         frame=none,
         language={[LaTeX]TeX},
@@ -717,10 +780,11 @@
         belowskip=0mm,
         numbers=left,
         xleftmargin=0mm,
-        numberstyle=\tiny,
+        numberstyle=\tiny\lstnocopy,
         numbersep=8pt%
       }
-  }
+  }%
+  \ifdefined\directlua\directlua{luatexbase.remove_from_callback ([[process_input_buffer]], [[ltgexample]])}\fi
 }%
 
 %introduce \powerset - hint by http://matheplanet.com/matheplanet/nuke/html/viewtopic.php?topic=136492&post_id=997377
@@ -830,13 +894,13 @@
 % If Title is too long, use \titlerunning
 %\titlerunning{Short Title}
 
-% Single institute
-\author{Firstname Lastname \and Firstname Lastname}
+% Single institute; \anon{...} hides a name in the anonymous version (paper-anon.tex)
+\author{\anon{Firstname Lastname} \and \anon{Firstname Lastname}}
 
 % If there are too many authors, use \authorrunning
 %\authorrunning{First Author et al.}
 
-\institute{Institute}
+\institute{\anon{Institute}}
 
 %% Multiple institutes - ALTERNATIVE to the above
 % \author{%
@@ -883,6 +947,10 @@ Der Abschnitt kann je nach Kontext auch an anderer Stelle stehen.
 
 Winery~\citep{Winery} is a graphical \textcomment{modeling}{modeling with one ``l'', because of American English} tool.
 The whole idea of TOSCA is explained by \citet{Binz2009}.
+TOSCA wird in der Industrie eingesetzt~\CITE{Einsatz von TOSCA in der Industrie}.
+
+In einer anonymen Einreichung (siehe \texttt{paper-anon.tex}) wird die eigene Arbeit in der dritten Person zitiert, wie jede andere: „Binz et al.~\cite{Binz2009} zeigten“, nicht „in unserer früheren Arbeit~\cite{Binz2009}“.
+Alles andere, was die Autoren erkennen lässt, kommt in \verb+\anon+: Diese Arbeit entstand \anon[an einer anonymen Universität]{an der Universität Stuttgart}.
 
 Werkzeuge für die Literatursuche sind unter anderem \href{https://www.scienceos.ai/}{ScienceOS}, \href{https://dblp.org/}{dblp}, \href{https://scholar.google.com/}{Google Scholar}, \href{https://ieeexplore.ieee.org/}{IEEE Xplore} und die \href{https://dl.acm.org/}{ACM Digital Library}; \href{https://www.jabref.org/}{JabRef} verwaltet die gefundenen Arbeiten, holt die bibliografischen Daten per DOI und verwaltet die PDFs.
 Ist die Suche systematisch (wie bei einem Literatur-Review), gehören die Suchbegriffe, der Zeitraum und die Aufnahmekriterien in die Arbeit, damit die Suche nachvollziehbar ist.
@@ -964,6 +1032,32 @@ Hier nur ein Kommentar\sidecomment{Kommentar}.
 \begin{ltgexample}
 \todo{Hier muss noch kräftig Text produziert werden}
 \end{ltgexample}
+
+\verb|\TODO|, \verb|\FIXME| und \verb|\CITE| funktionieren mit jedem TODO-Paket der Vorlage: \verb|\TODO| ist ein normales TODO, \verb|\FIXME| ein wichtiges, und \verb|\CITE| markiert eine Aussage, der noch ein Beleg fehlt.
+
+\begin{ltgexample}
+\TODO{Evaluation ergänzen}
+
+\FIXME{Die Zahlen sind veraltet}
+
+Die meisten wissenschaftlichen Texte der Informatik werden mit \LaTeX{} geschrieben~\CITE{Umfrage zu den Werkzeugen beim Schreiben}.
+\end{ltgexample}
+
+Bei zebra nimmt \verb|\todo| die verantwortliche Person als optionales Argument; weitere Notizarten sind \verb|\zebranote|, \verb|\comment|, \verb|\fixed|, \verb|\placeholder|, \verb|\fixme| und \verb|\source| (von der Vorlage definiert, genutzt von \verb|\FIXME| und \verb|\CITE|).
+Alle Notizen werden am Ende des Dokuments aufgelistet.
+
+\begin{ltgexample}
+\todo[FA]{Add a citation}
+
+\zebranote{Shorten this paragraph?}
+
+\comment[FA]{Is this claim backed by the evaluation?}
+
+\fixed{Typo corrected}
+
+\placeholder{Table with the results}
+\end{ltgexample}
+
 
 Mehrere Autoren können ihre Änderungen und Kommentare mit dem Paket \href{https://ctan.org/pkg/phfcc}{phfcc} markieren; die Initialen erscheinen einmal pro Seite am Rand.
 Pro Autor wird in der Präambel ein Befehl definiert (\verb|\phfMakeCommentingCommand|); \verb|\phfDisableCommentingCommands| blendet für die finale Version alles aus.
@@ -1250,7 +1344,7 @@ If the notes should appear directly below the table instead (common in journals)
 
 A table wider than the text runs into the margin.
 \verb|\begin{adjustbox}{max width=\linewidth}| from the \href{https://ctan.org/pkg/adjustbox}{adjustbox} package scales it down to the line width (the column width in a two-column layout), and only if it is too wide.
-Scaling shrinks the font, so for a table with long text in its cells, prefer wrapping the text with the column type \verb|X| of the \href{https://ctan.org/pkg/tabularx}{tabularx} package, and for a very wide table, a landscape page (see \texttt{pdflscape}).
+Scaling shrinks the font, so for a table with long text in its cells, prefer wrapping the text with the column type \verb|X| of the \href{https://ctan.org/pkg/tabularx}{tabularx} package, and for a table wider than the page, a landscape page (see \texttt{pdflscape}).
 
 \begin{ltgexample}
 \begin{table}
@@ -1502,7 +1596,7 @@ Hier bitte einen kurzen Durchgang durch die Arbeit.
 
 \subsubsection*{Danksagungen}
 
-Identification of funding sources and other support, and thanks to individuals and groups that assisted in the research and the preparation of the work should be included in an acknowledgment section, which comes right before the reference section in your document~\cite{acmart}.
+\anon[\anonbar{\linewidth}]{Identification of funding sources and other support, and thanks to individuals and groups that assisted in the research and the preparation of the work should be included in an acknowledgment section, which comes right before the reference section in your document~\cite{acmart}.}
 
 %%% ===============================================================================
 %%% Bibliography
@@ -1523,7 +1617,7 @@ Identification of funding sources and other support, and thanks to individuals a
 \ \\
 %
 \noindent
-Alle Links wurden zuletzt am 29.03.2021 geprüft.
+Alle Links wurden zuletzt am 25.09.2027 geprüft.
 
 %%% ===============================================================================
 %\appendix

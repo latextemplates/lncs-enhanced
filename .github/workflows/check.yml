@@ -28,6 +28,7 @@ jobs:
           texhash
           tlmgr generate language --rebuild-sys
       - run: latexmk paper
+      - run: latexmk paper-anon
 
       # Highlight misspelled words in the PDF
       - uses: awalsh128/cache-apt-pkgs-action@553a35bb8ebd9fcabcb1c9451aa4c98e1b4ca8a9 # v1.6.3
@@ -142,6 +143,7 @@ jobs:
             paper.pdf
             paper.log
             paper.fls
+            paper-anon.pdf
   comparison:
     # The publisher's class as distributed next to this template, same content (see comparison/build.sh and the README)
     name: comparison (comparison/build.sh)
@@ -318,7 +320,7 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       # Finds common misspellings (configured in .typos.toml)
-      - uses: crate-ci/typos@7f9d0819ca1c008ade73f4b41fa9d258d48f605b # v1.51.1
+      - uses: crate-ci/typos@276087d9a4f06398b3e04825487805e2d7375888 # v1.52.2
   textidote:
     runs-on: ubuntu-latest
     # The DANTE e.V. image contains TeXtidote
